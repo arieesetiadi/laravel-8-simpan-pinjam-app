@@ -91,7 +91,7 @@ return [
         ],
         'tim_verifikasi' => [
             'driver' => 'eloquent',
-            'model' => App\tim_verifikasi\TimVerifikasi::class,
+            'model' => App\Models\TimVerifikasi::class,
         ],
     ],
 

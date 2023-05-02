@@ -15,10 +15,28 @@ class ActionController extends Controller
         return view('login');
     }
 
-    public function prosesLogin(Request $dataForm)
+    public function prosesLogin(Request $data)
     {
-        $dataLogin = $dataForm->only('username', 'password');
-        dd($dataLogin);
+        $guard = $data->guard;
+
+        // Ambil username dan password dari form login
+        $username = $data->username;
+        $password = $data->password;
+
+        // Lakukan proses login dengan username dan password yang diinputkan
+        $login = auth()->guard($guard)->attempt([
+            'username' => $username,
+            'password' => $password,
+        ]);
+        
+        // Cek status login
+        if($login == true){
+            // Jika login sukses, tampilkan halaman dashboard
+            return redirect()->route('tampilDashboard');
+        } else {
+            // Jika login gagal, redirect back ke halaman login
+            return back()->with('alert', 'Login gagal, silahkan coba lagi.');
+        }
     }
 
     /**

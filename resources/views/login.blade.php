@@ -34,24 +34,49 @@
         <div class="app-auth-background">
 
         </div>
-        <div class="app-auth-container">
-            <div class="logo">
-                <a href="">Login</a>
-            </div>
-            <p class="auth-description">Silahkan login dengan akun anda.</p>
+        <form action="{{ route('prosesLogin') }}" method="POST">
+            @csrf
+            <div class="app-auth-container">
+                <div class="logo">
+                    <a href="">Login</a>
+                </div>
 
-            <div class="auth-credentials m-b-xxl">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control m-b-md" id="username" placeholder="Username">
+                {{-- Tampilkan jika ada pesan error --}}
+                @if (session('alert'))
+                    <span class="text-danger mt-2">{{ session('alert') }}</span>
+                @endif
 
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
-            </div>
+                <div class="my-5">
+                    <h6 class="mb-3">Login sebagai:</h6>
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="guard" value="pegawai" id="pegawai" checked>
+                            <label class="form-check-label" for="pegawai">Pegawai</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="guard" value="pengawas" id="pengawas">
+                            <label class="form-check-label" for="pengawas">Pengawas</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="guard" value="tim_verifikasi" id="tim_verifikasi">
+                            <label class="form-check-label" for="tim_verifikasi">Tim Verifikasi</label>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="auth-submit">
-                <button type="submit" class="btn btn-primary">Login</button>
+                <div class="auth-credentials m-b-xxl">
+                    <label for="username" class="form-label">Username</label>
+                    <input name="username" type="text" class="form-control m-b-md" id="username" placeholder="Username" required>
+
+                    <label for="password" class="form-label">Password</label>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
+                </div>
+
+                <div class="auth-submit">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <!-- Javascripts -->
