@@ -14,4 +14,9 @@ class NoPinjaman extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function nasabah()
+    {
+        return $this->belongsTo(Nasabah::class, 'id_nasabah', 'id_nasabah');
+    }
 }

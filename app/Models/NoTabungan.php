@@ -14,4 +14,14 @@ class NoTabungan extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function nasabah()
+    {
+        return $this->belongsTo(Nasabah::class, 'id_nasabah', 'id_nasabah');
+    }
+
+    public function kas()
+    {
+        return $this->hasOne(Kas::class, 'id_tabungan', 'id_tabungan');
+    }
 }

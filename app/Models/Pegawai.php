@@ -14,4 +14,8 @@ class Pegawai extends Authenticatable
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function nasabah(){
+        return $this->hasMany(Nasabah::class, 'id_pegawai', 'id_pegawai');
+    }
 }

@@ -14,4 +14,9 @@ class Kas extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function tabungan()
+    {
+        return $this->belongsTo(NoTabungan::class, 'id_tabungan', 'id_tabungan');
+    }
 }
