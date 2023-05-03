@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
     <meta name="description" content="Responsive Admin Dashboard Template">
     <meta name="keywords" content="admin,dashboard">
     <meta name="author" content="stacks">
-    
+
     <!-- Styles -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,6 @@
     <link href="{{ asset('plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/pace/pace.css') }}" rel="stylesheet">
 
-    
     <!-- Theme Styles -->
     <link href="{{ asset('css/main.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
@@ -29,26 +28,30 @@
     <!-- Title -->
     <title>Aplikasi Simpan Pinjam</title>
 </head>
+
 <body>
     <div class="app align-content-stretch d-flex flex-wrap">
         <div class="app-sidebar">
             <div class="logo">
-                <a href="index.html" class="logo-icon"><span class="logo-text">Dashboard</span></a>
+                <a href="{{ route('halamanDashboard') }}" class="logo-icon"><span class="logo-text">Dashboard</span></a>
                 <div class="sidebar-user-switcher user-activity-online">
                     <a href="#">
-                        <img src="{{ asset('images/avatars/avatar.png') }}">
+                        {{-- Tampilkan profile pengguna --}}
+                        <img src="{{ asset('images/avatars/' . strtolower(user()->jenis_kelamin) . '.png') }}">
                         <span class="activity-indicator"></span>
-                        <span class="user-info-text">Chloe<br><span class="user-state-info">On a call</span></span>
+                        <span class="user-info-text">{{ user()->nama }}<br>
+                            <span class="user-state-info">Online</span>
+                        </span>
                     </a>
                 </div>
             </div>
             <div class="app-menu">
                 <ul class="accordion-menu">
-                    <li class="sidebar-title">
-                        Apps
+                    <li class="active-page">
+                        <a href="{{ route('halamanDashboard') }}" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
                     <li class="active-page">
-                        <a href="" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
+                        <a href="{{ route('prosesLogout') }}" class="active"><i class="material-icons-two-tone">logout</i>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -80,7 +83,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Javascripts -->
     <script src="{{ asset('plugins/jquery/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -91,4 +94,5 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('js/pages/dashboard.js') }}"></script>
 </body>
+
 </html>

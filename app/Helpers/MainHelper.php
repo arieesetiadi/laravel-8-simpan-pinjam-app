@@ -25,15 +25,14 @@ if (!function_exists('locale')) {
 }
 
 /**
- * Get authenticated user (cms).
- * 
- * @return \App\Models\T_Administrator $administrator
+ * Get authenticated user.
  */
-if (!function_exists('administrator')) {
-    function administrator()
+if (!function_exists('user')) {
+    function user()
     {
-        $administrator = auth()->guard('cms')->user();
-        return $administrator;
+        $guard = request()->guard;
+        $user = auth()->guard($guard)->user();
+        return $user;
     }
 }
 
@@ -119,7 +118,7 @@ if (!function_exists('humanDatetimeDiff')) {
         $carbon = Carbon::make($date);
         $carbon->setLocale($locale);
         $date = $carbon->diffForHumans();
-        
+
         return $date;
     }
 }

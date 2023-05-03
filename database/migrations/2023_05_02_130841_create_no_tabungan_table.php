@@ -14,7 +14,7 @@ class CreateNoTabunganTable extends Migration
     public function up()
     {
         Schema::create('no_tabungan', function (Blueprint $table) {
-            $table->integer('id_tabungan')->primary();
+            $table->integerIncrements('id_tabungan');
             $table->integer('id_nasabah');
             $table->integer('no_tabungan');
         });

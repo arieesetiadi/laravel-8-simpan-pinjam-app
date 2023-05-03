@@ -15,8 +15,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(ActionController::class)->group(function () {
-    Route::get('/login', 'tampilLogin')->name('tampilLogin');
+    Route::get('/login', 'halamanLogin')->name('halamanLogin');
     Route::post('/login', 'prosesLogin')->name('prosesLogin');
+    Route::get('/logout', 'prosesLogout')->name('prosesLogout')->middleware('auth.any');
 
-    Route::get('/', 'tampilDashboard')->name('tampilDashboard')->middleware('auth.any');
+    Route::get('/', 'halamanDashboard')->name('halamanDashboard')->middleware('auth.any');
+
+    /**
+     * KELOLA PEGAWAI
+     */
+    Route::prefix('/pegawai')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaPegawai')->name('halamanUtamaPegawai');
+        Route::get('/detail/{id}', 'halamanDetailPegawai')->name('halamanDetailPegawai');
+        Route::get('/tambah', 'halamanTambahPegawai')->name('halamanTambahPegawai');
+        Route::get('/ubah/{id}', 'halamanUbahPegawai')->name('halamanUbahPegawai');
+        Route::post('/tambah', 'prosesTambahPegawai')->name('prosesTambahPegawai');
+        Route::post('/ubah', 'prosesUbahPegawai')->name('prosesUbahPegawai');
+    });
 });

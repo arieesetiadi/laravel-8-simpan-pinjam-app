@@ -14,7 +14,7 @@ class CreatePermohonanPinjamTable extends Migration
     public function up()
     {
         Schema::create('permohonan_pinjam', function (Blueprint $table) {
-            $table->integer('id_permohonan_pinjam')->primary();
+            $table->integerIncrements('id_permohonan_pinjam');
             $table->integer('id_nasabah');
             $table->date('tanggal');
             $table->integer('besar_permohonan_pinjam');

@@ -14,7 +14,7 @@ class CreateNoPinjamanTable extends Migration
     public function up()
     {
         Schema::create('no_pinjaman', function (Blueprint $table) {
-            $table->integer('id_pinjaman')->primary();
+            $table->integerIncrements('id_pinjaman');
             $table->integer('id_nasabah');
             $table->integer('no_pinjaman');
         });

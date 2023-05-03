@@ -14,7 +14,7 @@ class CreateKitirKreditTable extends Migration
     public function up()
     {
         Schema::create('kitir_kredit', function (Blueprint $table) {
-            $table->integer('id_kitir')->primary();
+            $table->integerIncrements('id_kitir');
             $table->integer('id_nasabah');
             $table->date('tanggal_transaksi');
             $table->integer('pokok');

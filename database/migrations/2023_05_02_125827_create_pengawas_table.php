@@ -14,7 +14,7 @@ class CreatePengawasTable extends Migration
     public function up()
     {
         Schema::create('pengawas', function (Blueprint $table) {
-            $table->integer('id_pengawas')->primary();
+            $table->integerIncrements('id_pengawas');
             $table->string('nama');
             $table->string('no_tlp', 15);
             $table->enum('jenis_kelamin', ['Pria', 'Wanita']);

@@ -14,7 +14,7 @@ class CreateTimVerifikasiTable extends Migration
     public function up()
     {
         Schema::create('tim_verifikasi', function (Blueprint $table) {
-            $table->integer('id_tim')->primary();
+            $table->integerIncrements('id_tim');
             $table->string('nama');
             $table->string('no_tlp', 15);
             $table->enum('jenis_kelamin', ['Pria', 'Wanita']);

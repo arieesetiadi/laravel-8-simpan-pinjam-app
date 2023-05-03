@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 
 class ActionController extends Controller
@@ -10,7 +11,7 @@ class ActionController extends Controller
      * LOGIN
      */
 
-    public function tampilLogin()
+    public function halamanLogin()
     {
         return view('login');
     }
@@ -28,24 +29,82 @@ class ActionController extends Controller
             'username' => $username,
             'password' => $password,
         ]);
-        
+
         // Cek status login
-        if($login == true){
+        if ($login == true) {
             // Jika login sukses, tampilkan halaman dashboard
-            return redirect()->route('tampilDashboard');
+            return redirect()->route('halamanDashboard');
         } else {
             // Jika login gagal, redirect back ke halaman login
             return back()->with('alert', 'Login gagal, silahkan coba lagi.');
         }
     }
 
+    public function prosesLogout()
+    {
+        auth()->guard(request()->guard)->logout();
+        return redirect()->route('halamanLogin');
+    }
+
     /**
      * DASHBOARD
      */
 
-    public function tampilDashboard()
+    public function halamanDashboard()
     {
-        $this->middleware('auth');
+        // Redirect ke halaman dashboard
         return view('dashboard');
+    }
+
+    /**
+     * KELOLA PEGAWAI
+     */
+
+    public function halamanUtamaPegawai()
+    {
+        // Ambil semua data pegawai yang ingin ditampilkan
+        $data['pegawai'] = Pegawai::all();
+
+        // Redirect ke halaman pegawai, beserta dengan data pegawai 
+        return view('pegawai.halaman-utama-pegawai')->with($data);
+    }
+
+    public function halamanDetailPegawai($id)
+    {
+        // Ambil data pegawai berdasarkan ID
+        $data['pegawai'] = Pegawai::find($id);
+
+        // Redirect ke halaman detail pegawai
+        return view('pegawai.halaman-detail-pegawai')->with($data);
+    }
+
+    public function halamanTambahPegawai()
+    {
+        // Redirect ke halaman tambah pegawai
+        return view('pegawai.halaman-tambah-pegawai');
+    }
+
+    public function halamanUbahPegawai($id)
+    {
+        // Ambil data pegawai yang ingin diubah, ambil berdasarkan ID
+        $data['pegawai'] = Pegawai::find($id);
+
+        // Redirect ke halaman ubah pegawai, beserta dengan data pegawai 
+        return view('pegawai.halaman-ubah-pegawai')->with($data);
+    }
+
+    public function prosesTambahPegawai(Request $data)
+    {
+        dd($data->all());
+    }
+
+    public function prosesUbahPegawai(Request $data)
+    {
+        dd($data->all());
+    }
+
+    public function prosesHapusPegawai($id)
+    {
+        dd($id);
     }
 }

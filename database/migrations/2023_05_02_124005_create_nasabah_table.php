@@ -14,7 +14,7 @@ class CreateNasabahTable extends Migration
     public function up()
     {
         Schema::create('nasabah', function (Blueprint $table) {
-            $table->integer('id_nasabah')->primary();
+            $table->integerIncrements('id_nasabah');
             $table->integer('id_pegawai');
             $table->string('nama');
             $table->date('tanggal_lahir');

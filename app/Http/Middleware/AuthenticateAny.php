@@ -22,11 +22,11 @@ class AuthenticateAny
             $isAuthenticated = auth()->guard($guard)->check();
 
             if ($isAuthenticated) {
-                $user = auth()->guard($guard)->user();
-                return $next($request)->withInput($user);
+                $request->merge(['guard' => $guard]);
+                return $next($request);
             }
         }
 
-        return redirect()->route('tampilLogin');
+        return redirect()->route('halamanLogin');
     }
 }

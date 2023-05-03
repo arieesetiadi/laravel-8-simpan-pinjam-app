@@ -14,7 +14,7 @@ class CreateKasTable extends Migration
     public function up()
     {
         Schema::create('kas', function (Blueprint $table) {
-            $table->integer('id_kas')->primary();
+            $table->integerIncrements('id_kas');
             $table->integer('id_tabungan');
             $table->tinyInteger('status_simpan');
             $table->date('tanggal');
