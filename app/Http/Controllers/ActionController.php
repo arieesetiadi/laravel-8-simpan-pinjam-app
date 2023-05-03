@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ActionController extends Controller
 {
@@ -95,16 +96,56 @@ class ActionController extends Controller
 
     public function prosesTambahPegawai(Request $data)
     {
-        dd($data->all());
+        // Ambil data pegawai dari form
+        $dataPegawai = [
+            'username' => $data->username,
+            'nama' => $data->nama,
+            'no_tlp' => $data->no_tlp,
+            'alamat' => $data->alamat,
+            'password' => Hash::make($data->password),
+            'jabatan' => $data->jabatan,
+            'jenis_kelamin' => $data->jenis_kelamin,
+        ];
+
+        // Insert data pegawai ke database
+        Pegawai::create($dataPegawai);
+
+        // Redirect ke halaman utama pegawai
+        return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menambah data pegawai.');
     }
 
-    public function prosesUbahPegawai(Request $data)
+    public function prosesUbahPegawai(Request $data, $id)
     {
-        dd($data->all());
+        // Ambil data pegawai berdasarkan ID
+        $pegawai = Pegawai::find($id);
+
+        // Ambil data pegawai terbaru dari form
+        $dataPegawai = [
+            'username' => $data->username,
+            'nama' => $data->nama,
+            'no_tlp' => $data->no_tlp,
+            'alamat' => $data->alamat,
+            'password' => $data->password ? Hash::make($data->password) : $pegawai->password,
+            'jabatan' => $data->jabatan,
+            'jenis_kelamin' => $data->jenis_kelamin,
+        ];
+
+        // Ubah data pegawai di database
+        $pegawai->update($dataPegawai);
+
+        // Redirect ke halaman utama pegawai
+        return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil mengubah data pegawai.');
     }
 
     public function prosesHapusPegawai($id)
     {
-        dd($id);
+        // Ambil data pegawai berdasarkan ID
+        $pegawai = Pegawai::find($id);
+
+        // Hapus pegawai tersebut
+        $pegawai->delete();
+
+        // Redirect ke halaman utama pegawai
+        return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menghapus data pegawai.');
     }
 }

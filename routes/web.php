@@ -26,10 +26,11 @@ Route::controller(ActionController::class)->group(function () {
      */
     Route::prefix('/pegawai')->middleware('auth.any')->group(function () {
         Route::get('/', 'halamanUtamaPegawai')->name('halamanUtamaPegawai');
-        Route::get('/detail/{id}', 'halamanDetailPegawai')->name('halamanDetailPegawai');
         Route::get('/tambah', 'halamanTambahPegawai')->name('halamanTambahPegawai');
-        Route::get('/ubah/{id}', 'halamanUbahPegawai')->name('halamanUbahPegawai');
         Route::post('/tambah', 'prosesTambahPegawai')->name('prosesTambahPegawai');
-        Route::post('/ubah', 'prosesUbahPegawai')->name('prosesUbahPegawai');
+        Route::get('/detail/{id}', 'halamanDetailPegawai')->name('halamanDetailPegawai');
+        Route::get('/ubah/{id}', 'halamanUbahPegawai')->name('halamanUbahPegawai');
+        Route::put('/ubah/{id}', 'prosesUbahPegawai')->name('prosesUbahPegawai');
+        Route::get('/hapus/{id}', 'prosesHapusPegawai')->name('prosesHapusPegawai');
     });
 });

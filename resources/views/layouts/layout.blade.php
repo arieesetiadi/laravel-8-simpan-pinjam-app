@@ -17,6 +17,7 @@
     <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/pace/pace.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 
     <!-- Theme Styles -->
     <link href="{{ asset('css/main.min.css') }}" rel="stylesheet">
@@ -24,6 +25,10 @@
 
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/neptune.png') }}" />
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/neptune.png') }}" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
 
     <!-- Title -->
     <title>Aplikasi Simpan Pinjam</title>
@@ -51,7 +56,10 @@
                         <a href="{{ route('halamanDashboard') }}" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
                     <li class="active-page">
-                        <a href="{{ route('prosesLogout') }}" class="active"><i class="material-icons-two-tone">logout</i>Logout</a>
+                        <a href="{{ route('halamanUtamaPegawai') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Pegawai</a>
+                    </li>
+                    <li class="active-page">
+                        <a href="{{ route('prosesLogout') }}" class="active"><i class="material-icons-two-tone">indeterminate_check_box</i>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -90,9 +98,11 @@
     <script src="{{ asset('plugins/perfectscroll/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('plugins/pace/pace.min.js') }}"></script>
     <script src="{{ asset('plugins/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('js/main.min.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('js/pages/dashboard.js') }}"></script>
+    <script src="{{ asset('js/pages/datatables.js') }}"></script>
 </body>
 
 </html>
