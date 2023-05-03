@@ -16,7 +16,7 @@
                     </div>
                     <div class="page-description-actions">
                         <a href="{{ route('halamanTambahPegawai') }}" class="btn btn-primary">
-                            <i class="fa-solid fa-plus"></i> Tambah Pegawai
+                            <i class="fa-solid fa-circle-plus"></i> Tambah Pegawai
                         </a>
                     </div>
                 </div>
@@ -41,15 +41,26 @@
                         @forelse ($pegawai as $i => $p)
                             <tr>
                                 <td class="d-flex gap-3">
+                                    {{-- Tombol ubah --}}
                                     <a href="{{ route('halamanUbahPegawai', $p->id_pegawai) }}" title="Ubah Pegawai">
                                         <i class="fa-solid fa-pen"></i>
                                     </a>
+
+                                    {{-- Tombol detail --}}
                                     <a href="{{ route('halamanDetailPegawai', $p->id_pegawai) }}" title="Detail Pegawai">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('prosesHapusPegawai', $p->id_pegawai) }}" title="Hapus Pegawai" onclick="return confirm('Data pegawai akan dihapus dari sistem')">
-                                        <i class="fa-solid fa-trash text-danger"></i>
-                                    </a>
+
+                                    {{-- Tombol hapus --}}
+                                    @if ($p == user())
+                                        <a href="#" title="Hapus Pegawai" onclick="return alert('Data pegawai yang sedang anda gunakan tidak dapat dihapus dari sistem')">
+                                            <i class="fa-solid fa-trash text-danger"></i>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('prosesHapusPegawai', $p->id_pegawai) }}" title="Hapus Pegawai" onclick="return confirm('Data pegawai akan dihapus dari sistem')">
+                                            <i class="fa-solid fa-trash text-danger"></i>
+                                        </a>
+                                    @endif
                                 </td>
                                 <td>{{ $i + 1 }}</td>
                                 <td>{{ $p->nama }}</td>

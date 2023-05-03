@@ -13,7 +13,7 @@
             <div class="col card-body">
                 <form action="{{ route('prosesTambahPegawai') }}" method="POST">
                     @csrf
-                    
+
                     {{-- Input username --}}
                     <div class="row mb-3">
                         <label for="username" class="col-sm-2 col-form-label">Username</label>
@@ -76,7 +76,16 @@
                             </div>
                         </div>
                     </fieldset>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+
+                    {{-- Tombol --}}
+                    <div class="mt-5">
+                        <a href="{{ route('halamanUtamaPegawai') }}" class="btn btn-light">
+                            <i class="fa-solid fa-arrow-left"></i> Kembali
+                        </a>
+                        <button type="submit" class="btn btn-primary mx-2">
+                            <i class="fa-solid fa-circle-check"></i> Tambah
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
