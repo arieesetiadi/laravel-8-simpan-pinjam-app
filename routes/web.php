@@ -22,6 +22,19 @@ Route::controller(ActionController::class)->group(function () {
     Route::get('/', 'halamanDashboard')->name('halamanDashboard')->middleware('auth.any');
 
     /**
+     * KELOLA PENGAWAS
+     */
+    Route::prefix('/pengawas')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaPengawas')->name('halamanUtamaPengawas');
+        Route::get('/tambah', 'halamanTambahPengawas')->name('halamanTambahPengawas');
+        Route::post('/tambah', 'prosesTambahPengawas')->name('prosesTambahPengawas');
+        Route::get('/detail/{id}', 'halamanDetailPengawas')->name('halamanDetailPengawas');
+        Route::get('/ubah/{id}', 'halamanUbahPengawas')->name('halamanUbahPengawas');
+        Route::put('/ubah/{id}', 'prosesUbahPengawas')->name('prosesUbahPengawas');
+        Route::get('/hapus/{id}', 'prosesHapusPengawas')->name('prosesHapusPengawas');
+    });
+
+    /**
      * KELOLA PEGAWAI
      */
     Route::prefix('/pegawai')->middleware('auth.any')->group(function () {

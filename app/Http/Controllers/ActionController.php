@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\Pengawas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -58,96 +59,188 @@ class ActionController extends Controller
     }
 
     /**
-     * KELOLA PEGAWAI
+     * KELOLA PENGAWAS
      */
 
-    public function halamanUtamaPegawai()
+    public function halamanUtamaPengawas()
     {
-        // Ambil semua data pegawai yang ingin ditampilkan
-        $data['pegawai'] = Pegawai::all();
+        // Ambil semua data pengawas yang ingin ditampilkan
+        $data['pengawas'] = Pengawas::all();
 
-        // Redirect ke halaman pegawai, beserta dengan data pegawai 
-        return view('pegawai.halaman-utama-pegawai')->with($data);
+        // Redirect ke halaman pengawas, beserta dengan data pengawas 
+        return view('pengawas.halaman-utama-pengawas')->with($data);
     }
 
-    public function halamanTambahPegawai()
+    public function halamanTambahPengawas()
     {
-        // Redirect ke halaman tambah pegawai
-        return view('pegawai.halaman-tambah-pegawai');
+        // Redirect ke halaman tambah pengawas
+        return view('pengawas.halaman-tambah-pengawas');
     }
 
-    public function prosesTambahPegawai(Request $data)
+    public function prosesTambahPengawas(Request $data)
     {
-        // Ambil data pegawai dari form
-        $dataPegawai = [
+        // Ambil data pengawas dari form
+        $dataPengawas = [
             'username' => $data->username,
             'nama' => $data->nama,
             'no_tlp' => $data->no_tlp,
             'alamat' => $data->alamat,
             'password' => Hash::make($data->password),
-            'jabatan' => $data->jabatan,
             'jenis_kelamin' => $data->jenis_kelamin,
         ];
 
-        // Insert data pegawai ke database
-        Pegawai::create($dataPegawai);
+        // Insert data pengawas ke database
+        Pengawas::create($dataPengawas);
 
-        // Redirect ke halaman utama pegawai
-        return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menambah data pegawai.');
+        // Redirect ke halaman utama pengawas
+        return redirect()->route('halamanUtamaPengawas')->with('success', 'Berhasil menambah data pengawas.');
     }
 
-    public function halamanDetailPegawai($id)
+    public function halamanDetailPengawas($id)
     {
-        // Ambil data pegawai berdasarkan ID
-        $data['pegawai'] = Pegawai::find($id);
+        // Ambil data pengawas berdasarkan ID
+        $data['pengawas'] = Pengawas::find($id);
 
-        // Redirect ke halaman detail pegawai
-        return view('pegawai.halaman-detail-pegawai')->with($data);
-    }
-
-
-    public function halamanUbahPegawai($id)
-    {
-        // Ambil data pegawai yang ingin diubah, ambil berdasarkan ID
-        $data['pegawai'] = Pegawai::find($id);
-
-        // Redirect ke halaman ubah pegawai, beserta dengan data pegawai 
-        return view('pegawai.halaman-ubah-pegawai')->with($data);
+        // Redirect ke halaman detail pengawas
+        return view('pengawas.halaman-detail-pengawas')->with($data);
     }
 
 
-    public function prosesUbahPegawai(Request $data, $id)
+    public function halamanUbahPengawas($id)
     {
-        // Ambil data pegawai berdasarkan ID
-        $pegawai = Pegawai::find($id);
+        // Ambil data pengawas yang ingin diubah, ambil berdasarkan ID
+        $data['pengawas'] = Pengawas::find($id);
 
-        // Ambil data pegawai terbaru dari form
-        $dataPegawai = [
+        // Redirect ke halaman ubah pengawas, beserta dengan data pengawas 
+        return view('pengawas.halaman-ubah-pengawas')->with($data);
+    }
+
+
+    public function prosesUbahPengawas(Request $data, $id)
+    {
+        // Ambil data pengawas berdasarkan ID
+        $pengawas = Pengawas::find($id);
+
+        // Ambil data pengawas terbaru dari form
+        $dataPengawas = [
             'username' => $data->username,
             'nama' => $data->nama,
             'no_tlp' => $data->no_tlp,
             'alamat' => $data->alamat,
-            'password' => $data->password ? Hash::make($data->password) : $pegawai->password,
-            'jabatan' => $data->jabatan,
+            'password' => $data->password ? Hash::make($data->password) : $pengawas->password,
             'jenis_kelamin' => $data->jenis_kelamin,
         ];
 
-        // Ubah data pegawai di database
-        $pegawai->update($dataPegawai);
+        // Ubah data pengawas di database
+        $pengawas->update($dataPengawas);
 
-        // Redirect ke halaman utama pegawai
-        return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil mengubah data pegawai.');
+        // Redirect ke halaman utama pengawas
+        return redirect()->route('halamanUtamaPengawas')->with('success', 'Berhasil mengubah data pengawas.');
     }
 
-    public function prosesHapusPegawai($id)
+    public function prosesHapusPengawas($id)
     {
-        // Ambil data pegawai berdasarkan ID
-        $pegawai = Pegawai::find($id);
+        // Ambil data pengawas berdasarkan ID
+        $pengawas = Pengawas::find($id);
 
-        // Hapus pegawai tersebut
-        $pegawai->delete();
+        // Hapus pengawas tersebut
+        $pengawas->delete();
 
-        // Redirect ke halaman utama pegawai
-        return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menghapus data pegawai.');
+        // Redirect ke halaman utama pengawas
+        return redirect()->route('halamanUtamaPengawas')->with('success', 'Berhasil menghapus data pengawas.');
     }
+
+     /**
+     * KELOLA PEGAWAI
+     */
+
+     public function halamanUtamaPegawai()
+     {
+         // Ambil semua data pegawai yang ingin ditampilkan
+         $data['pegawai'] = Pegawai::all();
+ 
+         // Redirect ke halaman pegawai, beserta dengan data pegawai 
+         return view('pegawai.halaman-utama-pegawai')->with($data);
+     }
+ 
+     public function halamanTambahPegawai()
+     {
+         // Redirect ke halaman tambah pegawai
+         return view('pegawai.halaman-tambah-pegawai');
+     }
+ 
+     public function prosesTambahPegawai(Request $data)
+     {
+         // Ambil data pegawai dari form
+         $dataPegawai = [
+             'username' => $data->username,
+             'nama' => $data->nama,
+             'no_tlp' => $data->no_tlp,
+             'alamat' => $data->alamat,
+             'password' => Hash::make($data->password),
+             'jabatan' => $data->jabatan,
+             'jenis_kelamin' => $data->jenis_kelamin,
+         ];
+ 
+         // Insert data pegawai ke database
+         Pegawai::create($dataPegawai);
+ 
+         // Redirect ke halaman utama pegawai
+         return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menambah data pegawai.');
+     }
+ 
+     public function halamanDetailPegawai($id)
+     {
+         // Ambil data pegawai berdasarkan ID
+         $data['pegawai'] = Pegawai::find($id);
+ 
+         // Redirect ke halaman detail pegawai
+         return view('pegawai.halaman-detail-pegawai')->with($data);
+     }
+ 
+ 
+     public function halamanUbahPegawai($id)
+     {
+         // Ambil data pegawai yang ingin diubah, ambil berdasarkan ID
+         $data['pegawai'] = Pegawai::find($id);
+ 
+         // Redirect ke halaman ubah pegawai, beserta dengan data pegawai 
+         return view('pegawai.halaman-ubah-pegawai')->with($data);
+     }
+ 
+ 
+     public function prosesUbahPegawai(Request $data, $id)
+     {
+         // Ambil data pegawai berdasarkan ID
+         $pegawai = Pegawai::find($id);
+ 
+         // Ambil data pegawai terbaru dari form
+         $dataPegawai = [
+             'username' => $data->username,
+             'nama' => $data->nama,
+             'no_tlp' => $data->no_tlp,
+             'alamat' => $data->alamat,
+             'password' => $data->password ? Hash::make($data->password) : $pegawai->password,
+             'jabatan' => $data->jabatan,
+             'jenis_kelamin' => $data->jenis_kelamin,
+         ];
+ 
+         // Ubah data pegawai di database
+         $pegawai->update($dataPegawai);
+ 
+         // Redirect ke halaman utama pegawai
+         return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil mengubah data pegawai.');
+     }
+ 
+     public function prosesHapusPegawai($id)
+     {
+         // Ambil data pegawai berdasarkan ID
+         $pegawai = Pegawai::find($id);
+ 
+         // Hapus pegawai tersebut
+         $pegawai->delete();
+ 
+         // Redirect ke halaman utama pegawai
+         return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menghapus data pegawai.');
+     }
 }
