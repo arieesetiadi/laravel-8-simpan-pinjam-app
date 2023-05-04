@@ -46,4 +46,17 @@ Route::controller(ActionController::class)->group(function () {
         Route::put('/ubah/{id}', 'prosesUbahPegawai')->name('prosesUbahPegawai');
         Route::get('/hapus/{id}', 'prosesHapusPegawai')->name('prosesHapusPegawai');
     });
+
+    /**
+     * KELOLA TIM VERIFIKASI
+     */
+    Route::prefix('/tim-verifikasi')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaTim')->name('halamanUtamaTim');
+        Route::get('/tambah', 'halamanTambahTim')->name('halamanTambahTim');
+        Route::post('/tambah', 'prosesTambahTim')->name('prosesTambahTim');
+        Route::get('/detail/{id}', 'halamanDetailTim')->name('halamanDetailTim');
+        Route::get('/ubah/{id}', 'halamanUbahTim')->name('halamanUbahTim');
+        Route::put('/ubah/{id}', 'prosesUbahTim')->name('prosesUbahTim');
+        Route::get('/hapus/{id}', 'prosesHapusTim')->name('prosesHapusTim');
+    });
 });

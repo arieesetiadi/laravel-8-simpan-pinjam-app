@@ -52,15 +52,32 @@
             </div>
             <div class="app-menu">
                 <ul class="accordion-menu">
+                    <li class="sidebar-title">
+                        Utama
+                    </li>
+
                     <li class="active-page">
                         <a href="{{ route('halamanDashboard') }}" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
+
+                    <li class="sidebar-title">
+                        Kelola
+                    </li>
+
                     <li class="active-page">
                         <a href="{{ route('halamanUtamaPengawas') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Pengawas</a>
                     </li>
                     <li class="active-page">
                         <a href="{{ route('halamanUtamaPegawai') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Pegawai</a>
                     </li>
+                    <li class="active-page">
+                        <a href="{{ route('halamanUtamaTim') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Tim Verifikasi</a>
+                    </li>
+
+                    <li class="sidebar-title">
+                        Lainnya
+                    </li>
+
                     <li class="active-page">
                         <a href="{{ route('prosesLogout') }}" class="active"><i class="material-icons-two-tone">indeterminate_check_box</i>Logout</a>
                     </li>

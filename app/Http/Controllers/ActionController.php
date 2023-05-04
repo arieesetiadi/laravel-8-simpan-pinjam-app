@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use App\Models\Pengawas;
+use App\Models\TimVerifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -115,7 +116,6 @@ class ActionController extends Controller
         return view('pengawas.halaman-ubah-pengawas')->with($data);
     }
 
-
     public function prosesUbahPengawas(Request $data, $id)
     {
         // Ambil data pengawas berdasarkan ID
@@ -198,7 +198,6 @@ class ActionController extends Controller
          return view('pegawai.halaman-detail-pegawai')->with($data);
      }
  
- 
      public function halamanUbahPegawai($id)
      {
          // Ambil data pegawai yang ingin diubah, ambil berdasarkan ID
@@ -207,7 +206,6 @@ class ActionController extends Controller
          // Redirect ke halaman ubah pegawai, beserta dengan data pegawai 
          return view('pegawai.halaman-ubah-pegawai')->with($data);
      }
- 
  
      public function prosesUbahPegawai(Request $data, $id)
      {
@@ -242,5 +240,97 @@ class ActionController extends Controller
  
          // Redirect ke halaman utama pegawai
          return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menghapus data pegawai.');
+     }
+
+     /**
+     * KELOLA TIM VERIFIKASI
+     */
+
+     public function halamanUtamaTim()
+     {
+         // Ambil semua data tim yang ingin ditampilkan
+         $data['tim'] = TimVerifikasi::all();
+ 
+         // Redirect ke halaman tim, beserta dengan data tim 
+         return view('tim.halaman-utama-tim')->with($data);
+     }
+ 
+     public function halamanTambahTim()
+     {
+         // Redirect ke halaman tambah tim
+         return view('tim.halaman-tambah-tim');
+     }
+ 
+     public function prosesTambahTim(Request $data)
+     {
+         // Ambil data tim dari form
+         $dataTim = [
+             'username' => $data->username,
+             'nama' => $data->nama,
+             'no_tlp' => $data->no_tlp,
+             'alamat' => $data->alamat,
+             'password' => Hash::make($data->password),
+             'email' => $data->email,
+             'jenis_kelamin' => $data->jenis_kelamin,
+         ];
+ 
+         // Insert data tim ke database
+         TimVerifikasi::create($dataTim);
+ 
+         // Redirect ke halaman utama tim
+         return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil menambah data tim verifikasi.');
+     }
+ 
+     public function halamanDetailTim($id)
+     {
+         // Ambil data tim berdasarkan ID
+         $data['tim'] = TimVerifikasi::find($id);
+ 
+         // Redirect ke halaman detail tim
+         return view('tim.halaman-detail-tim')->with($data);
+     }
+ 
+     public function halamanUbahTim($id)
+     {
+         // Ambil data tim yang ingin diubah, ambil berdasarkan ID
+         $data['tim'] = TimVerifikasi::find($id);
+ 
+         // Redirect ke halaman ubah tim, beserta dengan data tim 
+         return view('tim.halaman-ubah-tim')->with($data);
+     }
+ 
+     public function prosesUbahTim(Request $data, $id)
+     {
+         // Ambil data tim berdasarkan ID
+         $tim = TimVerifikasi::find($id);
+ 
+         // Ambil data tim terbaru dari form
+         $dataTim = [
+             'username' => $data->username,
+             'nama' => $data->nama,
+             'no_tlp' => $data->no_tlp,
+             'alamat' => $data->alamat,
+             'password' => $data->password ? Hash::make($data->password) : $tim->password,
+             'email' => $data->email,
+             'jenis_kelamin' => $data->jenis_kelamin,
+         ];
+ 
+         // Ubah data tim di database
+         $tim->update($dataTim);
+ 
+         // Redirect ke halaman utama tim
+         return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil mengubah data tim verifikasi.');
+     }
+ 
+     public function prosesHapusTim($id)
+     {
+         // Ambil data tim berdasarkan ID
+         $tim = TimVerifikasi::find($id);
+ 
+         // Hapus tim tersebut
+         $tim->delete();
+ 
+         // Redirect ke halaman utama tim
+         return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil menghapus data tim verifikasi.');
      }
 }
