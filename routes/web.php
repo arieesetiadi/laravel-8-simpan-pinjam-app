@@ -20,6 +20,8 @@ Route::controller(ActionController::class)->group(function () {
     Route::get('/logout', 'prosesLogout')->name('prosesLogout')->middleware('auth.any');
 
     Route::get('/', 'halamanDashboard')->name('halamanDashboard')->middleware('auth.any');
+    Route::get('/profile', 'halamanProfile')->name('halamanProfile')->middleware('auth.any');
+    Route::post('/profile/ubah', 'prosesUbahProfile')->name('prosesUbahProfile')->middleware('auth.any');
 
     /**
      * KELOLA PENGAWAS

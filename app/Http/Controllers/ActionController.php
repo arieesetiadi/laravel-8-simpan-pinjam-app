@@ -60,6 +60,60 @@ class ActionController extends Controller
     }
 
     /**
+     * PROFILE
+     */
+
+    public function halamanProfile()
+    {
+        // Redirect ke halaman profile
+        return view('profile');
+    }
+
+    public function prosesUbahProfile(Request $data)
+    {
+        $profile = null;
+
+        // Tentukan jenis pengguna yang ingin diubah
+        switch ($data->guard) {
+            case 'pegawai':
+                $profile = Pegawai::find(user()->id_pegawai);
+                break;
+            case 'pengawas':
+                $profile = Pengawas::find(user()->id_pengawas);
+                break;
+            case 'tim_verifikasi':
+                $profile = TimVerifikasi::find(user()->id_tim);
+                break;
+        }
+
+        // Ambil data profile dari form edit profile
+        $dataProfile = [
+            'username' => $data->username,
+            'nama' => $data->nama,
+            'no_tlp' => $data->no_tlp,
+            'alamat' => $data->alamat,
+            'password' => $data->password ? Hash::make($data->password) : user()->password,
+            'jenis_kelamin' => $data->jenis_kelamin,
+        ];
+
+        // Check user punya email
+        if ($data->email) {
+            $dataProfile['email'] = $data->email;
+        }
+
+        // Check user punya jabatan
+        if ($data->jabatan) {
+            $dataProfile['jabatan'] = $data->jabatan;
+        }
+
+        // Proses ubah profile pengguna
+        $profile->update($dataProfile);
+
+        // Redirect ke halaman profile
+        return redirect()->back()->with('success', 'Berhasil mengubah profile pengguna.');
+    }
+
+    /**
      * KELOLA PENGAWAS
      */
 
@@ -150,187 +204,187 @@ class ActionController extends Controller
         return redirect()->route('halamanUtamaPengawas')->with('success', 'Berhasil menghapus data pengawas.');
     }
 
-     /**
+    /**
      * KELOLA PEGAWAI
      */
 
-     public function halamanUtamaPegawai()
-     {
-         // Ambil semua data pegawai yang ingin ditampilkan
-         $data['pegawai'] = Pegawai::all();
- 
-         // Redirect ke halaman pegawai, beserta dengan data pegawai 
-         return view('pegawai.halaman-utama-pegawai')->with($data);
-     }
- 
-     public function halamanTambahPegawai()
-     {
-         // Redirect ke halaman tambah pegawai
-         return view('pegawai.halaman-tambah-pegawai');
-     }
- 
-     public function prosesTambahPegawai(Request $data)
-     {
-         // Ambil data pegawai dari form
-         $dataPegawai = [
-             'username' => $data->username,
-             'nama' => $data->nama,
-             'no_tlp' => $data->no_tlp,
-             'alamat' => $data->alamat,
-             'password' => Hash::make($data->password),
-             'jabatan' => $data->jabatan,
-             'jenis_kelamin' => $data->jenis_kelamin,
-         ];
- 
-         // Insert data pegawai ke database
-         Pegawai::create($dataPegawai);
- 
-         // Redirect ke halaman utama pegawai
-         return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menambah data pegawai.');
-     }
- 
-     public function halamanDetailPegawai($id)
-     {
-         // Ambil data pegawai berdasarkan ID
-         $data['pegawai'] = Pegawai::find($id);
- 
-         // Redirect ke halaman detail pegawai
-         return view('pegawai.halaman-detail-pegawai')->with($data);
-     }
- 
-     public function halamanUbahPegawai($id)
-     {
-         // Ambil data pegawai yang ingin diubah, ambil berdasarkan ID
-         $data['pegawai'] = Pegawai::find($id);
- 
-         // Redirect ke halaman ubah pegawai, beserta dengan data pegawai 
-         return view('pegawai.halaman-ubah-pegawai')->with($data);
-     }
- 
-     public function prosesUbahPegawai(Request $data, $id)
-     {
-         // Ambil data pegawai berdasarkan ID
-         $pegawai = Pegawai::find($id);
- 
-         // Ambil data pegawai terbaru dari form
-         $dataPegawai = [
-             'username' => $data->username,
-             'nama' => $data->nama,
-             'no_tlp' => $data->no_tlp,
-             'alamat' => $data->alamat,
-             'password' => $data->password ? Hash::make($data->password) : $pegawai->password,
-             'jabatan' => $data->jabatan,
-             'jenis_kelamin' => $data->jenis_kelamin,
-         ];
- 
-         // Ubah data pegawai di database
-         $pegawai->update($dataPegawai);
- 
-         // Redirect ke halaman utama pegawai
-         return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil mengubah data pegawai.');
-     }
- 
-     public function prosesHapusPegawai($id)
-     {
-         // Ambil data pegawai berdasarkan ID
-         $pegawai = Pegawai::find($id);
- 
-         // Hapus pegawai tersebut
-         $pegawai->delete();
- 
-         // Redirect ke halaman utama pegawai
-         return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menghapus data pegawai.');
-     }
+    public function halamanUtamaPegawai()
+    {
+        // Ambil semua data pegawai yang ingin ditampilkan
+        $data['pegawai'] = Pegawai::all();
 
-     /**
+        // Redirect ke halaman pegawai, beserta dengan data pegawai 
+        return view('pegawai.halaman-utama-pegawai')->with($data);
+    }
+
+    public function halamanTambahPegawai()
+    {
+        // Redirect ke halaman tambah pegawai
+        return view('pegawai.halaman-tambah-pegawai');
+    }
+
+    public function prosesTambahPegawai(Request $data)
+    {
+        // Ambil data pegawai dari form
+        $dataPegawai = [
+            'username' => $data->username,
+            'nama' => $data->nama,
+            'no_tlp' => $data->no_tlp,
+            'alamat' => $data->alamat,
+            'password' => Hash::make($data->password),
+            'jabatan' => $data->jabatan,
+            'jenis_kelamin' => $data->jenis_kelamin,
+        ];
+
+        // Insert data pegawai ke database
+        Pegawai::create($dataPegawai);
+
+        // Redirect ke halaman utama pegawai
+        return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menambah data pegawai.');
+    }
+
+    public function halamanDetailPegawai($id)
+    {
+        // Ambil data pegawai berdasarkan ID
+        $data['pegawai'] = Pegawai::find($id);
+
+        // Redirect ke halaman detail pegawai
+        return view('pegawai.halaman-detail-pegawai')->with($data);
+    }
+
+    public function halamanUbahPegawai($id)
+    {
+        // Ambil data pegawai yang ingin diubah, ambil berdasarkan ID
+        $data['pegawai'] = Pegawai::find($id);
+
+        // Redirect ke halaman ubah pegawai, beserta dengan data pegawai 
+        return view('pegawai.halaman-ubah-pegawai')->with($data);
+    }
+
+    public function prosesUbahPegawai(Request $data, $id)
+    {
+        // Ambil data pegawai berdasarkan ID
+        $pegawai = Pegawai::find($id);
+
+        // Ambil data pegawai terbaru dari form
+        $dataPegawai = [
+            'username' => $data->username,
+            'nama' => $data->nama,
+            'no_tlp' => $data->no_tlp,
+            'alamat' => $data->alamat,
+            'password' => $data->password ? Hash::make($data->password) : $pegawai->password,
+            'jabatan' => $data->jabatan,
+            'jenis_kelamin' => $data->jenis_kelamin,
+        ];
+
+        // Ubah data pegawai di database
+        $pegawai->update($dataPegawai);
+
+        // Redirect ke halaman utama pegawai
+        return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil mengubah data pegawai.');
+    }
+
+    public function prosesHapusPegawai($id)
+    {
+        // Ambil data pegawai berdasarkan ID
+        $pegawai = Pegawai::find($id);
+
+        // Hapus pegawai tersebut
+        $pegawai->delete();
+
+        // Redirect ke halaman utama pegawai
+        return redirect()->route('halamanUtamaPegawai')->with('success', 'Berhasil menghapus data pegawai.');
+    }
+
+    /**
      * KELOLA TIM VERIFIKASI
      */
 
-     public function halamanUtamaTim()
-     {
-         // Ambil semua data tim yang ingin ditampilkan
-         $data['tim'] = TimVerifikasi::all();
- 
-         // Redirect ke halaman tim, beserta dengan data tim 
-         return view('tim.halaman-utama-tim')->with($data);
-     }
- 
-     public function halamanTambahTim()
-     {
-         // Redirect ke halaman tambah tim
-         return view('tim.halaman-tambah-tim');
-     }
- 
-     public function prosesTambahTim(Request $data)
-     {
-         // Ambil data tim dari form
-         $dataTim = [
-             'username' => $data->username,
-             'nama' => $data->nama,
-             'no_tlp' => $data->no_tlp,
-             'alamat' => $data->alamat,
-             'password' => Hash::make($data->password),
-             'email' => $data->email,
-             'jenis_kelamin' => $data->jenis_kelamin,
-         ];
- 
-         // Insert data tim ke database
-         TimVerifikasi::create($dataTim);
- 
-         // Redirect ke halaman utama tim
-         return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil menambah data tim verifikasi.');
-     }
- 
-     public function halamanDetailTim($id)
-     {
-         // Ambil data tim berdasarkan ID
-         $data['tim'] = TimVerifikasi::find($id);
- 
-         // Redirect ke halaman detail tim
-         return view('tim.halaman-detail-tim')->with($data);
-     }
- 
-     public function halamanUbahTim($id)
-     {
-         // Ambil data tim yang ingin diubah, ambil berdasarkan ID
-         $data['tim'] = TimVerifikasi::find($id);
- 
-         // Redirect ke halaman ubah tim, beserta dengan data tim 
-         return view('tim.halaman-ubah-tim')->with($data);
-     }
- 
-     public function prosesUbahTim(Request $data, $id)
-     {
-         // Ambil data tim berdasarkan ID
-         $tim = TimVerifikasi::find($id);
- 
-         // Ambil data tim terbaru dari form
-         $dataTim = [
-             'username' => $data->username,
-             'nama' => $data->nama,
-             'no_tlp' => $data->no_tlp,
-             'alamat' => $data->alamat,
-             'password' => $data->password ? Hash::make($data->password) : $tim->password,
-             'email' => $data->email,
-             'jenis_kelamin' => $data->jenis_kelamin,
-         ];
- 
-         // Ubah data tim di database
-         $tim->update($dataTim);
- 
-         // Redirect ke halaman utama tim
-         return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil mengubah data tim verifikasi.');
-     }
- 
-     public function prosesHapusTim($id)
-     {
-         // Ambil data tim berdasarkan ID
-         $tim = TimVerifikasi::find($id);
- 
-         // Hapus tim tersebut
-         $tim->delete();
- 
-         // Redirect ke halaman utama tim
-         return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil menghapus data tim verifikasi.');
-     }
+    public function halamanUtamaTim()
+    {
+        // Ambil semua data tim yang ingin ditampilkan
+        $data['tim'] = TimVerifikasi::all();
+
+        // Redirect ke halaman tim, beserta dengan data tim 
+        return view('tim.halaman-utama-tim')->with($data);
+    }
+
+    public function halamanTambahTim()
+    {
+        // Redirect ke halaman tambah tim
+        return view('tim.halaman-tambah-tim');
+    }
+
+    public function prosesTambahTim(Request $data)
+    {
+        // Ambil data tim dari form
+        $dataTim = [
+            'username' => $data->username,
+            'nama' => $data->nama,
+            'no_tlp' => $data->no_tlp,
+            'alamat' => $data->alamat,
+            'password' => Hash::make($data->password),
+            'email' => $data->email,
+            'jenis_kelamin' => $data->jenis_kelamin,
+        ];
+
+        // Insert data tim ke database
+        TimVerifikasi::create($dataTim);
+
+        // Redirect ke halaman utama tim
+        return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil menambah data tim verifikasi.');
+    }
+
+    public function halamanDetailTim($id)
+    {
+        // Ambil data tim berdasarkan ID
+        $data['tim'] = TimVerifikasi::find($id);
+
+        // Redirect ke halaman detail tim
+        return view('tim.halaman-detail-tim')->with($data);
+    }
+
+    public function halamanUbahTim($id)
+    {
+        // Ambil data tim yang ingin diubah, ambil berdasarkan ID
+        $data['tim'] = TimVerifikasi::find($id);
+
+        // Redirect ke halaman ubah tim, beserta dengan data tim 
+        return view('tim.halaman-ubah-tim')->with($data);
+    }
+
+    public function prosesUbahTim(Request $data, $id)
+    {
+        // Ambil data tim berdasarkan ID
+        $tim = TimVerifikasi::find($id);
+
+        // Ambil data tim terbaru dari form
+        $dataTim = [
+            'username' => $data->username,
+            'nama' => $data->nama,
+            'no_tlp' => $data->no_tlp,
+            'alamat' => $data->alamat,
+            'password' => $data->password ? Hash::make($data->password) : $tim->password,
+            'email' => $data->email,
+            'jenis_kelamin' => $data->jenis_kelamin,
+        ];
+
+        // Ubah data tim di database
+        $tim->update($dataTim);
+
+        // Redirect ke halaman utama tim
+        return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil mengubah data tim verifikasi.');
+    }
+
+    public function prosesHapusTim($id)
+    {
+        // Ambil data tim berdasarkan ID
+        $tim = TimVerifikasi::find($id);
+
+        // Hapus tim tersebut
+        $tim->delete();
+
+        // Redirect ke halaman utama tim
+        return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil menghapus data tim verifikasi.');
+    }
 }

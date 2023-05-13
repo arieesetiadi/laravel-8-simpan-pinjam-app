@@ -40,7 +40,7 @@
             <div class="logo">
                 <a href="{{ route('halamanDashboard') }}" class="logo-icon"><span class="logo-text">Dashboard</span></a>
                 <div class="sidebar-user-switcher user-activity-online">
-                    <a href="#">
+                    <a href="{{ route('halamanProfile') }}">
                         {{-- Tampilkan profile pengguna --}}
                         <img src="{{ asset('images/avatars/' . strtolower(user()->jenis_kelamin) . '.png') }}">
                         <span class="activity-indicator"></span>
