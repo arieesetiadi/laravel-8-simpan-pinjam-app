@@ -61,4 +61,17 @@ Route::controller(ActionController::class)->group(function () {
         Route::put('/ubah/{id}', 'prosesUbahTim')->name('prosesUbahTim');
         Route::get('/hapus/{id}', 'prosesHapusTim')->name('prosesHapusTim');
     });
+
+     /**
+     * KELOLA NASABAH
+     */
+    Route::prefix('/nasabah')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaNasabah')->name('halamanUtamaNasabah');
+        Route::get('/tambah', 'halamanTambahNasabah')->name('halamanTambahNasabah');
+        Route::post('/tambah', 'prosesTambahNasabah')->name('prosesTambahNasabah');
+        Route::get('/detail/{id}', 'halamanDetailNasabah')->name('halamanDetailNasabah');
+        Route::get('/ubah/{id}', 'halamanUbahNasabah')->name('halamanUbahNasabah');
+        Route::put('/ubah/{id}', 'prosesUbahNasabah')->name('prosesUbahNasabah');
+        Route::get('/hapus/{id}', 'prosesHapusNasabah')->name('prosesHapusNasabah');
+    });
 });

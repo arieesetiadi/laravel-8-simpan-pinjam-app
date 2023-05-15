@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nasabah;
 use App\Models\Pegawai;
 use App\Models\Pengawas;
 use App\Models\TimVerifikasi;
@@ -386,5 +387,96 @@ class ActionController extends Controller
 
         // Redirect ke halaman utama tim
         return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil menghapus data tim verifikasi.');
+    }
+
+    /**
+     * KELOLA NASABAH
+     */
+
+    public function halamanUtamaNasabah()
+    {
+        // Ambil semua data nasabah yang ingin ditampilkan
+        $data['nasabah'] = Nasabah::all();
+
+        // Redirect ke halaman nasabah, beserta dengan data nasabah 
+        return view('nasabah.halaman-utama-nasabah')->with($data);
+    }
+
+    public function halamanTambahNasabah()
+    {
+        // Redirect ke halaman tambah nasabah
+        return view('nasabah.halaman-tambah-nasabah');
+    }
+
+    public function prosesTambahNasabah(Request $data)
+    {
+        // Ambil data nasabah dari form
+        $dataNasabah = [
+            'id_pegawai' => $data->id_pegawai,
+            'kode_nasabah' => $data->kode_nasabah,
+            'nama' => $data->nama,
+            'pekerjaan' => $data->pekerjaan,
+            'alamat' => $data->alamat,
+            'tanggal_lahir' => $data->tanggal_lahir,
+            'status_pinjam' => 0,
+        ];
+
+        // Insert data nasabah ke database
+        Nasabah::create($dataNasabah);
+
+        // Redirect ke halaman utama nasabah
+        return redirect()->route('halamanUtamaNasabah')->with('success', 'Berhasil menambah data nasabah.');
+    }
+
+    public function halamanDetailNasabah($id)
+    {
+        // Ambil data nasabah berdasarkan ID
+        $data['nasabah'] = Nasabah::find($id);
+
+        // Redirect ke halaman detail nasabah
+        return view('nasabah.halaman-detail-nasabah')->with($data);
+    }
+
+    public function halamanUbahNasabah($id)
+    {
+        // Ambil data nasabah yang ingin diubah, ambil berdasarkan ID
+        $data['nasabah'] = Nasabah::find($id);
+
+        // Redirect ke halaman ubah nasabah, beserta dengan data nasabah 
+        return view('nasabah.halaman-ubah-nasabah')->with($data);
+    }
+
+    public function prosesUbahNasabah(Request $data, $id)
+    {
+        // Ambil data nasabah berdasarkan ID
+        $nasabah = Nasabah::find($id);
+
+
+        // Ambil data nasabah terbaru dari form
+        $dataNasabah = [
+            'kode_nasabah' => $data->kode_nasabah,
+            'nama' => $data->nama,
+            'pekerjaan' => $data->pekerjaan,
+            'alamat' => $data->alamat,
+            'tanggal_lahir' => $data->tanggal_lahir,
+        ];
+
+        // Ubah data nasabah di database
+        $nasabah->update($dataNasabah);
+
+        // Redirect ke halaman utama nasabah
+        return redirect()->route('halamanUtamaNasabah')->with('success', 'Berhasil mengubah data nasabah.');
+    }
+
+    public function prosesHapusNasabah($id)
+    {
+        // Ambil data nasabah berdasarkan ID
+        $nasabah = Nasabah::find($id);
+
+        // Hapus nasabah tersebut
+        $nasabah->delete();
+
+        // Redirect ke halaman utama nasabah
+        return redirect()->route('halamanUtamaNasabah')->with('success', 'Berhasil menghapus data nasabah.');
     }
 }

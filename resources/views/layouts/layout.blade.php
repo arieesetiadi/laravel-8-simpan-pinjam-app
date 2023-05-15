@@ -73,6 +73,9 @@
                     <li class="active-page">
                         <a href="{{ route('halamanUtamaTim') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Tim Verifikasi</a>
                     </li>
+                    <li class="active-page">
+                        <a href="{{ route('halamanUtamaNasabah') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Nasabah</a>
+                    </li>
 
                     <li class="sidebar-title">
                         Lainnya
