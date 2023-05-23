@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Nasabah;
 use App\Models\Pegawai;
 use App\Models\Pengawas;
-use App\Models\TimVerifikasi;
+use App\Models\Direktur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,13 +20,13 @@ class ActionController extends Controller
         return view('login');
     }
 
-    public function prosesLogin(Request $data)
+    public function prosesLogin(Request $form)
     {
-        $guard = $data->guard;
+        $guard = $form->guard;
 
         // Ambil username dan password dari form login
-        $username = $data->username;
-        $password = $data->password;
+        $username = $form->username;
+        $password = $form->password;
 
         // Lakukan proses login dengan username dan password yang diinputkan
         $login = auth()->guard($guard)->attempt([
@@ -70,12 +70,12 @@ class ActionController extends Controller
         return view('profile');
     }
 
-    public function prosesUbahProfile(Request $data)
+    public function prosesUbahProfile(Request $form)
     {
         $profile = null;
 
         // Tentukan jenis pengguna yang ingin diubah
-        switch ($data->guard) {
+        switch ($form->guard) {
             case 'pegawai':
                 $profile = Pegawai::find(user()->id_pegawai);
                 break;
@@ -83,28 +83,28 @@ class ActionController extends Controller
                 $profile = Pengawas::find(user()->id_pengawas);
                 break;
             case 'tim_verifikasi':
-                $profile = TimVerifikasi::find(user()->id_tim);
+                $profile = Direktur::find(user()->id_tim);
                 break;
         }
 
         // Ambil data profile dari form edit profile
         $dataProfile = [
-            'username' => $data->username,
-            'nama' => $data->nama,
-            'no_tlp' => $data->no_tlp,
-            'alamat' => $data->alamat,
-            'password' => $data->password ? Hash::make($data->password) : user()->password,
-            'jenis_kelamin' => $data->jenis_kelamin,
+            'username' => $form->username,
+            'nama' => $form->nama,
+            'no_tlp' => $form->no_tlp,
+            'alamat' => $form->alamat,
+            'password' => $form->password ? Hash::make($form->password) : user()->password,
+            'jenis_kelamin' => $form->jenis_kelamin,
         ];
 
         // Check user punya email
-        if ($data->email) {
-            $dataProfile['email'] = $data->email;
+        if ($form->email) {
+            $dataProfile['email'] = $form->email;
         }
 
         // Check user punya jabatan
-        if ($data->jabatan) {
-            $dataProfile['jabatan'] = $data->jabatan;
+        if ($form->jabatan) {
+            $dataProfile['jabatan'] = $form->jabatan;
         }
 
         // Proses ubah profile pengguna
@@ -121,10 +121,10 @@ class ActionController extends Controller
     public function halamanUtamaPengawas()
     {
         // Ambil semua data pengawas yang ingin ditampilkan
-        $data['pengawas'] = Pengawas::all();
+        $form['pengawas'] = Pengawas::all();
 
         // Redirect ke halaman pengawas, beserta dengan data pengawas 
-        return view('pengawas.halaman-utama-pengawas')->with($data);
+        return view('pengawas.halaman-utama-pengawas')->with($form);
     }
 
     public function halamanTambahPengawas()
@@ -133,16 +133,17 @@ class ActionController extends Controller
         return view('pengawas.halaman-tambah-pengawas');
     }
 
-    public function prosesTambahPengawas(Request $data)
+    public function prosesTambahPengawas(Request $form)
     {
         // Ambil data pengawas dari form
         $dataPengawas = [
-            'username' => $data->username,
-            'nama' => $data->nama,
-            'no_tlp' => $data->no_tlp,
-            'alamat' => $data->alamat,
-            'password' => Hash::make($data->password),
-            'jenis_kelamin' => $data->jenis_kelamin,
+            'username' => $form->username,
+            'nama' => $form->nama,
+            'no_tlp' => $form->no_tlp,
+            'alamat' => $form->alamat,
+            'password' => Hash::make($form->password),
+            'email' => $form->email,
+            'jenis_kelamin' => $form->jenis_kelamin,
         ];
 
         // Insert data pengawas ke database
@@ -155,35 +156,36 @@ class ActionController extends Controller
     public function halamanDetailPengawas($id)
     {
         // Ambil data pengawas berdasarkan ID
-        $data['pengawas'] = Pengawas::find($id);
+        $form['pengawas'] = Pengawas::find($id);
 
         // Redirect ke halaman detail pengawas
-        return view('pengawas.halaman-detail-pengawas')->with($data);
+        return view('pengawas.halaman-detail-pengawas')->with($form);
     }
 
 
     public function halamanUbahPengawas($id)
     {
         // Ambil data pengawas yang ingin diubah, ambil berdasarkan ID
-        $data['pengawas'] = Pengawas::find($id);
+        $form['pengawas'] = Pengawas::find($id);
 
         // Redirect ke halaman ubah pengawas, beserta dengan data pengawas 
-        return view('pengawas.halaman-ubah-pengawas')->with($data);
+        return view('pengawas.halaman-ubah-pengawas')->with($form);
     }
 
-    public function prosesUbahPengawas(Request $data, $id)
+    public function prosesUbahPengawas(Request $form, $id)
     {
         // Ambil data pengawas berdasarkan ID
         $pengawas = Pengawas::find($id);
 
         // Ambil data pengawas terbaru dari form
         $dataPengawas = [
-            'username' => $data->username,
-            'nama' => $data->nama,
-            'no_tlp' => $data->no_tlp,
-            'alamat' => $data->alamat,
-            'password' => $data->password ? Hash::make($data->password) : $pengawas->password,
-            'jenis_kelamin' => $data->jenis_kelamin,
+            'username' => $form->username,
+            'nama' => $form->nama,
+            'no_tlp' => $form->no_tlp,
+            'alamat' => $form->alamat,
+            'password' => $form->password ? Hash::make($form->password) : $pengawas->password,
+            'email' => $form->email,
+            'jenis_kelamin' => $form->jenis_kelamin,
         ];
 
         // Ubah data pengawas di database
@@ -212,10 +214,10 @@ class ActionController extends Controller
     public function halamanUtamaPegawai()
     {
         // Ambil semua data pegawai yang ingin ditampilkan
-        $data['pegawai'] = Pegawai::all();
+        $form['pegawai'] = Pegawai::all();
 
         // Redirect ke halaman pegawai, beserta dengan data pegawai 
-        return view('pegawai.halaman-utama-pegawai')->with($data);
+        return view('pegawai.halaman-utama-pegawai')->with($form);
     }
 
     public function halamanTambahPegawai()
@@ -224,17 +226,17 @@ class ActionController extends Controller
         return view('pegawai.halaman-tambah-pegawai');
     }
 
-    public function prosesTambahPegawai(Request $data)
+    public function prosesTambahPegawai(Request $form)
     {
         // Ambil data pegawai dari form
         $dataPegawai = [
-            'username' => $data->username,
-            'nama' => $data->nama,
-            'no_tlp' => $data->no_tlp,
-            'alamat' => $data->alamat,
-            'password' => Hash::make($data->password),
-            'jabatan' => $data->jabatan,
-            'jenis_kelamin' => $data->jenis_kelamin,
+            'username' => $form->username,
+            'nama' => $form->nama,
+            'no_tlp' => $form->no_tlp,
+            'alamat' => $form->alamat,
+            'password' => Hash::make($form->password),
+            'email' => $form->email,
+            'jenis_kelamin' => $form->jenis_kelamin,
         ];
 
         // Insert data pegawai ke database
@@ -247,35 +249,35 @@ class ActionController extends Controller
     public function halamanDetailPegawai($id)
     {
         // Ambil data pegawai berdasarkan ID
-        $data['pegawai'] = Pegawai::find($id);
+        $form['pegawai'] = Pegawai::find($id);
 
         // Redirect ke halaman detail pegawai
-        return view('pegawai.halaman-detail-pegawai')->with($data);
+        return view('pegawai.halaman-detail-pegawai')->with($form);
     }
 
     public function halamanUbahPegawai($id)
     {
         // Ambil data pegawai yang ingin diubah, ambil berdasarkan ID
-        $data['pegawai'] = Pegawai::find($id);
+        $form['pegawai'] = Pegawai::find($id);
 
         // Redirect ke halaman ubah pegawai, beserta dengan data pegawai 
-        return view('pegawai.halaman-ubah-pegawai')->with($data);
+        return view('pegawai.halaman-ubah-pegawai')->with($form);
     }
 
-    public function prosesUbahPegawai(Request $data, $id)
+    public function prosesUbahPegawai(Request $form, $id)
     {
         // Ambil data pegawai berdasarkan ID
         $pegawai = Pegawai::find($id);
 
         // Ambil data pegawai terbaru dari form
         $dataPegawai = [
-            'username' => $data->username,
-            'nama' => $data->nama,
-            'no_tlp' => $data->no_tlp,
-            'alamat' => $data->alamat,
-            'password' => $data->password ? Hash::make($data->password) : $pegawai->password,
-            'jabatan' => $data->jabatan,
-            'jenis_kelamin' => $data->jenis_kelamin,
+            'username' => $form->username,
+            'nama' => $form->nama,
+            'no_tlp' => $form->no_tlp,
+            'alamat' => $form->alamat,
+            'password' => $form->password ? Hash::make($form->password) : $pegawai->password,
+            'email' => $form->email,
+            'jenis_kelamin' => $form->jenis_kelamin,
         ];
 
         // Ubah data pegawai di database
@@ -298,95 +300,95 @@ class ActionController extends Controller
     }
 
     /**
-     * KELOLA TIM VERIFIKASI
+     * KELOLA DIREKTUR
      */
 
-    public function halamanUtamaTim()
+    public function halamanUtamaDirektur()
     {
-        // Ambil semua data tim yang ingin ditampilkan
-        $data['tim'] = TimVerifikasi::all();
+        // Ambil semua data direktur yang ingin ditampilkan
+        $form['direktur'] = Direktur::all();
 
-        // Redirect ke halaman tim, beserta dengan data tim 
-        return view('tim.halaman-utama-tim')->with($data);
+        // Redirect ke halaman direktur, beserta dengan data direktur 
+        return view('direktur.halaman-utama-direktur')->with($form);
     }
 
-    public function halamanTambahTim()
+    public function halamanTambahDirektur()
     {
-        // Redirect ke halaman tambah tim
-        return view('tim.halaman-tambah-tim');
+        // Redirect ke halaman tambah direktur
+        return view('direktur.halaman-tambah-direktur');
     }
 
-    public function prosesTambahTim(Request $data)
+    public function prosesTambahDirektur(Request $form)
     {
-        // Ambil data tim dari form
-        $dataTim = [
-            'username' => $data->username,
-            'nama' => $data->nama,
-            'no_tlp' => $data->no_tlp,
-            'alamat' => $data->alamat,
-            'password' => Hash::make($data->password),
-            'email' => $data->email,
-            'jenis_kelamin' => $data->jenis_kelamin,
+        // Ambil data direktur dari form
+        $dataDirektur = [
+            'username' => $form->username,
+            'nama' => $form->nama,
+            'no_tlp' => $form->no_tlp,
+            'alamat' => $form->alamat,
+            'password' => Hash::make($form->password),
+            'email' => $form->email,
+            'jenis_kelamin' => $form->jenis_kelamin,
         ];
 
-        // Insert data tim ke database
-        TimVerifikasi::create($dataTim);
+        // Insert data direktur ke database
+        Direktur::create($dataDirektur);
 
-        // Redirect ke halaman utama tim
-        return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil menambah data tim verifikasi.');
+        // Redirect ke halaman utama direktur
+        return redirect()->route('halamanUtamaDirektur')->with('success', 'Berhasil menambah data direktur.');
     }
 
-    public function halamanDetailTim($id)
+    public function halamanDetailDirektur($id)
     {
-        // Ambil data tim berdasarkan ID
-        $data['tim'] = TimVerifikasi::find($id);
+        // Ambil data direktur berdasarkan ID
+        $form['direktur'] = Direktur::find($id);
 
-        // Redirect ke halaman detail tim
-        return view('tim.halaman-detail-tim')->with($data);
+        // Redirect ke halaman detail direktur
+        return view('direktur.halaman-detail-direktur')->with($form);
     }
 
-    public function halamanUbahTim($id)
+    public function halamanUbahDirektur($id)
     {
-        // Ambil data tim yang ingin diubah, ambil berdasarkan ID
-        $data['tim'] = TimVerifikasi::find($id);
+        // Ambil data direktur yang ingin diubah, ambil berdasarkan ID
+        $form['direktur'] = Direktur::find($id);
 
-        // Redirect ke halaman ubah tim, beserta dengan data tim 
-        return view('tim.halaman-ubah-tim')->with($data);
+        // Redirect ke halaman ubah direktur, beserta dengan data direktur 
+        return view('direktur.halaman-ubah-direktur')->with($form);
     }
 
-    public function prosesUbahTim(Request $data, $id)
+    public function prosesUbahDirektur(Request $form, $id)
     {
-        // Ambil data tim berdasarkan ID
-        $tim = TimVerifikasi::find($id);
+        // Ambil data direktur berdasarkan ID
+        $direktur = Direktur::find($id);
 
-        // Ambil data tim terbaru dari form
-        $dataTim = [
-            'username' => $data->username,
-            'nama' => $data->nama,
-            'no_tlp' => $data->no_tlp,
-            'alamat' => $data->alamat,
-            'password' => $data->password ? Hash::make($data->password) : $tim->password,
-            'email' => $data->email,
-            'jenis_kelamin' => $data->jenis_kelamin,
+        // Ambil data direktur terbaru dari form
+        $dataDirektur = [
+            'username' => $form->username,
+            'nama' => $form->nama,
+            'no_tlp' => $form->no_tlp,
+            'alamat' => $form->alamat,
+            'password' => $form->password ? Hash::make($form->password) : $direktur->password,
+            'email' => $form->email,
+            'jenis_kelamin' => $form->jenis_kelamin,
         ];
 
-        // Ubah data tim di database
-        $tim->update($dataTim);
+        // Ubah data direktur di database
+        $direktur->update($dataDirektur);
 
-        // Redirect ke halaman utama tim
-        return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil mengubah data tim verifikasi.');
+        // Redirect ke halaman utama direktur
+        return redirect()->route('halamanUtamaDirektur')->with('success', 'Berhasil mengubah data direktur verifikasi.');
     }
 
-    public function prosesHapusTim($id)
+    public function prosesHapusDirektur($id)
     {
-        // Ambil data tim berdasarkan ID
-        $tim = TimVerifikasi::find($id);
+        // Ambil data direktur berdasarkan ID
+        $direktur = Direktur::find($id);
 
-        // Hapus tim tersebut
-        $tim->delete();
+        // Hapus direktur tersebut
+        $direktur->delete();
 
-        // Redirect ke halaman utama tim
-        return redirect()->route('halamanUtamaTim')->with('success', 'Berhasil menghapus data tim verifikasi.');
+        // Redirect ke halaman utama direktur
+        return redirect()->route('halamanUtamaDirektur')->with('success', 'Berhasil menghapus data direktur verifikasi.');
     }
 
     /**
@@ -396,10 +398,10 @@ class ActionController extends Controller
     public function halamanUtamaNasabah()
     {
         // Ambil semua data nasabah yang ingin ditampilkan
-        $data['nasabah'] = Nasabah::all();
+        $form['nasabah'] = Nasabah::all();
 
         // Redirect ke halaman nasabah, beserta dengan data nasabah 
-        return view('nasabah.halaman-utama-nasabah')->with($data);
+        return view('nasabah.halaman-utama-nasabah')->with($form);
     }
 
     public function halamanTambahNasabah()
@@ -408,16 +410,16 @@ class ActionController extends Controller
         return view('nasabah.halaman-tambah-nasabah');
     }
 
-    public function prosesTambahNasabah(Request $data)
+    public function prosesTambahNasabah(Request $form)
     {
         // Ambil data nasabah dari form
         $dataNasabah = [
-            'id_pegawai' => $data->id_pegawai,
-            'kode_nasabah' => $data->kode_nasabah,
-            'nama' => $data->nama,
-            'pekerjaan' => $data->pekerjaan,
-            'alamat' => $data->alamat,
-            'tanggal_lahir' => $data->tanggal_lahir,
+            'id_pegawai' => $form->id_pegawai,
+            'kode_nasabah' => $form->kode_nasabah,
+            'nama' => $form->nama,
+            'pekerjaan' => $form->pekerjaan,
+            'alamat' => $form->alamat,
+            'tanggal_lahir' => $form->tanggal_lahir,
             'status_pinjam' => 0,
         ];
 
@@ -431,22 +433,22 @@ class ActionController extends Controller
     public function halamanDetailNasabah($id)
     {
         // Ambil data nasabah berdasarkan ID
-        $data['nasabah'] = Nasabah::find($id);
+        $form['nasabah'] = Nasabah::find($id);
 
         // Redirect ke halaman detail nasabah
-        return view('nasabah.halaman-detail-nasabah')->with($data);
+        return view('nasabah.halaman-detail-nasabah')->with($form);
     }
 
     public function halamanUbahNasabah($id)
     {
         // Ambil data nasabah yang ingin diubah, ambil berdasarkan ID
-        $data['nasabah'] = Nasabah::find($id);
+        $form['nasabah'] = Nasabah::find($id);
 
         // Redirect ke halaman ubah nasabah, beserta dengan data nasabah 
-        return view('nasabah.halaman-ubah-nasabah')->with($data);
+        return view('nasabah.halaman-ubah-nasabah')->with($form);
     }
 
-    public function prosesUbahNasabah(Request $data, $id)
+    public function prosesUbahNasabah(Request $form, $id)
     {
         // Ambil data nasabah berdasarkan ID
         $nasabah = Nasabah::find($id);
@@ -454,11 +456,11 @@ class ActionController extends Controller
 
         // Ambil data nasabah terbaru dari form
         $dataNasabah = [
-            'kode_nasabah' => $data->kode_nasabah,
-            'nama' => $data->nama,
-            'pekerjaan' => $data->pekerjaan,
-            'alamat' => $data->alamat,
-            'tanggal_lahir' => $data->tanggal_lahir,
+            'kode_nasabah' => $form->kode_nasabah,
+            'nama' => $form->nama,
+            'pekerjaan' => $form->pekerjaan,
+            'alamat' => $form->alamat,
+            'tanggal_lahir' => $form->tanggal_lahir,
         ];
 
         // Ubah data nasabah di database

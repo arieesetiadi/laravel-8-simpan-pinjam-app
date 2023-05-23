@@ -44,6 +44,14 @@
                         </div>
                     </div>
 
+                    {{-- Info email --}}
+                    <div class="row mb-3">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="email" value="{{ $pengawas->email }}" disabled>
+                        </div>
+                    </div>
+
                     {{-- Info jenis kelamin --}}
                     <div class="row mb-3">
                         <label for="jenis_kelamin" class="col-sm-2 col-form-label">Jenis Kelamin</label>

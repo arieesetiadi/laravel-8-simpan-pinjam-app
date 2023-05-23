@@ -50,19 +50,19 @@ Route::controller(ActionController::class)->group(function () {
     });
 
     /**
-     * KELOLA TIM VERIFIKASI
+     * KELOLA DIREKTUR
      */
-    Route::prefix('/tim-verifikasi')->middleware('auth.any')->group(function () {
-        Route::get('/', 'halamanUtamaTim')->name('halamanUtamaTim');
-        Route::get('/tambah', 'halamanTambahTim')->name('halamanTambahTim');
-        Route::post('/tambah', 'prosesTambahTim')->name('prosesTambahTim');
-        Route::get('/detail/{id}', 'halamanDetailTim')->name('halamanDetailTim');
-        Route::get('/ubah/{id}', 'halamanUbahTim')->name('halamanUbahTim');
-        Route::put('/ubah/{id}', 'prosesUbahTim')->name('prosesUbahTim');
-        Route::get('/hapus/{id}', 'prosesHapusTim')->name('prosesHapusTim');
+    Route::prefix('/direktur')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaDirektur')->name('halamanUtamaDirektur');
+        Route::get('/tambah', 'halamanTambahDirektur')->name('halamanTambahDirektur');
+        Route::post('/tambah', 'prosesTambahDirektur')->name('prosesTambahDirektur');
+        Route::get('/detail/{id}', 'halamanDetailDirektur')->name('halamanDetailDirektur');
+        Route::get('/ubah/{id}', 'halamanUbahDirektur')->name('halamanUbahDirektur');
+        Route::put('/ubah/{id}', 'prosesUbahDirektur')->name('prosesUbahDirektur');
+        Route::get('/hapus/{id}', 'prosesHapusDirektur')->name('prosesHapusDirektur');
     });
 
-     /**
+    /**
      * KELOLA NASABAH
      */
     Route::prefix('/nasabah')->middleware('auth.any')->group(function () {

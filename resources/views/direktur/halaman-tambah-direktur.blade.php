@@ -5,21 +5,20 @@
         <div class="row">
             <div class="col">
                 <div class="page-description">
-                    <h1>Ubah Tim Verifikasi</h1>
+                    <h1>Tambah Direktur</h1>
                 </div>
             </div>
         </div>
         <div class="row card">
             <div class="col card-body">
-                <form action="{{ route('prosesUbahTim', $tim->id_tim) }}" method="POST">
+                <form action="{{ route('prosesTambahDirektur') }}" method="POST">
                     @csrf
-                    @method('PUT')
 
                     {{-- Input username --}}
                     <div class="row mb-3">
                         <label for="username" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-10">
-                            <input name="username" type="text" class="form-control" id="username" required value="{{ $tim->username }}">
+                            <input name="username" type="text" class="form-control" id="username" required>
                         </div>
                     </div>
 
@@ -27,7 +26,7 @@
                     <div class="row mb-3">
                         <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                            <input name="nama" type="text" class="form-control" id="nama" required value="{{ $tim->nama }}">
+                            <input name="nama" type="text" class="form-control" id="nama" required>
                         </div>
                     </div>
 
@@ -35,7 +34,7 @@
                     <div class="row mb-3">
                         <label for="no_tlp" class="col-sm-2 col-form-label">Nomor Telepon</label>
                         <div class="col-sm-10">
-                            <input name="no_tlp" type="text" class="form-control" id="no_tlp" required value="{{ $tim->no_tlp }}">
+                            <input name="no_tlp" type="text" class="form-control" id="no_tlp" required>
                         </div>
                     </div>
 
@@ -43,15 +42,15 @@
                     <div class="row mb-3">
                         <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                         <div class="col-sm-10">
-                            <textarea name="alamat" type="text" class="form-control" id="alamat" required>{{ $tim->alamat }}</textarea>
+                            <textarea name="alamat" type="text" class="form-control" id="alamat" required></textarea>
                         </div>
                     </div>
 
                     {{-- Input password --}}
                     <div class="row mb-3">
-                        <label for="password" class="col-sm-2 col-form-label">Password (Optional)</label>
+                        <label for="password" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                            <input name="password" type="password" class="form-control" id="password">
+                            <input name="password" type="password" class="form-control" id="password" required>
                         </div>
                     </div>
 
@@ -59,7 +58,7 @@
                     <div class="row mb-3">
                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input name="email" type="email" class="form-control" id="email" required value="{{ $tim->email }}">
+                            <input name="email" type="email" class="form-control" id="email" required>
                         </div>
                     </div>
 
@@ -68,11 +67,11 @@
                         <legend class="col-form-label col-sm-2 pt-0">Jenis Kelamin</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_1" value="Pria" {{ $tim->jenis_kelamin == 'Pria' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_1" value="Pria" checked>
                                 <label class="form-check-label" for="jenis_kelamin_1">Pria</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_2" value="Wanita" {{ $tim->jenis_kelamin == 'Wanita' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_2" value="Wanita">
                                 <label class="form-check-label" for="jenis_kelamin_2">Wanita</label>
                             </div>
                         </div>
@@ -80,11 +79,11 @@
 
                     {{-- Tombol --}}
                     <div class="mt-5">
-                        <a href="{{ route('halamanUtamaTim') }}" class="btn btn-light">
+                        <a href="{{ route('halamanUtamaDirektur') }}" class="btn btn-light">
                             <i class="fa-solid fa-arrow-left"></i> Kembali
                         </a>
                         <button type="submit" class="btn btn-primary mx-2">
-                            <i class="fa-solid fa-circle-check"></i> Ubah
+                            <i class="fa-solid fa-circle-check"></i> Tambah
                         </button>
                     </div>
                 </form>

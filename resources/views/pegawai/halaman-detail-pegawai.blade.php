@@ -44,11 +44,11 @@
                         </div>
                     </div>
 
-                    {{-- Info jabatan --}}
+                    {{-- Info email --}}
                     <div class="row mb-3">
-                        <label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="jabatan" value="{{ $pegawai->jabatan }}" disabled>
+                            <input type="text" class="form-control" id="email" value="{{ $pegawai->email }}" disabled>
                         </div>
                     </div>
 

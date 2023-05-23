@@ -54,11 +54,11 @@
                         </div>
                     </div>
 
-                    {{-- Input jabatan --}}
+                    {{-- Input email --}}
                     <div class="row mb-3">
-                        <label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input name="jabatan" type="text" class="form-control" id="jabatan" required>
+                            <input name="email" type="email" class="form-control" id="email" required>
                         </div>
                     </div>
 

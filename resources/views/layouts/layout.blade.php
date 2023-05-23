@@ -57,7 +57,7 @@
                     </li>
 
                     <li class="active-page">
-                        <a href="{{ route('halamanDashboard') }}" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
+                        <a href="{{ route('halamanDashboard') }}" class="text-dark"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
 
                     <li class="sidebar-title">
@@ -65,16 +65,16 @@
                     </li>
 
                     <li class="active-page">
-                        <a href="{{ route('halamanUtamaPengawas') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Pengawas</a>
+                        <a href="{{ route('halamanUtamaPengawas') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Pengawas</a>
                     </li>
                     <li class="active-page">
-                        <a href="{{ route('halamanUtamaPegawai') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Pegawai</a>
+                        <a href="{{ route('halamanUtamaPegawai') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Pegawai</a>
                     </li>
                     <li class="active-page">
-                        <a href="{{ route('halamanUtamaTim') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Tim Verifikasi</a>
+                        <a href="{{ route('halamanUtamaDirektur') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Direktur</a>
                     </li>
                     <li class="active-page">
-                        <a href="{{ route('halamanUtamaNasabah') }}" class="active"><i class="material-icons-two-tone">account_circle</i>Nasabah</a>
+                        <a href="{{ route('halamanUtamaNasabah') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Nasabah</a>
                     </li>
 
                     <li class="sidebar-title">
@@ -82,7 +82,7 @@
                     </li>
 
                     <li class="active-page">
-                        <a href="{{ route('prosesLogout') }}" class="active"><i class="material-icons-two-tone">indeterminate_check_box</i>Logout</a>
+                        <a href="{{ route('prosesLogout') }}" class="text-dark"><i class="material-icons-two-tone">indeterminate_check_box</i>Logout</a>
                     </li>
                 </ul>
             </div>
