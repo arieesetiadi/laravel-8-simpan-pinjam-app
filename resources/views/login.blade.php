@@ -58,8 +58,8 @@
                             <label class="form-check-label" for="pengawas">Pengawas</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="guard" value="tim_verifikasi" id="tim_verifikasi">
-                            <label class="form-check-label" for="tim_verifikasi">Tim Verifikasi</label>
+                            <input class="form-check-input" type="radio" name="guard" value="direktur" id="direktur">
+                            <label class="form-check-label" for="direktur">Direktur</label>
                         </div>
                     </div>
                 </div>

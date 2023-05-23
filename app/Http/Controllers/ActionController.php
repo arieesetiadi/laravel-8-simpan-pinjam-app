@@ -82,7 +82,7 @@ class ActionController extends Controller
             case 'pengawas':
                 $profile = Pengawas::find(user()->id_pengawas);
                 break;
-            case 'tim_verifikasi':
+            case 'direktur':
                 $profile = Direktur::find(user()->id_tim);
                 break;
         }
@@ -94,18 +94,9 @@ class ActionController extends Controller
             'no_tlp' => $form->no_tlp,
             'alamat' => $form->alamat,
             'password' => $form->password ? Hash::make($form->password) : user()->password,
+            'email' => $form->email,
             'jenis_kelamin' => $form->jenis_kelamin,
         ];
-
-        // Check user punya email
-        if ($form->email) {
-            $dataProfile['email'] = $form->email;
-        }
-
-        // Check user punya jabatan
-        if ($form->jabatan) {
-            $dataProfile['jabatan'] = $form->jabatan;
-        }
 
         // Proses ubah profile pengguna
         $profile->update($dataProfile);
@@ -452,7 +443,6 @@ class ActionController extends Controller
     {
         // Ambil data nasabah berdasarkan ID
         $nasabah = Nasabah::find($id);
-
 
         // Ambil data nasabah terbaru dari form
         $dataNasabah = [

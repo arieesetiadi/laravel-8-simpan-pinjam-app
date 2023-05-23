@@ -35,16 +35,6 @@
                         </div>
                     </div>
 
-                    @if (user()->email)
-                        {{-- Input email --}}
-                        <div class="row mb-3">
-                            <label for="email" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input name="email" type="text" class="form-control" id="email" value="{{ user()->email }}" required>
-                            </div>
-                        </div>
-                    @endif
-
                     {{-- Input nomor telepon --}}
                     <div class="row mb-3">
                         <label for="no_tlp" class="col-sm-2 col-form-label">Nomor Telepon</label>
@@ -69,15 +59,13 @@
                         </div>
                     </div>
 
-                    @if (user()->jabatan)
-                        {{-- Input jabatan --}}
-                        <div class="row mb-3">
-                            <label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
-                            <div class="col-sm-10">
-                                <input name="jabatan" type="text" class="form-control" id="jabatan" value="{{ user()->jabatan }}" required>
-                            </div>
+                    {{-- Input email --}}
+                    <div class="row mb-3">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input name="email" type="text" class="form-control" id="email" value="{{ user()->email }}" required>
                         </div>
-                    @endif
+                    </div>
 
                     {{-- Input jenis kelamin --}}
                     <fieldset class="row mb-3">
