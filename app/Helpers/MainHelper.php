@@ -25,6 +25,16 @@ if (!function_exists('locale')) {
 }
 
 /**
+ * Check user role.
+ */
+if (!function_exists('role')) {
+    function role($guard)
+    {
+        return request()->guard == $guard;
+    }
+}
+
+/**
  * Get authenticated user.
  */
 if (!function_exists('user')) {
