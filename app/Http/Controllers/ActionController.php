@@ -56,8 +56,16 @@ class ActionController extends Controller
 
     public function halamanDashboard()
     {
+        // Siapkan data untuk tampilan dashboard
+        $data = [
+            'jumlahPengawas' => Pengawas::count(),
+            'jumlahPegawai' => Pegawai::count(),
+            'jumlahDirektur' => Direktur::count(),
+            'jumlahNasabah' => Nasabah::count(),
+        ];
+
         // Redirect ke halaman dashboard
-        return view('dashboard');
+        return view('dashboard', $data);
     }
 
     /**
