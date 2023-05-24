@@ -60,20 +60,20 @@
                         <a href="{{ route('halamanDashboard') }}" class="text-dark"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
 
-                    <li class="sidebar-title">
+                    <li class="sidebar-title {{ request()->guard != 'pegawai' ? 'd-none' : '' }}">
                         Kelola
                     </li>
 
-                    <li class="active-page">
+                    <li class="active-page {{ request()->guard != 'pegawai' ? 'd-none' : '' }}">
                         <a href="{{ route('halamanUtamaPengawas') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Pengawas</a>
                     </li>
-                    <li class="active-page">
+                    <li class="active-page {{ request()->guard != 'pegawai' ? 'd-none' : '' }}">
                         <a href="{{ route('halamanUtamaPegawai') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Pegawai</a>
                     </li>
-                    <li class="active-page">
+                    <li class="active-page {{ request()->guard != 'pegawai' ? 'd-none' : '' }}">
                         <a href="{{ route('halamanUtamaDirektur') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Direktur</a>
                     </li>
-                    <li class="active-page">
+                    <li class="active-page {{ request()->guard != 'pegawai' ? 'd-none' : '' }}">
                         <a href="{{ route('halamanUtamaNasabah') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Nasabah</a>
                     </li>
 
