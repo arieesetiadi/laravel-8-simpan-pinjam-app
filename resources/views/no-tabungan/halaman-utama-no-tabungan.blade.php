@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 
 @php
-    $sidebarPegawai = 'active-page';
+    $sidebarSimpanan = 'active-page';
+    $sidebarNoTabungan = 'fw-bold';
 @endphp
 
 @section('content')
@@ -16,11 +17,11 @@
             <div class="col-12">
                 <div class="page-description d-flex">
                     <div class="page-description-content flex-grow-1">
-                        <h1>Pegawai</h1>
+                        <h1>No Tabungan</h1>
                     </div>
                     <div class="page-description-actions">
-                        <a href="{{ route('halamanTambahPegawai') }}" class="btn btn-primary">
-                            <i class="fa-solid fa-circle-plus"></i> Tambah Pegawai
+                        <a href="{{ route('halamanTambahNoTabungan') }}" class="btn btn-primary">
+                            <i class="fa-solid fa-circle-plus"></i> Tambah No Tabungan
                         </a>
                     </div>
                 </div>
@@ -33,49 +34,37 @@
                         <tr>
                             <th>Aksi</th>
                             <th>#</th>
-                            <th>Nama</th>
-                            <th>Username</th>
-                            <th>Telepon</th>
-                            <th>Jabatan</th>
-                            <th>Jenis Kelamin</th>
+                            <th>No Tabungan</th>
+                            <th>Nama Nasabah</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @forelse ($pegawai as $i => $p)
+                        @forelse ($noTabungan as $i => $n)
                             <tr>
                                 <td class="d-flex gap-3">
                                     {{-- Tombol ubah --}}
-                                    <a href="{{ route('halamanUbahPegawai', $p->id_pegawai) }}" title="Ubah Pegawai">
+                                    <a href="{{ route('halamanUbahNoTabungan', $n->id_tabungan) }}" title="Ubah No Tabungan">
                                         <i class="fa-solid fa-pen"></i>
                                     </a>
 
                                     {{-- Tombol detail --}}
-                                    <a href="{{ route('halamanDetailPegawai', $p->id_pegawai) }}" title="Detail Pegawai">
+                                    <a href="{{ route('halamanDetailNoTabungan', $n->id_tabungan) }}" title="Detail No Tabungan">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
 
                                     {{-- Tombol hapus --}}
-                                    @if ($p == user())
-                                        <a href="#" title="Hapus Pegawai" onclick="return alert('Data pegawai yang sedang anda gunakan tidak dapat dihapus dari sistem')">
-                                            <i class="fa-solid fa-trash text-danger"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('prosesHapusPegawai', $p->id_pegawai) }}" title="Hapus Pegawai" onclick="return confirm('Data pegawai akan dihapus dari sistem')">
-                                            <i class="fa-solid fa-trash text-danger"></i>
-                                        </a>
-                                    @endif
+                                    <a href="{{ route('prosesHapusNoTabungan', $n->id_tabungan) }}" title="Hapus No Tabungan" onclick="return confirm('Data No Tabungan akan dihapus dari sistem')">
+                                        <i class="fa-solid fa-trash text-danger"></i>
+                                    </a>
                                 </td>
                                 <td>{{ $i + 1 }}</td>
-                                <td>{{ $p->nama }}</td>
-                                <td>{{ $p->username }}</td>
-                                <td>{{ $p->no_tlp }}</td>
-                                <td>{{ $p->jabatan }}</td>
-                                <td>{{ $p->jenis_kelamin }}</td>
+                                <td>{{ $n->no_tabungan }}</td>
+                                <td>{{ $n->nasabah->nama }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7">Data pegawai tidak tersedia.</td>
+                                <td colspan="7">Data No Tabungan tidak tersedia.</td>
                             </tr>
                         @endforelse
                     </tbody>

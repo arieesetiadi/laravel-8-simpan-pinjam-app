@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@php
+    $sidebarNasabah = 'active-page';
+@endphp
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -29,8 +33,8 @@
                         <tr>
                             <th>Aksi</th>
                             <th>#</th>
-                            <th>Kode Nasabah</th>
                             <th>Nama</th>
+                            <th>Tanggal Lahir</th>
                             <th>Pekerjaan</th>
                         </tr>
                     </thead>
@@ -61,8 +65,8 @@
                                     @endif
                                 </td>
                                 <td>{{ $i + 1 }}</td>
-                                <td>{{ $n->kode_nasabah }}</td>
                                 <td>{{ $n->nama }}</td>
+                                <td>{{ $n->tanggal_lahir }}</td>
                                 <td>{{ $n->pekerjaan }}</td>
                             </tr>
                         @empty

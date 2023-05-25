@@ -15,6 +15,7 @@ class NoTabungan extends Model
 
     public $timestamps = false;
 
+    // Relations
     public function nasabah()
     {
         return $this->belongsTo(Nasabah::class, 'id_nasabah', 'id_nasabah');
@@ -23,5 +24,16 @@ class NoTabungan extends Model
     public function kas()
     {
         return $this->hasOne(Kas::class, 'id_tabungan', 'id_tabungan');
+    }
+
+    // Methods
+    public static function generateNoTabungan()
+    {
+        $no = str_pad(self::count() + 1, 3, '0', STR_PAD_LEFT);
+        $company = 'BUMDES';
+        $month = month_to_roman(now()->month);
+        $year = now()->year;
+
+        return "$no/$company/$month/$year";
     }
 }

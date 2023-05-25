@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@php
+    $sidebarNasabah = 'active-page';
+@endphp
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -15,14 +19,6 @@
                     @csrf
                     {{-- ID Pegawai --}}
                     <input name="id_pegawai" type="hidden" class="form-control" value="{{ user()->id_pegawai }}" required>
-
-                    {{-- Input Kode Nasabah --}}
-                    <div class="row mb-3">
-                        <label for="kode_nasabah" class="col-sm-2 col-form-label">Kode Nasabah</label>
-                        <div class="col-sm-10">
-                            <input name="kode_nasabah" type="text" class="form-control" id="kode_nasabah" required>
-                        </div>
-                    </div>
 
                     {{-- Input nama --}}
                     <div class="row mb-3">

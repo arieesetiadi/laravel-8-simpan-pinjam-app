@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTimVerifikasiTable extends Migration
+class CreateDirekturTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTimVerifikasiTable extends Migration
      */
     public function up()
     {
-        Schema::create('tim_verifikasi', function (Blueprint $table) {
+        Schema::create('direktur', function (Blueprint $table) {
             $table->integerIncrements('id_tim');
             $table->string('nama');
             $table->string('no_tlp', 15);
@@ -32,6 +32,6 @@ class CreateTimVerifikasiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tim_verifikasi');
+        Schema::dropIfExists('direktur');
     }
 }

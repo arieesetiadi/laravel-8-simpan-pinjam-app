@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@php
+    $sidebarPegawai = 'active-page';
+@endphp
+
 @section('content')
     <div class="container">
         <div class="row">

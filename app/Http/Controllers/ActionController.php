@@ -6,6 +6,7 @@ use App\Models\Nasabah;
 use App\Models\Pegawai;
 use App\Models\Pengawas;
 use App\Models\Direktur;
+use App\Models\NoTabungan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -120,10 +121,10 @@ class ActionController extends Controller
     public function halamanUtamaPengawas()
     {
         // Ambil semua data pengawas yang ingin ditampilkan
-        $form['pengawas'] = Pengawas::all();
+        $data['pengawas'] = Pengawas::all();
 
         // Redirect ke halaman pengawas, beserta dengan data pengawas 
-        return view('pengawas.halaman-utama-pengawas')->with($form);
+        return view('pengawas.halaman-utama-pengawas')->with($data);
     }
 
     public function halamanTambahPengawas()
@@ -155,20 +156,20 @@ class ActionController extends Controller
     public function halamanDetailPengawas($id)
     {
         // Ambil data pengawas berdasarkan ID
-        $form['pengawas'] = Pengawas::find($id);
+        $data['pengawas'] = Pengawas::find($id);
 
         // Redirect ke halaman detail pengawas
-        return view('pengawas.halaman-detail-pengawas')->with($form);
+        return view('pengawas.halaman-detail-pengawas')->with($data);
     }
 
 
     public function halamanUbahPengawas($id)
     {
         // Ambil data pengawas yang ingin diubah, ambil berdasarkan ID
-        $form['pengawas'] = Pengawas::find($id);
+        $data['pengawas'] = Pengawas::find($id);
 
         // Redirect ke halaman ubah pengawas, beserta dengan data pengawas 
-        return view('pengawas.halaman-ubah-pengawas')->with($form);
+        return view('pengawas.halaman-ubah-pengawas')->with($data);
     }
 
     public function prosesUbahPengawas(Request $form, $id)
@@ -213,10 +214,10 @@ class ActionController extends Controller
     public function halamanUtamaPegawai()
     {
         // Ambil semua data pegawai yang ingin ditampilkan
-        $form['pegawai'] = Pegawai::all();
+        $data['pegawai'] = Pegawai::all();
 
         // Redirect ke halaman pegawai, beserta dengan data pegawai 
-        return view('pegawai.halaman-utama-pegawai')->with($form);
+        return view('pegawai.halaman-utama-pegawai')->with($data);
     }
 
     public function halamanTambahPegawai()
@@ -248,19 +249,19 @@ class ActionController extends Controller
     public function halamanDetailPegawai($id)
     {
         // Ambil data pegawai berdasarkan ID
-        $form['pegawai'] = Pegawai::find($id);
+        $data['pegawai'] = Pegawai::find($id);
 
         // Redirect ke halaman detail pegawai
-        return view('pegawai.halaman-detail-pegawai')->with($form);
+        return view('pegawai.halaman-detail-pegawai')->with($data);
     }
 
     public function halamanUbahPegawai($id)
     {
         // Ambil data pegawai yang ingin diubah, ambil berdasarkan ID
-        $form['pegawai'] = Pegawai::find($id);
+        $data['pegawai'] = Pegawai::find($id);
 
         // Redirect ke halaman ubah pegawai, beserta dengan data pegawai 
-        return view('pegawai.halaman-ubah-pegawai')->with($form);
+        return view('pegawai.halaman-ubah-pegawai')->with($data);
     }
 
     public function prosesUbahPegawai(Request $form, $id)
@@ -305,10 +306,10 @@ class ActionController extends Controller
     public function halamanUtamaDirektur()
     {
         // Ambil semua data direktur yang ingin ditampilkan
-        $form['direktur'] = Direktur::all();
+        $data['direktur'] = Direktur::all();
 
         // Redirect ke halaman direktur, beserta dengan data direktur 
-        return view('direktur.halaman-utama-direktur')->with($form);
+        return view('direktur.halaman-utama-direktur')->with($data);
     }
 
     public function halamanTambahDirektur()
@@ -340,19 +341,19 @@ class ActionController extends Controller
     public function halamanDetailDirektur($id)
     {
         // Ambil data direktur berdasarkan ID
-        $form['direktur'] = Direktur::find($id);
+        $data['direktur'] = Direktur::find($id);
 
         // Redirect ke halaman detail direktur
-        return view('direktur.halaman-detail-direktur')->with($form);
+        return view('direktur.halaman-detail-direktur')->with($data);
     }
 
     public function halamanUbahDirektur($id)
     {
         // Ambil data direktur yang ingin diubah, ambil berdasarkan ID
-        $form['direktur'] = Direktur::find($id);
+        $data['direktur'] = Direktur::find($id);
 
         // Redirect ke halaman ubah direktur, beserta dengan data direktur 
-        return view('direktur.halaman-ubah-direktur')->with($form);
+        return view('direktur.halaman-ubah-direktur')->with($data);
     }
 
     public function prosesUbahDirektur(Request $form, $id)
@@ -397,10 +398,10 @@ class ActionController extends Controller
     public function halamanUtamaNasabah()
     {
         // Ambil semua data nasabah yang ingin ditampilkan
-        $form['nasabah'] = Nasabah::all();
+        $data['nasabah'] = Nasabah::all();
 
         // Redirect ke halaman nasabah, beserta dengan data nasabah 
-        return view('nasabah.halaman-utama-nasabah')->with($form);
+        return view('nasabah.halaman-utama-nasabah')->with($data);
     }
 
     public function halamanTambahNasabah()
@@ -414,7 +415,6 @@ class ActionController extends Controller
         // Ambil data nasabah dari form
         $dataNasabah = [
             'id_pegawai' => $form->id_pegawai,
-            'kode_nasabah' => $form->kode_nasabah,
             'nama' => $form->nama,
             'pekerjaan' => $form->pekerjaan,
             'alamat' => $form->alamat,
@@ -432,22 +432,110 @@ class ActionController extends Controller
     public function halamanDetailNasabah($id)
     {
         // Ambil data nasabah berdasarkan ID
-        $form['nasabah'] = Nasabah::find($id);
+        $data['nasabah'] = Nasabah::find($id);
 
         // Redirect ke halaman detail nasabah
-        return view('nasabah.halaman-detail-nasabah')->with($form);
+        return view('nasabah.halaman-detail-nasabah')->with($data);
     }
 
     public function halamanUbahNasabah($id)
     {
         // Ambil data nasabah yang ingin diubah, ambil berdasarkan ID
-        $form['nasabah'] = Nasabah::find($id);
+        $data['nasabah'] = Nasabah::find($id);
 
         // Redirect ke halaman ubah nasabah, beserta dengan data nasabah 
-        return view('nasabah.halaman-ubah-nasabah')->with($form);
+        return view('nasabah.halaman-ubah-nasabah')->with($data);
     }
 
     public function prosesUbahNasabah(Request $form, $id)
+    {
+        // Ambil data nasabah berdasarkan ID
+        $nasabah = Nasabah::find($id);
+
+        // Ambil data nasabah terbaru dari form
+        $dataNasabah = [
+            'nama' => $form->nama,
+            'pekerjaan' => $form->pekerjaan,
+            'alamat' => $form->alamat,
+            'tanggal_lahir' => $form->tanggal_lahir,
+        ];
+
+        // Ubah data nasabah di database
+        $nasabah->update($dataNasabah);
+
+        // Redirect ke halaman utama nasabah
+        return redirect()->route('halamanUtamaNasabah')->with('success', 'Berhasil mengubah data nasabah.');
+    }
+
+    public function prosesHapusNasabah($id)
+    {
+        // Ambil data nasabah berdasarkan ID
+        $nasabah = Nasabah::find($id);
+
+        // Hapus nasabah tersebut
+        $nasabah->delete();
+
+        // Redirect ke halaman utama nasabah
+        return redirect()->route('halamanUtamaNasabah')->with('success', 'Berhasil menghapus data nasabah.');
+    }
+
+    /**
+     * KELOLA NO TABUNGAN
+     */
+
+    public function halamanUtamaNoTabungan()
+    {
+        // Ambil semua data no tabungan yang ingin ditampilkan
+        $data['noTabungan'] = NoTabungan::all();
+
+        // Redirect ke halaman no tabungan, beserta dengan data no tabungan 
+        return view('no-tabungan.halaman-utama-no-tabungan')->with($data);
+    }
+
+    public function halamanTambahNoTabungan()
+    {
+        // Generate nomor tabungan, otomatis oleh sistem
+        $data['noTabungan'] = NoTabungan::generateNoTabungan();
+        $data['nasabah'] = Nasabah::all();
+
+        // Redirect ke halaman tambah no tabungan
+        return view('no-tabungan.halaman-tambah-no-tabungan')->with($data);
+    }
+
+    public function prosesTambahNoTabungan(Request $form)
+    {
+        // Ambil data nomor tabungan dari form
+        $dataNoTabungan = [
+            'no_tabungan' => $form->no_tabungan,
+            'id_nasabah' => $form->id_nasabah,
+        ];
+
+        // Insert data no tabungan ke database
+        NoTabungan::create($dataNoTabungan);
+
+        // Redirect ke halaman utama no tabungan
+        return redirect()->route('halamanUtamaNoTabungan')->with('success', 'Berhasil menambah data no tabungan.');
+    }
+
+    public function halamanDetailNoTabungan($id)
+    {
+        // Ambil data nasabah berdasarkan ID
+        $data['nasabah'] = Nasabah::find($id);
+
+        // Redirect ke halaman detail nasabah
+        return view('nasabah.halaman-detail-nasabah')->with($data);
+    }
+
+    public function halamanUbahNoTabungan($id)
+    {
+        // Ambil data nasabah yang ingin diubah, ambil berdasarkan ID
+        $data['nasabah'] = Nasabah::find($id);
+
+        // Redirect ke halaman ubah nasabah, beserta dengan data nasabah 
+        return view('nasabah.halaman-ubah-nasabah')->with($data);
+    }
+
+    public function prosesUbahNoTabungan(Request $form, $id)
     {
         // Ambil data nasabah berdasarkan ID
         $nasabah = Nasabah::find($id);
@@ -468,7 +556,7 @@ class ActionController extends Controller
         return redirect()->route('halamanUtamaNasabah')->with('success', 'Berhasil mengubah data nasabah.');
     }
 
-    public function prosesHapusNasabah($id)
+    public function prosesHapusNoTabungan($id)
     {
         // Ambil data nasabah berdasarkan ID
         $nasabah = Nasabah::find($id);

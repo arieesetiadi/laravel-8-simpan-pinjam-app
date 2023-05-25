@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@php
+    $sidebarNasabah = 'active-page';
+@endphp
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -14,13 +18,6 @@
                 <form action="{{ route('prosesUbahNasabah', $nasabah->id_nasabah) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    {{-- Input Kode Nasabah --}}
-                    <div class="row mb-3">
-                        <label for="kode_nasabah" class="col-sm-2 col-form-label">Kode Nasabah</label>
-                        <div class="col-sm-10">
-                            <input name="kode_nasabah" type="text" class="form-control" id="kode_nasabah" value="{{ $nasabah->kode_nasabah }}" required>
-                        </div>
-                    </div>
 
                     {{-- Input nama --}}
                     <div class="row mb-3">

@@ -74,4 +74,17 @@ Route::controller(ActionController::class)->group(function () {
         Route::put('/ubah/{id}', 'prosesUbahNasabah')->name('prosesUbahNasabah');
         Route::get('/hapus/{id}', 'prosesHapusNasabah')->name('prosesHapusNasabah');
     });
+
+    /**
+     * KELOLA NO TABUNGAN
+     */
+    Route::prefix('/no-tabungan')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaNoTabungan')->name('halamanUtamaNoTabungan');
+        Route::get('/tambah', 'halamanTambahNoTabungan')->name('halamanTambahNoTabungan');
+        Route::post('/tambah', 'prosesTambahNoTabungan')->name('prosesTambahNoTabungan');
+        Route::get('/detail/{id}', 'halamanDetailNoTabungan')->name('halamanDetailNoTabungan');
+        Route::get('/ubah/{id}', 'halamanUbahNoTabungan')->name('halamanUbahNoTabungan');
+        Route::put('/ubah/{id}', 'prosesUbahNoTabungan')->name('prosesUbahNoTabungan');
+        Route::get('/hapus/{id}', 'prosesHapusNoTabungan')->name('prosesHapusNoTabungan');
+    });
 });

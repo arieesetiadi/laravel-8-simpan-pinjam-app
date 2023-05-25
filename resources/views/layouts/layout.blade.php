@@ -30,6 +30,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous"
         referrerpolicy="no-referrer" />
 
+    {{-- Select 2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <!-- Title -->
     <title>Aplikasi Simpan Pinjam</title>
 </head>
@@ -45,7 +48,7 @@
                         <img src="{{ asset('images/avatars/' . strtolower(user()->jenis_kelamin) . '.png') }}">
                         <span class="activity-indicator"></span>
                         <span class="user-info-text">{{ user()->nama }}<br>
-                            <span class="user-state-info">Online</span>
+                            <span class="user-state-info">{{ ucwords(request()->guard) }}</span>
                         </span>
                     </a>
                 </div>
@@ -56,41 +59,62 @@
                         Utama
                     </li>
 
-                    <li class="active-page">
-                        <a href="{{ route('halamanDashboard') }}" class="text-dark"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
+                    {{-- <li class="active-page"> --}}
+                    <li class="{{ $sidebarDashboard ?? '' }}">
+                        <a href="{{ route('halamanDashboard') }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
 
                     <li class="sidebar-title {{ !role('pegawai') ? 'd-none' : '' }}">
                         Kelola
                     </li>
 
-                    <li class="active-page {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="{{ route('halamanUtamaPengawas') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Pengawas</a>
+                    <li class="{{ $sidebarPengawas ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                        <a href="{{ route('halamanUtamaPengawas') }}"><i class="material-icons-two-tone">account_circle</i>Pengawas</a>
                     </li>
-                    <li class="active-page {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="{{ route('halamanUtamaPegawai') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Pegawai</a>
+                    <li class="{{ $sidebarPegawai ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                        <a href="{{ route('halamanUtamaPegawai') }}"><i class="material-icons-two-tone">account_circle</i>Pegawai</a>
                     </li>
-                    <li class="active-page {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="{{ route('halamanUtamaDirektur') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Direktur</a>
+                    <li class="{{ $sidebarDirektur ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                        <a href="{{ route('halamanUtamaDirektur') }}"><i class="material-icons-two-tone">account_circle</i>Direktur</a>
                     </li>
-                    <li class="active-page {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="{{ route('halamanUtamaNasabah') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>Nasabah</a>
+                    <li class="{{ $sidebarNasabah ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                        <a href="{{ route('halamanUtamaNasabah') }}"><i class="material-icons-two-tone">account_circle</i>Nasabah</a>
                     </li>
 
                     <li class="sidebar-title {{ !role('pegawai') ? 'd-none' : '' }}">
                         Simpan & Pinjam
                     </li>
 
-                    <li class="active-page {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="{{ route('halamanUtamaPengawas') }}" class="text-dark"><i class="material-icons-two-tone">account_circle</i>No Tabungan</a>
+                    <li class="{{ $sidebarSimpanan ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                        <a href="#"><i class="material-icons-two-tone">view_list</i>Simpanan<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                        <ul class="sub-menu">
+                            <li class="{{ $sidebarNoTabungan ?? '' }}">
+                                <a href="{{ route('halamanUtamaNoTabungan') }}">No Tabungan</a>
+                            </li>
+                            <li class="{{ $sidebarKasSimpanan ?? '' }}">
+                                <a href="sign-in.html">Kas Simpanan</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="{{ $sidebarPinjaman ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                        <a href="#"><i class="material-icons-two-tone">list_alt</i>Pinjaman<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                        <ul class="sub-menu">
+                            <li class="{{ $sidebarNoPinjaman ?? '' }}">
+                                <a href="sign-in.html">No Pinjaman</a>
+                            </li>
+                            <li class="{{ $sidebarNoPinjaman ?? '' }}">
+                                <a href="sign-in.html">Other Menu</a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li class="sidebar-title">
                         Lainnya
                     </li>
 
-                    <li class="active-page">
-                        <a href="{{ route('prosesLogout') }}" class="text-dark"><i class="material-icons-two-tone">indeterminate_check_box</i>Logout</a>
+                    <li>
+                        <a href="{{ route('prosesLogout') }}"><i class="material-icons text-dark">indeterminate_check_box</i>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -125,6 +149,7 @@
 
     <!-- Javascripts -->
     <script src="{{ asset('plugins/jquery/jquery-3.5.1.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('plugins/perfectscroll/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('plugins/pace/pace.min.js') }}"></script>
