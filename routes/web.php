@@ -83,8 +83,17 @@ Route::controller(ActionController::class)->group(function () {
         Route::get('/tambah', 'halamanTambahNoTabungan')->name('halamanTambahNoTabungan');
         Route::post('/tambah', 'prosesTambahNoTabungan')->name('prosesTambahNoTabungan');
         Route::get('/detail/{id}', 'halamanDetailNoTabungan')->name('halamanDetailNoTabungan');
-        Route::get('/ubah/{id}', 'halamanUbahNoTabungan')->name('halamanUbahNoTabungan');
-        Route::put('/ubah/{id}', 'prosesUbahNoTabungan')->name('prosesUbahNoTabungan');
         Route::get('/hapus/{id}', 'prosesHapusNoTabungan')->name('prosesHapusNoTabungan');
+    });
+
+    /**
+     * KELOLA KAS SIMPANAN
+     */
+    Route::prefix('/kas-simpanan')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaKasSimpanan')->name('halamanUtamaKasSimpanan');
+        Route::get('/tambah', 'halamanTambahKasSimpanan')->name('halamanTambahKasSimpanan');
+        Route::post('/tambah', 'prosesTambahKasSimpanan')->name('prosesTambahKasSimpanan');
+        Route::get('/detail/{id}', 'halamanDetailKasSimpanan')->name('halamanDetailKasSimpanan');
+        Route::get('/hapus/{id}', 'prosesHapusKasSimpanan')->name('prosesHapusKasSimpanan');
     });
 });

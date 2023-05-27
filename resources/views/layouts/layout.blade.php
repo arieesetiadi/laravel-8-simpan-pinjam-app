@@ -92,7 +92,7 @@
                                 <a href="{{ route('halamanUtamaNoTabungan') }}">No Tabungan</a>
                             </li>
                             <li class="{{ $sidebarKasSimpanan ?? '' }}">
-                                <a href="sign-in.html">Kas Simpanan</a>
+                                <a href="{{ route('halamanUtamaKasSimpanan') }}">Kas Simpanan</a>
                             </li>
                         </ul>
                     </li>
@@ -159,6 +159,20 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('js/pages/dashboard.js') }}"></script>
     <script src="{{ asset('js/pages/datatables.js') }}"></script>
+
+    {{-- Custome Scripts --}}
+    <script>
+        $(document).ready(function() {
+            // Bind keypress event to all number input types
+            $('input[type="number"]').keypress(function(event) {
+                var keyCode = event.which;
+                // Check if the pressed key is within the range of 0-9 (keyCode 48-57)
+                if (keyCode < 48 || keyCode > 57) {
+                    event.preventDefault(); // Prevent input if not a number
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

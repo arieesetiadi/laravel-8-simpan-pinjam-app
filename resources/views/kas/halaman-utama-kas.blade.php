@@ -2,7 +2,7 @@
 
 @php
     $sidebarSimpanan = 'active-page';
-    $sidebarNoTabungan = 'fw-bold';
+    $sidebarKasSimpanan = 'fw-bold';
 @endphp
 
 @section('content')
@@ -17,11 +17,11 @@
             <div class="col-12">
                 <div class="page-description d-flex">
                     <div class="page-description-content flex-grow-1">
-                        <h1>No Tabungan</h1>
+                        <h1>Kas Simpanan</h1>
                     </div>
                     <div class="page-description-actions">
-                        <a href="{{ route('halamanTambahNoTabungan') }}" class="btn btn-primary">
-                            <i class="fa-solid fa-circle-plus"></i> Tambah No Tabungan
+                        <a href="{{ route('halamanTambahKasSimpanan') }}" class="btn btn-primary">
+                            <i class="fa-solid fa-circle-plus"></i> Tambah Kas Simpanan
                         </a>
                     </div>
                 </div>
@@ -35,31 +35,28 @@
                             <th>Aksi</th>
                             <th>#</th>
                             <th>No Tabungan</th>
-                            <th>Nama Nasabah</th>
+                            <th>Nominal</th>
+                            <th>Tanggal Simpan</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @forelse ($noTabungan as $i => $n)
+                        @forelse ($kas as $i => $k)
                             <tr>
                                 <td class="d-flex gap-3">
                                     {{-- Tombol detail --}}
-                                    <a href="{{ route('halamanDetailNoTabungan', $n->id_tabungan) }}" title="Detail No Tabungan">
+                                    <a href="{{ route('halamanDetailKasSimpanan', $k->id_tabungan) }}" title="Detail Kas Simpanan">
                                         <i class="fa-solid fa-eye"></i>
-                                    </a>
-
-                                    {{-- Tombol hapus --}}
-                                    <a href="{{ route('prosesHapusNoTabungan', $n->id_tabungan) }}" title="Hapus No Tabungan" onclick="return confirm('Data No Tabungan akan dihapus dari sistem')">
-                                        <i class="fa-solid fa-trash text-danger"></i>
                                     </a>
                                 </td>
                                 <td>{{ $i + 1 }}</td>
-                                <td>{{ $n->no_tabungan }}</td>
-                                <td>{{ $n->nasabah->nama }}</td>
+                                <td>{{ $k->tabungan->no_tabungan }}</td>
+                                <td>{{ number_to_idr($k->nominal) }}</td>
+                                <td>{{ human_datetime_format($k->tanggal) }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7">Data No Tabungan tidak tersedia.</td>
+                                <td colspan="5">Data Kas Simpanan tidak tersedia.</td>
                             </tr>
                         @endforelse
                     </tbody>

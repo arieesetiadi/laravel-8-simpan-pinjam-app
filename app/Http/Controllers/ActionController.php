@@ -6,6 +6,7 @@ use App\Models\Nasabah;
 use App\Models\Pegawai;
 use App\Models\Pengawas;
 use App\Models\Direktur;
+use App\Models\Kas;
 use App\Models\NoTabungan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -519,52 +520,84 @@ class ActionController extends Controller
 
     public function halamanDetailNoTabungan($id)
     {
-        // Ambil data nasabah berdasarkan ID
-        $data['nasabah'] = Nasabah::find($id);
+        // Ambil data no tabungan, beserta dengan data nasabah dan kas
+        $data['noTabungan'] = NoTabungan::with(['nasabah', 'kas'])->find($id);
 
-        // Redirect ke halaman detail nasabah
-        return view('nasabah.halaman-detail-nasabah')->with($data);
-    }
-
-    public function halamanUbahNoTabungan($id)
-    {
-        // Ambil data nasabah yang ingin diubah, ambil berdasarkan ID
-        $data['nasabah'] = Nasabah::find($id);
-
-        // Redirect ke halaman ubah nasabah, beserta dengan data nasabah 
-        return view('nasabah.halaman-ubah-nasabah')->with($data);
-    }
-
-    public function prosesUbahNoTabungan(Request $form, $id)
-    {
-        // Ambil data nasabah berdasarkan ID
-        $nasabah = Nasabah::find($id);
-
-        // Ambil data nasabah terbaru dari form
-        $dataNasabah = [
-            'kode_nasabah' => $form->kode_nasabah,
-            'nama' => $form->nama,
-            'pekerjaan' => $form->pekerjaan,
-            'alamat' => $form->alamat,
-            'tanggal_lahir' => $form->tanggal_lahir,
-        ];
-
-        // Ubah data nasabah di database
-        $nasabah->update($dataNasabah);
-
-        // Redirect ke halaman utama nasabah
-        return redirect()->route('halamanUtamaNasabah')->with('success', 'Berhasil mengubah data nasabah.');
+        // Redirect ke halaman detail no tabungan
+        return view('no-tabungan.halaman-detail-no-tabungan')->with($data);
     }
 
     public function prosesHapusNoTabungan($id)
     {
-        // Ambil data nasabah berdasarkan ID
-        $nasabah = Nasabah::find($id);
+        // Ambil data no tabungan berdasarkan ID
+        $noTabungan = NoTabungan::find($id);
 
-        // Hapus nasabah tersebut
-        $nasabah->delete();
+        // Hapus no tabungan, beserta data kas
+        $noTabungan->kas()->delete();
+        $noTabungan->delete();
 
-        // Redirect ke halaman utama nasabah
-        return redirect()->route('halamanUtamaNasabah')->with('success', 'Berhasil menghapus data nasabah.');
+        // Redirect ke halaman utama no tabungan
+        return redirect()->route('halamanUtamaNoTabunga')->with('success', 'Berhasil menghapus data no tabungan.');
+    }
+
+    /**
+     * KELOLA KAS SIMPANAN
+     */
+
+    public function halamanUtamaKasSimpanan()
+    {
+        // Ambil semua data kas yang ingin ditampilkan
+        $data['kas'] = Kas::all();
+
+        // Redirect ke halaman kas, beserta dengan data kas 
+        return view('kas.halaman-utama-kas')->with($data);
+    }
+
+    public function halamanTambahKasSimpanan()
+    {
+        // Ambil seluruh data tabungan
+        $data['noTabungan'] = NoTabungan::with(['nasabah'])->orderBy('no_tabungan')->get();
+
+        // Redirect ke halaman tambah no tabungan
+        return view('kas.halaman-tambah-kas')->with($data);
+    }
+
+    public function prosesTambahKasSimpanan(Request $form)
+    {
+        // Ambil data kas dari form
+        $dataKas = [
+            'id_tabungan' => $form->id_tabungan,
+            'nominal' => $form->nominal,
+            'total' => $form->nominal,
+            'tanggal' => now(),
+        ];
+
+        // Insert data kas simpanan ke database
+        Kas::create($dataKas);
+
+        // Redirect ke halaman utama kas simpanan
+        return redirect()->route('halamanUtamaKasSimpanan')->with('success', 'Berhasil menambah data kas simpanan.');
+    }
+
+    public function halamanDetailKasSimpanan($id)
+    {
+        // Ambil data kas, beserta dengan data tabungannya
+        $data['kas'] = Kas::with(['tabungan'])->find($id);
+
+        // Redirect ke halaman detail kas
+        return view('kas.halaman-detail-kas')->with($data);
+    }
+
+    public function prosesHapusKasSimpanan($id)
+    {
+        // Ambil data no tabungan berdasarkan ID
+        $noTabungan = NoTabungan::find($id);
+
+        // Hapus no tabungan, beserta data kas
+        $noTabungan->kas()->delete();
+        $noTabungan->delete();
+
+        // Redirect ke halaman utama no tabungan
+        return redirect()->route('halamanUtamaNoTabunga')->with('success', 'Berhasil menghapus data no tabungan.');
     }
 }

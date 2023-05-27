@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 
 @php
-    $sidebarDirektur = 'active-page';
+    $sidebarSimpanan = 'active-page';
+    $sidebarNoTabungan = 'fw-bold';
 @endphp
 
 @section('content')
@@ -9,64 +10,75 @@
         <div class="row">
             <div class="col">
                 <div class="page-description">
-                    <h1>Detail Direktur</h1>
+                    <h1>No Tabungan</h1>
                 </div>
             </div>
         </div>
         <div class="row card">
             <div class="col card-body">
                 <form>
-                    {{-- Info username --}}
+                    {{-- Info no tabungan --}}
                     <div class="row mb-3">
-                        <label for="username" class="col-sm-2 col-form-label">Username</label>
+                        <label for="no-tabungan" class="col-sm-2 col-form-label">No Tabungan</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="username" value="{{ $direktur->username }}" disabled>
+                            <input type="text" class="form-control" id="no-tabungan" value="{{ $noTabungan->no_tabungan }}" disabled>
                         </div>
                     </div>
 
-                    {{-- Info nama --}}
+                    {{-- Info nama nasabah --}}
                     <div class="row mb-3">
-                        <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                        <label for="nama" class="col-sm-2 col-form-label">Nama Nasabah</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nama" value="{{ $direktur->nama }}" disabled>
+                            <input type="text" class="form-control" id="nama" value="{{ $noTabungan->nasabah->nama }}" disabled>
                         </div>
                     </div>
 
-                    {{-- Info nomor telepon --}}
+                    <hr class="d-block my-5">
+
+                    {{-- Info total kas --}}
                     <div class="row mb-3">
-                        <label for="no_tlp" class="col-sm-2 col-form-label">Nomor Telepon</label>
+                        <label for="total-kas" class="col-sm-2 col-form-label">Total Kas</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="no_tlp" value="{{ $direktur->no_tlp }}" disabled>
+                            <input type="text" class="form-control" id="total-kas" value="{{ number_to_idr($noTabungan->kas()->sum('nominal')) }}" disabled>
                         </div>
                     </div>
 
-                    {{-- Info alamat --}}
-                    <div class="row mb-3">
-                        <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
-                        <div class="col-sm-10">
-                            <textarea type="text" class="form-control" id="alamat" disabled>{{ $direktur->alamat }}</textarea>
+                    {{-- Info riwayat tabungan --}}
+                    @if ($noTabungan->kas)
+                        <div class="row mb-3">
+                            <label for="total-kas" class="col-sm-2 col-form-label">Riwayat Simpanan</label>
+                            <div class="col-sm-10">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nominal</th>
+                                            <th>Tanggal Simpan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($noTabungan->kas as $kas)
+                                            <tr>
+                                                <td>{{ $loop->index + 1 }}</td>
+                                                <td>{{ $kas->nominal }}</td>
+                                                <td>{{ human_datetime_format($kas->tanggal) }} ({{ human_datetime_diff($kas->tanggal) }})</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="3">
+                                                    <h6 class="text-center">Data tidak tersedia.</h6>
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-
-                    {{-- Info email --}}
-                    <div class="row mb-3">
-                        <label for="email" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="email" value="{{ $direktur->email }}" disabled>
-                        </div>
-                    </div>
-
-                    {{-- Info jenis kelamin --}}
-                    <div class="row mb-3">
-                        <label for="jenis_kelamin" class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="jenis_kelamin" value="{{ $direktur->jenis_kelamin }}" disabled>
-                        </div>
-                    </div>
+                    @endif
 
                     {{-- Tombol --}}
                     <div class="mt-5">
-                        <a href="{{ route('halamanUtamaDirektur') }}" class="btn btn-light">
+                        <a href="{{ route('halamanUtamaNoTabungan') }}" class="btn btn-light">
                             <i class="fa-solid fa-arrow-left"></i> Kembali
                         </a>
                     </div>

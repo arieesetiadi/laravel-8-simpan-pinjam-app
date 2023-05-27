@@ -23,7 +23,7 @@ class NoTabungan extends Model
 
     public function kas()
     {
-        return $this->hasOne(Kas::class, 'id_tabungan', 'id_tabungan');
+        return $this->hasMany(Kas::class, 'id_tabungan', 'id_tabungan')->orderByDesc('tanggal');
     }
 
     // Methods

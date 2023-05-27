@@ -53,8 +53,8 @@ if (!function_exists('user')) {
  * @param boolean $translate
  * @return string $date
  */
-if (!function_exists('humanDateFormat')) {
-    function humanDateFormat($date, $translate = false)
+if (!function_exists('human_date_format')) {
+    function human_date_format($date, $translate = false)
     {
         if (!$translate && locale() !== 'en') {
             $translate = true;
@@ -76,8 +76,8 @@ if (!function_exists('humanDateFormat')) {
  * @param boolean $translate
  * @return string $time
  */
-if (!function_exists('humanTimeFormat')) {
-    function humanTimeFormat($date, $translate = false)
+if (!function_exists('human_time_format')) {
+    function human_time_format($date, $translate = false)
     {
         if (!$translate && locale() !== 'en') {
             $translate = true;
@@ -99,8 +99,8 @@ if (!function_exists('humanTimeFormat')) {
  * @param boolean $translate
  * @return string $datetime
  */
-if (!function_exists('humanDatetimeFormat')) {
-    function humanDatetimeFormat($date, $translate = false)
+if (!function_exists('human_datetime_format')) {
+    function human_datetime_format($date, $translate = false)
     {
         if (!$translate && locale() !== 'en') {
             $translate = true;
@@ -122,8 +122,8 @@ if (!function_exists('humanDatetimeFormat')) {
  * @param boolean $translate
  * @return string $date
  */
-if (!function_exists('humanDatetimeDiff')) {
-    function humanDatetimeDiff($date, $locale = null)
+if (!function_exists('human_datetime_diff')) {
+    function human_datetime_diff($date, $locale = null)
     {
         $carbon = Carbon::make($date);
         $carbon->setLocale($locale);
@@ -153,4 +153,45 @@ if (!function_exists('month_to_roman')) {
 
         return $romans[$month] ?? '';
     }
+}
+
+/**
+ * Convert general number to romans number.
+ * 
+ * @param int $number
+ * @return string $result
+ */
+function number_to_roman($number)
+{
+    $romans = [
+        'M' => 1000,
+        'CM' => 900,
+        'D' => 500,
+        'CD' => 400,
+        'C' => 100,
+        'XC' => 90,
+        'L' => 50,
+        'XL' => 40,
+        'X' => 10,
+        'IX' => 9,
+        'V' => 5,
+        'IV' => 4,
+        'I' => 1
+    ];
+
+    $result = '';
+
+    foreach ($romans as $roman => $value) {
+        $count = intval($number / $value);
+        $result .= str_repeat($roman, $count);
+        $number = $number % $value;
+    }
+
+    return $result;
+}
+
+
+function number_to_idr($amount)
+{
+    return 'Rp. ' . number_format($amount, 0, ',', '.');
 }
