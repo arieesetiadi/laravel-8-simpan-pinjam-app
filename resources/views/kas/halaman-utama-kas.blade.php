@@ -35,6 +35,7 @@
                             <th>Aksi</th>
                             <th>#</th>
                             <th>No Tabungan</th>
+                            <th>Nama Nasabah</th>
                             <th>Nominal</th>
                             <th>Tanggal Simpan</th>
                         </tr>
@@ -45,12 +46,14 @@
                             <tr>
                                 <td class="d-flex gap-3">
                                     {{-- Tombol detail --}}
-                                    <a href="{{ route('halamanDetailKasSimpanan', $k->id_tabungan) }}" title="Detail Kas Simpanan">
+                                    <a href="{{ route('halamanDetailKasSimpanan', $k->id_tabungan) }}"
+                                        title="Detail Kas Simpanan">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
                                 </td>
                                 <td>{{ $i + 1 }}</td>
                                 <td>{{ $k->tabungan->no_tabungan }}</td>
+                                <td>{{ $k->tabungan->nasabah->nama }}</td>
                                 <td>{{ number_to_idr($k->nominal) }}</td>
                                 <td>{{ human_datetime_format($k->tanggal) }}</td>
                             </tr>

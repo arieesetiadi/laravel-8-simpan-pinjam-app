@@ -11,19 +11,23 @@
 
     <!-- Styles -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
     <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/pace/pace.css') }}" rel="stylesheet">
 
     <!-- Theme Styles -->
-    <link href="{{ asset('css/main.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/neptune.png') }}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/neptune.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/bumdes.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/bumdes.png') }}" />
 
     <!-- Title -->
     <title>Login - Aplikasi Simpan Pinjam</title>
@@ -50,15 +54,18 @@
                     <h6 class="mb-3">Login sebagai:</h6>
                     <div class="form-group">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="guard" value="pegawai" id="pegawai" checked>
+                            <input class="form-check-input" type="radio" name="guard" value="pegawai" id="pegawai"
+                                checked>
                             <label class="form-check-label" for="pegawai">Pegawai</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="guard" value="pengawas" id="pengawas">
+                            <input class="form-check-input" type="radio" name="guard" value="pengawas"
+                                id="pengawas">
                             <label class="form-check-label" for="pengawas">Pengawas</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="guard" value="direktur" id="direktur">
+                            <input class="form-check-input" type="radio" name="guard" value="direktur"
+                                id="direktur">
                             <label class="form-check-label" for="direktur">Direktur</label>
                         </div>
                     </div>
@@ -66,10 +73,12 @@
 
                 <div class="auth-credentials m-b-xxl">
                     <label for="username" class="form-label">Username</label>
-                    <input name="username" type="text" class="form-control m-b-md" id="username" placeholder="Username" required>
+                    <input name="username" type="text" class="form-control m-b-md" id="username"
+                        placeholder="Username" required>
 
                     <label for="password" class="form-label">Password</label>
-                    <input name="password" type="password" class="form-control" id="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
+                    <input name="password" type="password" class="form-control" id="password"
+                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
                 </div>
 
                 <div class="auth-submit">

@@ -23,7 +23,8 @@
                     <div class="row mb-3">
                         <label for="username" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-10">
-                            <input name="username" type="text" class="form-control" id="username" value="{{ user()->username }}" required>
+                            <input name="username" type="text" class="form-control" id="username"
+                                value="{{ user()->username }}" required>
                         </div>
                     </div>
 
@@ -31,7 +32,8 @@
                     <div class="row mb-3">
                         <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                            <input name="nama" type="text" class="form-control" id="nama" value="{{ user()->nama }}" required>
+                            <input name="nama" type="text" class="form-control" id="nama"
+                                value="{{ user()->nama }}" required>
                         </div>
                     </div>
 
@@ -39,7 +41,8 @@
                     <div class="row mb-3">
                         <label for="no_tlp" class="col-sm-2 col-form-label">Nomor Telepon</label>
                         <div class="col-sm-10">
-                            <input name="no_tlp" type="text" class="form-control" id="no_tlp" value="{{ user()->no_tlp }}" required>
+                            <input name="no_tlp" type="text" class="form-control" id="no_tlp"
+                                value="{{ user()->no_tlp }}" required>
                         </div>
                     </div>
 
@@ -63,7 +66,8 @@
                     <div class="row mb-3">
                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input name="email" type="text" class="form-control" id="email" value="{{ user()->email }}" required>
+                            <input name="email" type="email" class="form-control" id="email"
+                                value="{{ user()->email }}" required>
                         </div>
                     </div>
 
@@ -72,11 +76,13 @@
                         <legend class="col-form-label col-sm-2 pt-0">Jenis Kelamin</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_1" value="Pria" {{ user()->jenis_kelamin == 'Pria' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_1"
+                                    value="Pria" {{ user()->jenis_kelamin == 'Pria' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="jenis_kelamin_1">Pria</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_2" value="Wanita" {{ user()->jenis_kelamin == 'Wanita' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_2"
+                                    value="Wanita" {{ user()->jenis_kelamin == 'Wanita' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="jenis_kelamin_2">Wanita</label>
                             </div>
                         </div>

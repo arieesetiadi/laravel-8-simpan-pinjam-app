@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col">
                 <div class="page-description">
-                    <h1>No Tabungan</h1>
+                    <h1>Tambah No Tabungan</h1>
                 </div>
             </div>
         </div>
@@ -23,7 +23,8 @@
                     <div class="row mb-3">
                         <label for="no_tabungan" class="col-sm-2 col-form-label">No Tabungan</label>
                         <div class="col-sm-10">
-                            <input name="no_tabungan" type="text" class="form-control" id="no_tabungan" required value="{{ old('no_tabungan', $noTabungan) }}" readonly>
+                            <input name="no_tabungan" type="text" class="form-control" id="no_tabungan" required
+                                value="{{ old('no_tabungan', $noTabungan) }}" readonly>
                         </div>
                     </div>
 
@@ -31,7 +32,8 @@
                     <div class="row mb-3">
                         <label for="id_nasabah" class="col-sm-2 col-form-label">Nasabah</label>
                         <div class="col-sm-10">
-                            <select id="id_nasabah" name="id_nasabah" class="form-select select-2" aria-label="Pilih Nasabah">
+                            <select id="id_nasabah" name="id_nasabah" class="form-select select-2"
+                                aria-label="Pilih Nasabah">
                                 <option selected hidden disabled>Pilih Nasabah</option>
                                 @foreach ($nasabah as $n)
                                     <option value="{{ $n->id_nasabah }}">

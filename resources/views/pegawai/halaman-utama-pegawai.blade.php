@@ -36,7 +36,7 @@
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Telepon</th>
-                            <th>Jabatan</th>
+                            <th>Email</th>
                             <th>Jenis Kelamin</th>
                         </tr>
                     </thead>
@@ -57,11 +57,13 @@
 
                                     {{-- Tombol hapus --}}
                                     @if ($p == user())
-                                        <a href="#" title="Hapus Pegawai" onclick="return alert('Data pegawai yang sedang anda gunakan tidak dapat dihapus dari sistem')">
+                                        <a href="#" title="Hapus Pegawai"
+                                            onclick="return alert('Data pegawai yang sedang anda gunakan tidak dapat dihapus dari sistem')">
                                             <i class="fa-solid fa-trash text-danger"></i>
                                         </a>
                                     @else
-                                        <a href="{{ route('prosesHapusPegawai', $p->id_pegawai) }}" title="Hapus Pegawai" onclick="return confirm('Data pegawai akan dihapus dari sistem')">
+                                        <a href="{{ route('prosesHapusPegawai', $p->id_pegawai) }}" title="Hapus Pegawai"
+                                            onclick="return confirm('Data pegawai akan dihapus dari sistem')">
                                             <i class="fa-solid fa-trash text-danger"></i>
                                         </a>
                                     @endif
@@ -70,7 +72,7 @@
                                 <td>{{ $p->nama }}</td>
                                 <td>{{ $p->username }}</td>
                                 <td>{{ $p->no_tlp }}</td>
-                                <td>{{ $p->jabatan }}</td>
+                                <td>{{ $p->email }}</td>
                                 <td>{{ $p->jenis_kelamin }}</td>
                             </tr>
                         @empty

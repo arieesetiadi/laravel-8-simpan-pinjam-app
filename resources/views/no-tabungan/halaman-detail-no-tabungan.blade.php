@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col">
                 <div class="page-description">
-                    <h1>No Tabungan</h1>
+                    <h1>Detail No Tabungan</h1>
                 </div>
             </div>
         </div>
@@ -21,7 +21,8 @@
                     <div class="row mb-3">
                         <label for="no-tabungan" class="col-sm-2 col-form-label">No Tabungan</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="no-tabungan" value="{{ $noTabungan->no_tabungan }}" disabled>
+                            <input type="text" class="form-control" id="no-tabungan"
+                                value="{{ $noTabungan->no_tabungan }}" disabled>
                         </div>
                     </div>
 
@@ -29,7 +30,8 @@
                     <div class="row mb-3">
                         <label for="nama" class="col-sm-2 col-form-label">Nama Nasabah</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nama" value="{{ $noTabungan->nasabah->nama }}" disabled>
+                            <input type="text" class="form-control" id="nama"
+                                value="{{ $noTabungan->nasabah->nama }}" disabled>
                         </div>
                     </div>
 
@@ -39,7 +41,8 @@
                     <div class="row mb-3">
                         <label for="total-kas" class="col-sm-2 col-form-label">Total Kas</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="total-kas" value="{{ number_to_idr($noTabungan->kas()->sum('nominal')) }}" disabled>
+                            <input type="text" class="form-control" id="total-kas"
+                                value="{{ number_to_idr($noTabungan->kas()->sum('nominal')) }}" disabled>
                         </div>
                     </div>
 
@@ -61,7 +64,9 @@
                                             <tr>
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{ $kas->nominal }}</td>
-                                                <td>{{ human_datetime_format($kas->tanggal) }} ({{ human_datetime_diff($kas->tanggal) }})</td>
+                                                <td>{{ human_datetime_format($kas->tanggal) }}
+                                                    ({{ human_datetime_diff($kas->tanggal) }})
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr>

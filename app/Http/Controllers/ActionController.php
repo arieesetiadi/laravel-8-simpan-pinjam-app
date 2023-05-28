@@ -60,6 +60,8 @@ class ActionController extends Controller
     {
         // Siapkan data untuk tampilan dashboard
         $data = [
+            'totalSimpanan' => Kas::sum('nominal'),
+            'totalPinjaman' => 0,
             'jumlahPengawas' => Pengawas::count(),
             'jumlahPegawai' => Pegawai::count(),
             'jumlahDirektur' => Direktur::count(),
@@ -124,7 +126,7 @@ class ActionController extends Controller
         // Ambil semua data pengawas yang ingin ditampilkan
         $data['pengawas'] = Pengawas::all();
 
-        // Redirect ke halaman pengawas, beserta dengan data pengawas 
+        // Redirect ke halaman pengawas, beserta dengan data pengawas
         return view('pengawas.halaman-utama-pengawas')->with($data);
     }
 
@@ -169,7 +171,7 @@ class ActionController extends Controller
         // Ambil data pengawas yang ingin diubah, ambil berdasarkan ID
         $data['pengawas'] = Pengawas::find($id);
 
-        // Redirect ke halaman ubah pengawas, beserta dengan data pengawas 
+        // Redirect ke halaman ubah pengawas, beserta dengan data pengawas
         return view('pengawas.halaman-ubah-pengawas')->with($data);
     }
 
@@ -217,7 +219,7 @@ class ActionController extends Controller
         // Ambil semua data pegawai yang ingin ditampilkan
         $data['pegawai'] = Pegawai::all();
 
-        // Redirect ke halaman pegawai, beserta dengan data pegawai 
+        // Redirect ke halaman pegawai, beserta dengan data pegawai
         return view('pegawai.halaman-utama-pegawai')->with($data);
     }
 
@@ -261,7 +263,7 @@ class ActionController extends Controller
         // Ambil data pegawai yang ingin diubah, ambil berdasarkan ID
         $data['pegawai'] = Pegawai::find($id);
 
-        // Redirect ke halaman ubah pegawai, beserta dengan data pegawai 
+        // Redirect ke halaman ubah pegawai, beserta dengan data pegawai
         return view('pegawai.halaman-ubah-pegawai')->with($data);
     }
 
@@ -309,7 +311,7 @@ class ActionController extends Controller
         // Ambil semua data direktur yang ingin ditampilkan
         $data['direktur'] = Direktur::all();
 
-        // Redirect ke halaman direktur, beserta dengan data direktur 
+        // Redirect ke halaman direktur, beserta dengan data direktur
         return view('direktur.halaman-utama-direktur')->with($data);
     }
 
@@ -353,7 +355,7 @@ class ActionController extends Controller
         // Ambil data direktur yang ingin diubah, ambil berdasarkan ID
         $data['direktur'] = Direktur::find($id);
 
-        // Redirect ke halaman ubah direktur, beserta dengan data direktur 
+        // Redirect ke halaman ubah direktur, beserta dengan data direktur
         return view('direktur.halaman-ubah-direktur')->with($data);
     }
 
@@ -401,7 +403,7 @@ class ActionController extends Controller
         // Ambil semua data nasabah yang ingin ditampilkan
         $data['nasabah'] = Nasabah::all();
 
-        // Redirect ke halaman nasabah, beserta dengan data nasabah 
+        // Redirect ke halaman nasabah, beserta dengan data nasabah
         return view('nasabah.halaman-utama-nasabah')->with($data);
     }
 
@@ -444,7 +446,7 @@ class ActionController extends Controller
         // Ambil data nasabah yang ingin diubah, ambil berdasarkan ID
         $data['nasabah'] = Nasabah::find($id);
 
-        // Redirect ke halaman ubah nasabah, beserta dengan data nasabah 
+        // Redirect ke halaman ubah nasabah, beserta dengan data nasabah
         return view('nasabah.halaman-ubah-nasabah')->with($data);
     }
 
@@ -489,7 +491,7 @@ class ActionController extends Controller
         // Ambil semua data no tabungan yang ingin ditampilkan
         $data['noTabungan'] = NoTabungan::all();
 
-        // Redirect ke halaman no tabungan, beserta dengan data no tabungan 
+        // Redirect ke halaman no tabungan, beserta dengan data no tabungan
         return view('no-tabungan.halaman-utama-no-tabungan')->with($data);
     }
 
@@ -533,11 +535,11 @@ class ActionController extends Controller
         $noTabungan = NoTabungan::find($id);
 
         // Hapus no tabungan, beserta data kas
-        $noTabungan->kas()->delete();
+        $noTabungan->kas()?->delete();
         $noTabungan->delete();
 
         // Redirect ke halaman utama no tabungan
-        return redirect()->route('halamanUtamaNoTabunga')->with('success', 'Berhasil menghapus data no tabungan.');
+        return redirect()->route('halamanUtamaNoTabungan')->with('success', 'Berhasil menghapus data no tabungan.');
     }
 
     /**
@@ -549,7 +551,7 @@ class ActionController extends Controller
         // Ambil semua data kas yang ingin ditampilkan
         $data['kas'] = Kas::all();
 
-        // Redirect ke halaman kas, beserta dengan data kas 
+        // Redirect ke halaman kas, beserta dengan data kas
         return view('kas.halaman-utama-kas')->with($data);
     }
 
@@ -586,18 +588,5 @@ class ActionController extends Controller
 
         // Redirect ke halaman detail kas
         return view('kas.halaman-detail-kas')->with($data);
-    }
-
-    public function prosesHapusKasSimpanan($id)
-    {
-        // Ambil data no tabungan berdasarkan ID
-        $noTabungan = NoTabungan::find($id);
-
-        // Hapus no tabungan, beserta data kas
-        $noTabungan->kas()->delete();
-        $noTabungan->delete();
-
-        // Redirect ke halaman utama no tabungan
-        return redirect()->route('halamanUtamaNoTabunga')->with('success', 'Berhasil menghapus data no tabungan.');
     }
 }

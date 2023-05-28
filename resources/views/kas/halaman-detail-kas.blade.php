@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col">
                 <div class="page-description">
-                    <h1>Kas Simpanan</h1>
+                    <h1>Detail Kas Simpanan</h1>
                 </div>
             </div>
         </div>
@@ -26,7 +26,8 @@
                             </a>
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="no-tabungan" value="{{ $kas->tabungan->no_tabungan }}" disabled>
+                            <input type="text" class="form-control" id="no-tabungan"
+                                value="{{ $kas->tabungan->no_tabungan }}" disabled>
                         </div>
                     </div>
 
@@ -34,12 +35,14 @@
                     <div class="row mb-3">
                         <label for="nama" class="col-sm-2 col-form-label">
                             Nama Nasabah
-                            <a href="{{ route('halamanDetailNasabah', $kas->tabungan->nasabah->id_nasabah) }}" target="_blank">
+                            <a href="{{ route('halamanDetailNasabah', $kas->tabungan->nasabah->id_nasabah) }}"
+                                target="_blank">
                                 Detail
                             </a>
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nama" value="{{ $kas->tabungan->nasabah->nama }}" disabled>
+                            <input type="text" class="form-control" id="nama"
+                                value="{{ $kas->tabungan->nasabah->nama }}" disabled>
                         </div>
                     </div>
 
@@ -49,7 +52,8 @@
                     <div class="row mb-3">
                         <label for="nominal" class="col-sm-2 col-form-label">Nominal</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nominal" value="{{ number_to_idr($kas->nominal) }}" disabled>
+                            <input type="text" class="form-control" id="nominal"
+                                value="{{ number_to_idr($kas->nominal) }}" disabled>
                         </div>
                     </div>
 
@@ -57,7 +61,8 @@
                     <div class="row mb-3">
                         <label for="tanggal" class="col-sm-2 col-form-label">Tanggal Simpan</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="tanggal" value="{{ human_datetime_format($kas->tanggal) }}" disabled>
+                            <input type="text" class="form-control" id="tanggal"
+                                value="{{ human_datetime_format($kas->tanggal) }}" disabled>
                         </div>
                     </div>
 

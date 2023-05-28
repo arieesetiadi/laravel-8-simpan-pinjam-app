@@ -14,11 +14,41 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-3">
+            <div class="col-xl-6">
                 <div class="card widget widget-stats">
                     <div class="card-body">
                         <div class="widget-stats-container d-flex">
                             <div class="widget-stats-icon widget-stats-icon-primary">
+                                <i class="material-icons-outlined">paid</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title">Total Simpanan</span>
+                                <span class="widget-stats-amount">{{ number_to_idr($totalSimpanan) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-danger">
+                                <i class="material-icons-outlined">paid</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title">Total Pinjaman</span>
+                                <span class="widget-stats-amount">{{ number_to_idr($totalPinjaman) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon">
                                 <i class="material-icons-outlined">person</i>
                             </div>
                             <div class="widget-stats-content flex-fill">
@@ -33,7 +63,7 @@
                 <div class="card widget widget-stats">
                     <div class="card-body">
                         <div class="widget-stats-container d-flex">
-                            <div class="widget-stats-icon widget-stats-icon-warning">
+                            <div class="widget-stats-icon">
                                 <i class="material-icons-outlined">person</i>
                             </div>
                             <div class="widget-stats-content flex-fill">
@@ -48,7 +78,7 @@
                 <div class="card widget widget-stats">
                     <div class="card-body">
                         <div class="widget-stats-container d-flex">
-                            <div class="widget-stats-icon widget-stats-icon-success">
+                            <div class="widget-stats-icon">
                                 <i class="material-icons-outlined">person</i>
                             </div>
                             <div class="widget-stats-content flex-fill">
@@ -63,7 +93,7 @@
                 <div class="card widget widget-stats">
                     <div class="card-body">
                         <div class="widget-stats-container d-flex">
-                            <div class="widget-stats-icon widget-stats-icon-danger">
+                            <div class="widget-stats-icon">
                                 <i class="material-icons-outlined">person</i>
                             </div>
                             <div class="widget-stats-content flex-fill">

@@ -11,24 +11,29 @@
 
     <!-- Styles -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
     <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/pace/pace.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 
     <!-- Theme Styles -->
-    <link href="{{ asset('css/main.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/neptune.png') }}" />
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/neptune.png') }}" />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {{-- Select 2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -61,7 +66,8 @@
 
                     {{-- <li class="active-page"> --}}
                     <li class="{{ $sidebarDashboard ?? '' }}">
-                        <a href="{{ route('halamanDashboard') }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
+                        <a href="{{ route('halamanDashboard') }}"><i
+                                class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
 
                     <li class="sidebar-title {{ !role('pegawai') ? 'd-none' : '' }}">
@@ -69,16 +75,20 @@
                     </li>
 
                     <li class="{{ $sidebarPengawas ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="{{ route('halamanUtamaPengawas') }}"><i class="material-icons-two-tone">account_circle</i>Pengawas</a>
+                        <a href="{{ route('halamanUtamaPengawas') }}"><i
+                                class="material-icons-two-tone">account_circle</i>Pengawas</a>
                     </li>
                     <li class="{{ $sidebarPegawai ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="{{ route('halamanUtamaPegawai') }}"><i class="material-icons-two-tone">account_circle</i>Pegawai</a>
+                        <a href="{{ route('halamanUtamaPegawai') }}"><i
+                                class="material-icons-two-tone">account_circle</i>Pegawai</a>
                     </li>
                     <li class="{{ $sidebarDirektur ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="{{ route('halamanUtamaDirektur') }}"><i class="material-icons-two-tone">account_circle</i>Direktur</a>
+                        <a href="{{ route('halamanUtamaDirektur') }}"><i
+                                class="material-icons-two-tone">account_circle</i>Direktur</a>
                     </li>
                     <li class="{{ $sidebarNasabah ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="{{ route('halamanUtamaNasabah') }}"><i class="material-icons-two-tone">account_circle</i>Nasabah</a>
+                        <a href="{{ route('halamanUtamaNasabah') }}"><i
+                                class="material-icons-two-tone">account_circle</i>Nasabah</a>
                     </li>
 
                     <li class="sidebar-title {{ !role('pegawai') ? 'd-none' : '' }}">
@@ -86,7 +96,8 @@
                     </li>
 
                     <li class="{{ $sidebarSimpanan ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="#"><i class="material-icons-two-tone">view_list</i>Simpanan<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                        <a href="#"><i class="material-icons-two-tone">view_list</i>Simpanan<i
+                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                         <ul class="sub-menu">
                             <li class="{{ $sidebarNoTabungan ?? '' }}">
                                 <a href="{{ route('halamanUtamaNoTabungan') }}">No Tabungan</a>
@@ -97,8 +108,9 @@
                         </ul>
                     </li>
 
-                    <li class="{{ $sidebarPinjaman ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
-                        <a href="#"><i class="material-icons-two-tone">list_alt</i>Pinjaman<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                    {{-- <li class="{{ $sidebarPinjaman ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                        <a href="#"><i class="material-icons-two-tone">list_alt</i>Pinjaman<i
+                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                         <ul class="sub-menu">
                             <li class="{{ $sidebarNoPinjaman ?? '' }}">
                                 <a href="sign-in.html">No Pinjaman</a>
@@ -107,14 +119,15 @@
                                 <a href="sign-in.html">Other Menu</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <li class="sidebar-title">
                         Lainnya
                     </li>
 
                     <li>
-                        <a href="{{ route('prosesLogout') }}"><i class="material-icons text-dark">indeterminate_check_box</i>Logout</a>
+                        <a href="{{ route('prosesLogout') }}"><i
+                                class="material-icons text-dark">indeterminate_check_box</i>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -132,7 +145,8 @@
                         <div class="navbar-nav" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link hide-sidebar-toggle-button" href="#"><i class="material-icons">first_page</i></a>
+                                    <a class="nav-link hide-sidebar-toggle-button" href="#"><i
+                                            class="material-icons">first_page</i></a>
                                 </li>
                             </ul>
                         </div>
