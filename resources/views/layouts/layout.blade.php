@@ -27,8 +27,8 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/neptune.png') }}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/neptune.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/bumdes.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/bumdes.png') }}" />
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"

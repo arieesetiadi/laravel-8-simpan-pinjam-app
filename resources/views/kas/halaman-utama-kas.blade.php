@@ -55,7 +55,7 @@
                                 <td>{{ $k->tabungan->no_tabungan }}</td>
                                 <td>{{ $k->tabungan->nasabah->nama }}</td>
                                 <td>{{ number_to_idr($k->nominal) }}</td>
-                                <td>{{ human_datetime_format($k->tanggal) }}</td>
+                                <td>{{ human_datetime_format($k->tanggal) }} ({{ human_datetime_diff($k->tanggal) }})</td>
                             </tr>
                         @empty
                             <tr>
