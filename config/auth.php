@@ -48,9 +48,9 @@ return [
             'driver' => 'session',
             'provider' => 'pengawas',
         ],
-        'tim_verifikasi' => [
+        'direktur' => [
             'driver' => 'session',
-            'provider' => 'tim_verifikasi',
+            'provider' => 'direktur',
         ],
         'api' => [
             'driver' => 'token',
@@ -89,9 +89,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Pegawai::class,
         ],
-        'tim_verifikasi' => [
+        'direktur' => [
             'driver' => 'eloquent',
-            'model' => App\Models\TimVerifikasi::class,
+            'model' => App\Models\Direktur::class,
         ],
     ],
 

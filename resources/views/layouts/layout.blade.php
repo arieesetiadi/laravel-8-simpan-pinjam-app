@@ -91,11 +91,11 @@
                                 class="material-icons-two-tone">account_circle</i>Nasabah</a>
                     </li>
 
-                    <li class="sidebar-title {{ !role('pegawai') ? 'd-none' : '' }}">
+                    <li class="sidebar-title">
                         Simpan & Pinjam
                     </li>
 
-                    <li class="{{ $sidebarSimpanan ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                    <li class="{{ $sidebarSimpanan ?? '' }}">
                         <a href="#"><i class="material-icons-two-tone">view_list</i>Simpanan<i
                                 class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                         <ul class="sub-menu">
@@ -108,7 +108,7 @@
                         </ul>
                     </li>
 
-                    {{-- <li class="{{ $sidebarPinjaman ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                    {{-- <li class="{{ $sidebarPinjaman ?? '' }}">
                         <a href="#"><i class="material-icons-two-tone">list_alt</i>Pinjaman<i
                                 class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                         <ul class="sub-menu">

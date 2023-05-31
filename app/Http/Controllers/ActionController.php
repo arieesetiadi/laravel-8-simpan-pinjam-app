@@ -29,7 +29,7 @@ class ActionController extends Controller
         // Ambil username dan password dari form login
         $username = $form->username;
         $password = $form->password;
-
+        
         // Lakukan proses login dengan username dan password yang diinputkan
         $login = auth()->guard($guard)->attempt([
             'username' => $username,

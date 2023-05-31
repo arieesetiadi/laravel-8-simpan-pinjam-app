@@ -19,11 +19,15 @@
                     <div class="page-description-content flex-grow-1">
                         <h1>No Tabungan</h1>
                     </div>
-                    <div class="page-description-actions">
-                        <a href="{{ route('halamanTambahNoTabungan') }}" class="btn btn-primary">
-                            <i class="fa-solid fa-circle-plus"></i> Tambah No Tabungan
-                        </a>
-                    </div>
+
+                    {{-- Tampilkan tombol tambah hanya untuk pegawai --}}
+                    @if (role('pegawai'))
+                        <div class="page-description-actions">
+                            <a href="{{ route('halamanTambahNoTabungan') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-circle-plus"></i> Tambah No Tabungan
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -48,10 +52,12 @@
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
 
-                                    {{-- Tombol hapus --}}
-                                    <a href="{{ route('prosesHapusNoTabungan', $n->id_tabungan) }}" title="Hapus No Tabungan" onclick="return confirm('Data No Tabungan akan dihapus dari sistem')">
-                                        <i class="fa-solid fa-trash text-danger"></i>
-                                    </a>
+                                    @if (role('pegawai'))
+                                        {{-- Tombol hapus --}}
+                                        <a href="{{ route('prosesHapusNoTabungan', $n->id_tabungan) }}" title="Hapus No Tabungan" onclick="return confirm('Data No Tabungan akan dihapus dari sistem')">
+                                            <i class="fa-solid fa-trash text-danger"></i>
+                                        </a>
+                                    @endif
                                 </td>
                                 <td>{{ $i + 1 }}</td>
                                 <td>{{ $n->no_tabungan }}</td>

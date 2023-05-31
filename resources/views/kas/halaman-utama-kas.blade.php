@@ -19,11 +19,15 @@
                     <div class="page-description-content flex-grow-1">
                         <h1>Kas Simpanan</h1>
                     </div>
-                    <div class="page-description-actions">
-                        <a href="{{ route('halamanTambahKasSimpanan') }}" class="btn btn-primary">
-                            <i class="fa-solid fa-circle-plus"></i> Tambah Kas Simpanan
-                        </a>
-                    </div>
+
+                    {{-- Tampilkan tombol tambah hanya untuk pegawai --}}
+                    @if (role('pegawai'))
+                        <div class="page-description-actions">
+                            <a href="{{ route('halamanTambahKasSimpanan') }}" class="btn btn-primary">
+                                <i class="fa-solid fa-circle-plus"></i> Tambah Kas Simpanan
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -46,8 +50,7 @@
                             <tr>
                                 <td class="d-flex gap-3">
                                     {{-- Tombol detail --}}
-                                    <a href="{{ route('halamanDetailKasSimpanan', $k->id_tabungan) }}"
-                                        title="Detail Kas Simpanan">
+                                    <a href="{{ route('halamanDetailKasSimpanan', $k->id_tabungan) }}" title="Detail Kas Simpanan">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
                                 </td>
