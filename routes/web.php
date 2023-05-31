@@ -95,4 +95,25 @@ Route::controller(ActionController::class)->group(function () {
         Route::post('/tambah', 'prosesTambahKasSimpanan')->name('prosesTambahKasSimpanan');
         Route::get('/detail/{id}', 'halamanDetailKasSimpanan')->name('halamanDetailKasSimpanan');
     });
+
+    /**
+     * KELOLA NO PINJAMAN
+     */
+    Route::prefix('/no-pinjaman')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaNoPinjaman')->name('halamanUtamaNoPinjaman');
+        Route::get('/tambah', 'halamanTambahNoPinjaman')->name('halamanTambahNoPinjaman');
+        Route::post('/tambah', 'prosesTambahNoPinjaman')->name('prosesTambahNoPinjaman');
+        Route::get('/detail/{id}', 'halamanDetailNoPinjaman')->name('halamanDetailNoPinjaman');
+        Route::get('/hapus/{id}', 'prosesHapusNoPinjaman')->name('prosesHapusNoPinjaman');
+    });
+
+    /**
+     * KELOLA PINJAMAN
+     */
+    Route::prefix('/pinjaman')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaPinjaman')->name('halamanUtamaPinjaman');
+        Route::get('/tambah', 'halamanTambahPinjaman')->name('halamanTambahPinjaman');
+        Route::post('/tambah', 'prosesTambahPinjaman')->name('prosesTambahPinjaman');
+        Route::get('/detail/{id}', 'halamanDetailPinjaman')->name('halamanDetailPinjaman');
+    });
 });

@@ -7,6 +7,7 @@ use App\Models\Pegawai;
 use App\Models\Pengawas;
 use App\Models\Direktur;
 use App\Models\Kas;
+use App\Models\NoPinjaman;
 use App\Models\NoTabungan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +30,7 @@ class ActionController extends Controller
         // Ambil username dan password dari form login
         $username = $form->username;
         $password = $form->password;
-        
+
         // Lakukan proses login dengan username dan password yang diinputkan
         $login = auth()->guard($guard)->attempt([
             'username' => $username,
@@ -588,5 +589,64 @@ class ActionController extends Controller
 
         // Redirect ke halaman detail kas
         return view('kas.halaman-detail-kas')->with($data);
+    }
+
+    /**
+     * KELOLA NO PINJAMAN
+     */
+
+    public function halamanUtamaNoPinjaman()
+    {
+        // Ambil semua data no pinjaman yang ingin ditampilkan
+        $data['noPinjaman'] = NoPinjaman::all();
+
+        // Redirect ke halaman no pinjaman, beserta dengan data no pinjaman
+        return view('no-pinjaman.halaman-utama-no-pinjaman')->with($data);
+    }
+
+    public function halamanTambahNoPinjaman()
+    {
+        // Generate nomor pinjaman, otomatis oleh sistem
+        $data['noPinjaman'] = NoPinjaman::generateNoPinjaman();
+        $data['nasabah'] = Nasabah::all();
+
+        // Redirect ke halaman tambah no pinjaman
+        return view('no-pinjaman.halaman-tambah-no-pinjaman')->with($data);
+    }
+
+    public function prosesTambahNoPinjaman(Request $form)
+    {
+        // Ambil data nomor pinjaman dari form
+        $dataNoPinjaman = [
+            'no_pinjaman' => $form->no_pinjaman,
+            'id_nasabah' => $form->id_nasabah,
+        ];
+
+        // Insert data no pinjaman ke database
+        NoPinjaman::create($dataNoPinjaman);
+
+        // Redirect ke halaman utama no pinjaman
+        return redirect()->route('halamanUtamaNoPinjaman')->with('success', 'Berhasil menambah data no pinjaman.');
+    }
+
+    public function halamanDetailNoPinjaman($id)
+    {
+        // Ambil data no pinjaman, beserta dengan data nasabah dan kas
+        $data['noPinjaman'] = NoPinjaman::with(['nasabah'])->find($id);
+
+        // Redirect ke halaman detail no pinjaman
+        return view('no-pinjaman.halaman-detail-no-pinjaman')->with($data);
+    }
+
+    public function prosesHapusNoPinjaman($id)
+    {
+        // Ambil data no pinjaman berdasarkan ID
+        $noPinjaman = NoPinjaman::find($id);
+
+        // Hapus no pinjaman, beserta data kas
+        $noPinjaman->delete();
+
+        // Redirect ke halaman utama no pinjaman
+        return redirect()->route('halamanUtamaNoPinjaman')->with('success', 'Berhasil menghapus data no pinjaman.');
     }
 }
