@@ -19,4 +19,14 @@ class Kas extends Model
     {
         return $this->belongsTo(NoTabungan::class, 'id_tabungan', 'id_tabungan');
     }
+
+    // Methods
+    public static function getTotal()
+    {
+        $uangMasuk = self::where('jenis', 'Uang Masuk')->sum('total');
+        $uangKeluar = self::where('jenis', 'Uang Keluar')->sum('total');
+        $total = $uangMasuk - $uangKeluar;
+
+        return $total;
+    }
 }

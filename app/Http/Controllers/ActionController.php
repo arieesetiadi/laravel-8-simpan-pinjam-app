@@ -61,7 +61,7 @@ class ActionController extends Controller
     {
         // Siapkan data untuk tampilan dashboard
         $data = [
-            'totalSimpanan' => Kas::sum('nominal'),
+            'totalSimpanan' => Kas::getTotal(),
             'totalPinjaman' => 0,
             'jumlahPengawas' => Pengawas::count(),
             'jumlahPegawai' => Pegawai::count(),
@@ -550,7 +550,7 @@ class ActionController extends Controller
     public function halamanUtamaKasSimpanan()
     {
         // Ambil semua data kas yang ingin ditampilkan
-        $data['kas'] = Kas::all();
+        $data['kas'] = Kas::orderByDesc('tanggal')->get();
 
         // Redirect ke halaman kas, beserta dengan data kas
         return view('kas.halaman-utama-kas')->with($data);
@@ -594,20 +594,26 @@ class ActionController extends Controller
 
     public function prosesTarikKasSimpanan(Request $form)
     {
-        // Ambil data kas dari form
-        $dataKas = [
-            'id_tabungan' => $form->id_tabungan,
-            'jenis' => 'Uang Keluar',
-            'nominal' => $form->nominal,
-            'total' => $form->nominal,
-            'tanggal' => now(),
-        ];
+        // Check agar jumlah penarikan tidak melebihi jumlah saldo
+        if($form->saldo >= $form->nominal){
+            // Ambil data kas dari form
+            $dataKas = [
+                'id_tabungan' => $form->id_tabungan,
+                'jenis' => 'Uang Keluar',
+                'nominal' => $form->nominal,
+                'total' => $form->nominal,
+                'tanggal' => now(),
+            ];
+    
+            // Insert data kas simpanan ke database
+            Kas::create($dataKas);
+    
+            // Redirect ke halaman utama kas simpanan
+            return redirect()->route('halamanUtamaKasSimpanan')->with('success', 'Berhasil melakukan penarikan kas simpanan.');
+        } else {
+            return back()->with('failed', 'Jumlah penarikan tidak boleh melebihi saldo nasabah.')->withInput($form->all());
+        }
 
-        // Insert data kas simpanan ke database
-        Kas::create($dataKas);
-
-        // Redirect ke halaman utama kas simpanan
-        return redirect()->route('halamanUtamaKasSimpanan')->with('success', 'Berhasil melakukan penarikan kas simpanan.');
     }
 
     public function halamanDetailKasSimpanan($id)

@@ -47,7 +47,7 @@
                             <th>Nama Nasabah</th>
                             <th>Nominal</th>
                             <th>Jenis</th>
-                            <th>Tanggal Simpan</th>
+                            <th>Tanggal</th>
                         </tr>
                     </thead>
 

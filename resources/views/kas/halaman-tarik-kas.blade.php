@@ -8,7 +8,13 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
+                {{-- Tampilkan jika ada pesan sukses --}}
+                @if (session('failed'))
+                    <div class="alert alert-danger" role="alert">{{ session('failed') }}</div>
+                @endif
+            </div>
+            <div class="col-12">
                 <div class="page-description">
                     <h1>Tarik Kas Simpanan</h1>
                 </div>
@@ -16,7 +22,7 @@
         </div>
         <div class="row card">
             <div class="col card-body">
-                <form action="{{ route('prosesTambahKasSimpanan') }}" method="POST">
+                <form action="{{ route('prosesTarikKasSimpanan') }}" method="POST">
                     @csrf
                     {{-- Input no tabungan --}}
                     <div class="row mb-3">
@@ -25,7 +31,7 @@
                             <select id="id_tabungan" name="id_tabungan" class="form-select select-2" aria-label="Pilih Nomor Tabungan" required onchange="showInfoSaldo(event)">
                                 <option selected hidden disabled value="">Pilih Nomor Tabungan</option>
                                 @foreach ($noTabungan as $n)
-                                    <option value="{{ $n->id_tabungan }}" data-saldo="{{ $n->saldo }}">
+                                    <option value="{{ $n->id_tabungan }}" data-saldo="{{ $n->saldo }}" data-saldo-formatted="{{ number_to_idr($n->saldo) }}" {{ old('id_tabungan') == $n->id_tabungan ? 'selected' : '' }}>
                                         {{ $n->no_tabungan }} a.n. {{ $n->nasabah->nama }}
                                     </option>
                                 @endforeach
@@ -34,16 +40,17 @@
                     </div>
 
                     {{-- Info saldo --}}
-                    <div id="info-saldo" class="row mb-3 d-none">
-                        <label for="saldo" class="col-sm-2 col-form-label">Saldo Kas</label>
+                    <div id="info-saldo" class="row mb-3 {{ old('saldo') ? '' : 'd-none' }}">
+                        <label for="saldo-formatted" class="col-sm-2 col-form-label">Saldo Kas</label>
                         <div class="col-sm-10">
-                            <input name="saldo" type="text" min="0" class="form-control" id="saldo" disabled>
+                            <input name="saldo-formatted" type="text" class="form-control" id="saldo-formatted" value="{{ old('saldo-formatted') }}" readonly>
+                            <input name="saldo" type="hidden" min="0" class="form-control" id="saldo">
                         </div>
                     </div>
 
                     {{-- Input nominal --}}
                     <div class="row mb-3">
-                        <label for="nominal" class="col-sm-2 col-form-label">Nominal</label>
+                        <label for="nominal" class="col-sm-2 col-form-label">Nominal Penarikan</label>
                         <div class="col-sm-10">
                             <input name="nominal" type="number" min="0" class="form-control" id="nominal" required value="{{ old('nominal') }}" placeholder="Masukan nominal tarik kas" oninput="checkInfoSaldo(event)">
                         </div>
@@ -71,8 +78,10 @@
 
             const selected = $(event.target).find(':selected');
             const saldo = selected.data('saldo');
+            const saldoFormatted = selected.data('saldo-formatted');
 
             $('input#saldo').val(saldo);
+            $('input#saldo-formatted').val(saldoFormatted);
         }
 
         function checkInfoSaldo(event) {
@@ -80,7 +89,7 @@
 
             if (saldo && parseInt(event.target.value) > parseInt(saldo)) {
                 alert('Saldo nasabah tidak mencukupi.');
-                $(event.target).val(0);
+                $(event.target).val(saldo);
             }
         }
     </script>

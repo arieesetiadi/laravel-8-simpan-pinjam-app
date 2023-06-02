@@ -94,6 +94,7 @@ Route::controller(ActionController::class)->group(function () {
         Route::get('/tambah', 'halamanTambahKasSimpanan')->name('halamanTambahKasSimpanan');
         Route::get('/tarik', 'halamanTarikKasSimpanan')->name('halamanTarikKasSimpanan');
         Route::post('/tambah', 'prosesTambahKasSimpanan')->name('prosesTambahKasSimpanan');
+        Route::post('/tarik', 'prosesTarikKasSimpanan')->name('prosesTarikKasSimpanan');
         Route::get('/detail/{id}', 'halamanDetailKasSimpanan')->name('halamanDetailKasSimpanan');
     });
 
