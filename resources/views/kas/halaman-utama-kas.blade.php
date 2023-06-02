@@ -22,9 +22,14 @@
 
                     {{-- Tampilkan tombol tambah hanya untuk pegawai --}}
                     @if (role('pegawai'))
-                        <div class="page-description-actions">
+                        <div class="page-description-actions px-2">
                             <a href="{{ route('halamanTambahKasSimpanan') }}" class="btn btn-primary">
-                                <i class="fa-solid fa-circle-plus"></i> Tambah Kas Simpanan
+                                <i class="fa-solid fa-circle-plus"></i> Tabung
+                            </a>
+                        </div>
+                        <div class="page-description-actions">
+                            <a href="{{ route('halamanTarikKasSimpanan') }}" class="btn btn-danger">
+                                <i class="fa-solid fa-circle-minus"></i> Tarik
                             </a>
                         </div>
                     @endif
@@ -41,6 +46,7 @@
                             <th>No Tabungan</th>
                             <th>Nama Nasabah</th>
                             <th>Nominal</th>
+                            <th>Jenis</th>
                             <th>Tanggal Simpan</th>
                         </tr>
                     </thead>
@@ -58,6 +64,13 @@
                                 <td>{{ $k->tabungan->no_tabungan }}</td>
                                 <td>{{ $k->tabungan->nasabah->nama }}</td>
                                 <td>{{ number_to_idr($k->nominal) }}</td>
+                                <td>
+                                    @if ($k->jenis == 'Uang Masuk')
+                                        <span class="badge badge-success">{{ $k->jenis }}</span>
+                                    @else
+                                        <span class="badge badge-danger">{{ $k->jenis }}</span>
+                                    @endif
+                                </td>
                                 <td>{{ human_datetime_format($k->tanggal) }} ({{ human_datetime_diff($k->tanggal) }})</td>
                             </tr>
                         @empty

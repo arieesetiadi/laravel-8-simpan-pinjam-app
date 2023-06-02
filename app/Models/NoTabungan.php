@@ -9,11 +9,21 @@ class NoTabungan extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'no_tabungan';
     protected $primaryKey = 'id_tabungan';
     protected $guarded = [];
+    protected $appends = ['saldo'];
 
-    public $timestamps = false;
+    // Accessors
+    public function getSaldoAttribute(){
+        $uangMasuk = $this->kas()->where('jenis', 'Uang Masuk')->sum('total');
+        $uangKeluar = $this->kas()->where('jenis', 'Uang Keluar')->sum('total');
+        $saldo = $uangMasuk - $uangKeluar;
+        
+        return $saldo;
+    }
 
     // Relations
     public function nasabah()
@@ -36,4 +46,5 @@ class NoTabungan extends Model
 
         return "$no/$company/$month/$year";
     }
+    
 }

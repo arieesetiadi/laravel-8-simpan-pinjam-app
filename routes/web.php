@@ -92,6 +92,7 @@ Route::controller(ActionController::class)->group(function () {
     Route::prefix('/kas-simpanan')->middleware('auth.any')->group(function () {
         Route::get('/', 'halamanUtamaKasSimpanan')->name('halamanUtamaKasSimpanan');
         Route::get('/tambah', 'halamanTambahKasSimpanan')->name('halamanTambahKasSimpanan');
+        Route::get('/tarik', 'halamanTarikKasSimpanan')->name('halamanTarikKasSimpanan');
         Route::post('/tambah', 'prosesTambahKasSimpanan')->name('prosesTambahKasSimpanan');
         Route::get('/detail/{id}', 'halamanDetailKasSimpanan')->name('halamanDetailKasSimpanan');
     });

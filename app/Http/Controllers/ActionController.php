@@ -561,8 +561,17 @@ class ActionController extends Controller
         // Ambil seluruh data tabungan
         $data['noTabungan'] = NoTabungan::with(['nasabah'])->orderBy('no_tabungan')->get();
 
-        // Redirect ke halaman tambah no tabungan
+        // Redirect ke halaman tambah kas
         return view('kas.halaman-tambah-kas')->with($data);
+    }
+
+    public function halamanTarikKasSimpanan()
+    {
+        // Ambil seluruh data tabungan
+        $data['noTabungan'] = NoTabungan::with(['nasabah'])->orderBy('no_tabungan')->get();
+
+        // Redirect ke halaman tarik kas
+        return view('kas.halaman-tarik-kas')->with($data);
     }
 
     public function prosesTambahKasSimpanan(Request $form)
@@ -570,6 +579,7 @@ class ActionController extends Controller
         // Ambil data kas dari form
         $dataKas = [
             'id_tabungan' => $form->id_tabungan,
+            'jenis' => 'Uang Masuk',
             'nominal' => $form->nominal,
             'total' => $form->nominal,
             'tanggal' => now(),
@@ -580,6 +590,24 @@ class ActionController extends Controller
 
         // Redirect ke halaman utama kas simpanan
         return redirect()->route('halamanUtamaKasSimpanan')->with('success', 'Berhasil menambah data kas simpanan.');
+    }
+
+    public function prosesTarikKasSimpanan(Request $form)
+    {
+        // Ambil data kas dari form
+        $dataKas = [
+            'id_tabungan' => $form->id_tabungan,
+            'jenis' => 'Uang Keluar',
+            'nominal' => $form->nominal,
+            'total' => $form->nominal,
+            'tanggal' => now(),
+        ];
+
+        // Insert data kas simpanan ke database
+        Kas::create($dataKas);
+
+        // Redirect ke halaman utama kas simpanan
+        return redirect()->route('halamanUtamaKasSimpanan')->with('success', 'Berhasil melakukan penarikan kas simpanan.');
     }
 
     public function halamanDetailKasSimpanan($id)
