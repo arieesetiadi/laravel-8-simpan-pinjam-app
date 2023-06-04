@@ -15,8 +15,14 @@ class PermohonanPinjam extends Model
 
     public $timestamps = false;
 
-    public function nasabah()
+    // Relations
+    public function noPinjaman()
     {
-        return $this->belongsTo(Nasabah::class, 'id_nasabah', ' id_nasabah');
+        return $this->belongsTo(NoPinjaman::class, 'id_pinjaman', 'id_pinjaman');
+    }
+
+    public function kitirKredit()
+    {
+        return $this->hasMany(KitirKredit::class, 'id_permohonan_pinjam', 'id_permohonan_pinjam');
     }
 }

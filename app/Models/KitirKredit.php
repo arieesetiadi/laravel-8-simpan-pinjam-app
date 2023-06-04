@@ -15,8 +15,9 @@ class KitirKredit extends Model
 
     public $timestamps = false;
 
-    public function nasabah()
+    // Relations
+    public function permohonanPinjam()
     {
-        return $this->belongsTo(Nasabah::class, 'id_nasabah', 'id_nasabah');
+        return $this->belongsTo(PermohonanPinjam::class, 'id_permohonan_pinjam', 'id_permohonan_pinjam');
     }
 }

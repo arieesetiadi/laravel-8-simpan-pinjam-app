@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col">
                 <div class="page-description">
-                    <h1>Kas Simpanan</h1>
+                    <h1>Tambah Kas Simpanan</h1>
                 </div>
             </div>
         </div>

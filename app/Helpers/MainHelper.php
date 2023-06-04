@@ -194,4 +194,20 @@ function number_to_roman($number)
 function number_to_idr($amount)
 {
     return 'Rp. ' . number_format($amount, 0, ',', '.');
+} 
+
+function get_angsuran($data)
+{
+    $jangkaWaktu = get_jangka_waktu($data);
+    $jumlahAngsuran = ceil($data->besar_permohonan_pinjam / $jangkaWaktu);
+    $mod = $jumlahAngsuran % 500;
+
+    $jumlahAngsuran = $mod > 0 ? ($jumlahAngsuran - $mod) + 500 : $jumlahAngsuran;
+
+    return $jumlahAngsuran;
+}
+
+function get_jangka_waktu($data)
+{
+    return $data->jangka_waktu_format == 'Tahun' ? $data->jangka_waktu * 12 : $data->jangka_waktu;
 }

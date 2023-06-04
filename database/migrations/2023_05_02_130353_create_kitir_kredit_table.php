@@ -15,7 +15,7 @@ class CreateKitirKreditTable extends Migration
     {
         Schema::create('kitir_kredit', function (Blueprint $table) {
             $table->integerIncrements('id_kitir');
-            $table->integer('id_nasabah');
+            $table->integer('id_permohonan_pinjam');
             $table->date('tanggal_transaksi');
             $table->integer('pokok');
             $table->integer('bunga');

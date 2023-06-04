@@ -10,7 +10,7 @@
     <meta name="author" content="stacks">
 
     <!-- Styles -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
@@ -23,11 +23,11 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/bumdes.png') }}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/bumdes.png') }}" />
+    <link type="image/png" href="{{ asset('images/bumdes.png') }}" rel="icon" sizes="32x32" />
+    <link type="image/png" href="{{ asset('images/bumdes.png') }}" rel="icon" sizes="16x16" />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous"
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous"
         referrerpolicy="no-referrer" />
 
     {{-- Select 2 --}}
@@ -41,7 +41,7 @@
     <div class="app align-content-stretch d-flex flex-wrap">
         <div class="app-sidebar">
             <div class="logo">
-                <a href="{{ route('halamanDashboard') }}" class="logo-icon"><span class="logo-text">Dashboard</span></a>
+                <a class="logo-icon" href="{{ route('halamanDashboard') }}"><span class="logo-text">Dashboard</span></a>
                 <div class="sidebar-user-switcher user-activity-online">
                     <a href="{{ route('halamanProfile') }}">
                         {{-- Tampilkan profile pengguna --}}
@@ -128,9 +128,9 @@
         <div class="app-container">
             <div class="search">
                 <form>
-                    <input class="form-control" type="text" placeholder="Type here..." aria-label="Search">
+                    <input class="form-control" type="text" aria-label="Search" placeholder="Type here...">
                 </form>
-                <a href="#" class="toggle-search"><i class="material-icons">close</i></a>
+                <a class="toggle-search" href="#"><i class="material-icons">close</i></a>
             </div>
             <div class="app-header">
                 <nav class="navbar navbar-light navbar-expand-lg">
@@ -156,7 +156,10 @@
     <!-- Javascripts -->
     <script src="{{ asset('plugins/jquery/jquery-3.5.1.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+    {{-- <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script> --}}
     <script src="{{ asset('plugins/perfectscroll/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('plugins/pace/pace.min.js') }}"></script>
     {{-- <script src="{{ asset('plugins/apexcharts/apexcharts.min.js') }}"></script> --}}

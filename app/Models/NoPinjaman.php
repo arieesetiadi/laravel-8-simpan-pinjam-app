@@ -15,9 +15,15 @@ class NoPinjaman extends Model
 
     public $timestamps = false;
 
+    // Relations
     public function nasabah()
     {
         return $this->belongsTo(Nasabah::class, 'id_nasabah', 'id_nasabah');
+    }
+
+    public function pinjaman()
+    {
+        return $this->hasMany(PermohonanPinjam::class, 'id_pinjaman', 'id_pinjaman');
     }
 
     // Methods

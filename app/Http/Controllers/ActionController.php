@@ -9,6 +9,7 @@ use App\Models\Direktur;
 use App\Models\Kas;
 use App\Models\NoPinjaman;
 use App\Models\NoTabungan;
+use App\Models\PermohonanPinjam;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -595,7 +596,7 @@ class ActionController extends Controller
     public function prosesTarikKasSimpanan(Request $form)
     {
         // Check agar jumlah penarikan tidak melebihi jumlah saldo
-        if($form->saldo >= $form->nominal){
+        if ($form->saldo >= $form->nominal) {
             // Ambil data kas dari form
             $dataKas = [
                 'id_tabungan' => $form->id_tabungan,
@@ -604,16 +605,15 @@ class ActionController extends Controller
                 'total' => $form->nominal,
                 'tanggal' => now(),
             ];
-    
+
             // Insert data kas simpanan ke database
             Kas::create($dataKas);
-    
+
             // Redirect ke halaman utama kas simpanan
             return redirect()->route('halamanUtamaKasSimpanan')->with('success', 'Berhasil melakukan penarikan kas simpanan.');
         } else {
             return back()->with('failed', 'Jumlah penarikan tidak boleh melebihi saldo nasabah.')->withInput($form->all());
         }
-
     }
 
     public function halamanDetailKasSimpanan($id)
@@ -682,5 +682,55 @@ class ActionController extends Controller
 
         // Redirect ke halaman utama no pinjaman
         return redirect()->route('halamanUtamaNoPinjaman')->with('success', 'Berhasil menghapus data no pinjaman.');
+    }
+
+    /**
+     * KELOLA PINJAMAN
+     */
+
+    public function halamanUtamaPinjaman()
+    {
+        // Ambil semua data pinjaman yang ingin ditampilkan, beserta data noPinjaman dan kitirKredit
+        $data['pinjaman'] = PermohonanPinjam::with(['noPinjaman', 'kitirKredit'])->orderByDesc('tanggal')->get();
+
+        // Redirect ke halaman pinjaman, beserta dengan data pinjaman
+        return view('pinjaman.halaman-utama-pinjaman')->with($data);
+    }
+
+    public function halamanTambahPinjaman()
+    {
+        // Ambil seluruh data no pinjaman
+        $data['noPinjaman'] = NoPinjaman::with(['nasabah'])->orderBy('no_pinjaman')->get();
+
+        // Redirect ke halaman tambah pinjaman
+        return view('pinjaman.halaman-tambah-pinjaman')->with($data);
+    }
+
+    public function prosesTambahPinjaman(Request $form)
+    {
+        // Ambil data pinjaman dari form
+        $dataPinjaman = [
+            'id_pinjaman' => $form->id_pinjaman,
+            'besar_permohonan_pinjam' => $form->besar_permohonan_pinjam,
+            'jumlah_angsuran' => get_angsuran($form),
+            'jangka_waktu' => get_jangka_waktu($form),
+            'tanggal' => now(),
+            'tanggal_terakhir_bayar' => now()->addMonth(1)->toDateTime(), // Terakhir bayar bulan depan
+        ];
+        
+        // Insert data pinjaman simpanan ke database
+        PermohonanPinjam::create($dataPinjaman);
+
+        // Redirect ke halaman utama pinjaman
+        return redirect()->route('halamanUtamaPinjaman')->with('success', 'Berhasil menambah data pinjaman.');
+    }
+
+    public function halamanDetailPinjaman($id)
+    {
+        // Ambil data pinjaman, beserta dengan data tabungannya
+        $data['pinjaman'] = PermohonanPinjam::find($id);
+
+        // Redirect ke halaman detail pinjaman
+        return view('pinjaman.halaman-detail-pinjaman')->with($data);
     }
 }
