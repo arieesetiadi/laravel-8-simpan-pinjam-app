@@ -717,7 +717,7 @@ class ActionController extends Controller
             'tanggal' => now(),
             'tanggal_terakhir_bayar' => now()->addMonth(1)->toDateTime(), // Terakhir bayar bulan depan
         ];
-        
+
         // Insert data pinjaman simpanan ke database
         PermohonanPinjam::create($dataPinjaman);
 
@@ -732,5 +732,33 @@ class ActionController extends Controller
 
         // Redirect ke halaman detail pinjaman
         return view('pinjaman.halaman-detail-pinjaman')->with($data);
+    }
+
+    public function prosesVerifikasiPinjaman($id)
+    {
+        // Ambil data pinjaman yang ingin diverifikasi berdasarkan ID
+        $pinjaman = PermohonanPinjam::find($id);
+
+        // Ubah status pinjaman menjadi verified
+        $pinjaman->update([
+            'status' => true,
+        ]);
+
+        // Redirect kembali ke halaman utama pinjaman
+        return back()->with('success', 'Berhasil melakukan verifikasi pinjaman.');
+    }
+
+    public function prosesBatalVerifikasiPinjaman($id)
+    {
+        // Ambil data pinjaman berdasarkan ID
+        $pinjaman = PermohonanPinjam::find($id);
+
+        // Ubah status pinjaman menjadi false / unverified
+        $pinjaman->update([
+            'status' => false,
+        ]);
+
+        // Redirect kembali ke halaman utama pinjaman
+        return back()->with('success', 'Berhasil membatalkan verifikasi pinjaman.');
     }
 }

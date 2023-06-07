@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="row card">
-            <div class="col card-body">
+            <div class="col card-body table-responsive">
                 <table class="table table-data">
                     <thead>
                         <tr>
@@ -66,12 +66,12 @@
                                         </a>
                                     @endif
                                 </td>
-                                <td>{{ $i + 1 }}</td>
-                                <td>{{ $d->nama }}</td>
-                                <td>{{ $d->username }}</td>
-                                <td>{{ $d->no_tlp }}</td>
-                                <td>{{ $d->email }}</td>
-                                <td>{{ $d->jenis_kelamin }}</td>
+                                <td class="text-nowrap">{{ $i + 1 }}</td>
+                                <td class="text-nowrap">{{ $d->nama }}</td>
+                                <td class="text-nowrap">{{ $d->username }}</td>
+                                <td class="text-nowrap">{{ $d->no_tlp }}</td>
+                                <td class="text-nowrap">{{ $d->email }}</td>
+                                <td class="text-nowrap">{{ $d->jenis_kelamin }}</td>
                             </tr>
                         @empty
                             <tr>

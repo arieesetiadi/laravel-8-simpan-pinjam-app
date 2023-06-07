@@ -32,18 +32,19 @@
             </div>
         </div>
         <div class="row card">
-            <div class="col card-body">
+            <div class="col card-body table-responsive">
                 <table class="table-data table">
                     <thead>
                         <tr>
-                            <th>Aksi</th>
-                            <th>#</th>
-                            <th>No Pinjaman</th>
-                            <th>Nama Nasabah</th>
-                            <th>Nominal</th>
-                            <th>Jangka Waktu</th>
-                            <th>Tanggal Pinjaman</th>
-                            <th>Batas Pembayaran</th>
+                            <th class="text-nowrap">Aksi</th>
+                            <th class="text-nowrap">#</th>
+                            <th class="text-nowrap">No Pinjaman</th>
+                            <th class="text-nowrap">Nama Nasabah</th>
+                            <th class="text-nowrap">Nominal</th>
+                            <th class="text-nowrap">Jangka Waktu</th>
+                            <th class="text-nowrap">Status</th>
+                            <th class="text-nowrap">Tanggal Pinjaman</th>
+                            <th class="text-nowrap">Batas Pembayaran</th>
                         </tr>
                     </thead>
 
@@ -55,14 +56,32 @@
                                     <a href="{{ route('halamanDetailPinjaman', $p->id_permohonan_pinjam) }}" title="Detail Pinjaman">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
+
+                                    {{-- Tombol verifikasi direktur --}}
+                                    @if ($p->status && role('direktur'))
+                                        <a href="{{ route('prosesBatalVerifikasiPinjaman', $p->id_permohonan_pinjam) }}" title="Batalkan verifikasi Pinjaman" onclick="return confirm('Batalkan verifikasi pinjaman dari nasabah')">
+                                            <i class="fa-solid fa-times text-danger"></i>
+                                        </a>
+                                    @elseif (!$p->status && role('direktur'))
+                                        <a href="{{ route('prosesVerifikasiPinjaman', $p->id_permohonan_pinjam) }}" title="Verifikasi Pinjaman" onclick="return confirm('Verfikasi pinjaman dari nasabah')">
+                                            <i class="fa-solid fa-check text-success"></i>
+                                        </a>
+                                    @endif
                                 </td>
-                                <td>{{ $i + 1 }}</td>
-                                <td>{{ $p->noPinjaman()->no_pinjaman }}</td>
-                                <td>{{ $p->noPinjaman()->nasabah()->nama }}</td>
-                                <td>{{ number_to_idr($p->besar_permohonan_pinjam) }}</td>
-                                <td>{{ $p->jangka_waktu }}</td>
-                                <td>{{ human_datetime_format($p->tanggal) }}</td>
-                                <td>{{ human_datetime_format($p->tanggal_terakhir_bayar) }}</td>
+                                <td class="text-nowrap">{{ $i + 1 }}</td>
+                                <td class="text-nowrap">{{ $p->noPinjaman->no_pinjaman }}</td>
+                                <td class="text-nowrap">{{ $p->noPinjaman->nasabah->nama }}</td>
+                                <td class="text-nowrap">{{ number_to_idr($p->besar_permohonan_pinjam) }}</td>
+                                <td class="text-nowrap">{{ $p->jangka_waktu }} Bulan</td>
+                                <td>
+                                    @if ($p->status == true)
+                                        <span class="badge badge-success d-blok w-100">Verified</span>
+                                    @else
+                                        <span class="badge badge-danger d-blok w-100">Unverified</span>
+                                    @endif
+                                </td>
+                                <td class="text-nowrap">{{ human_date_format($p->tanggal) }}</td>
+                                <td class="text-nowrap">{{ human_date_format($p->tanggal_terakhir_bayar) }}</td>
                             </tr>
                         @empty
                             <tr>

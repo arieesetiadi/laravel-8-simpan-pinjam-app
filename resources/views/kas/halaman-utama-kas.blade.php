@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="row card">
-            <div class="col card-body">
+            <div class="col card-body table-responsive">
                 <table class="table table-data">
                     <thead>
                         <tr>
@@ -60,18 +60,18 @@
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
                                 </td>
-                                <td>{{ $i + 1 }}</td>
-                                <td>{{ $k->tabungan->no_tabungan }}</td>
-                                <td>{{ $k->tabungan->nasabah->nama }}</td>
-                                <td>{{ number_to_idr($k->nominal) }}</td>
-                                <td>
+                                <td class="text-nowrap">{{ $i + 1 }}</td>
+                                <td class="text-nowrap">{{ $k->tabungan->no_tabungan }}</td>
+                                <td class="text-nowrap">{{ $k->tabungan->nasabah->nama }}</td>
+                                <td class="text-nowrap">{{ number_to_idr($k->nominal) }}</td>
+                                <td class="text-nowrap">
                                     @if ($k->jenis == 'Uang Masuk')
                                         <span class="badge badge-success">{{ $k->jenis }}</span>
                                     @else
                                         <span class="badge badge-danger">{{ $k->jenis }}</span>
                                     @endif
                                 </td>
-                                <td>{{ human_datetime_format($k->tanggal) }} ({{ human_datetime_diff($k->tanggal) }})</td>
+                                <td class="text-nowrap">{{ human_datetime_format($k->tanggal) }} ({{ human_datetime_diff($k->tanggal) }})</td>
                             </tr>
                         @empty
                             <tr>
