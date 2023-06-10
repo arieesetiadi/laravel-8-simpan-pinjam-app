@@ -21,9 +21,6 @@
                     <div class="row mb-3">
                         <label for="no-tabungan" class="col-sm-2 col-form-label">
                             No Tabungan
-                            <a href="{{ route('halamanDetailNoTabungan', $kas->tabungan->id_tabungan) }}" target="_blank">
-                                Detail
-                            </a>
                         </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="no-tabungan"
@@ -35,10 +32,6 @@
                     <div class="row mb-3">
                         <label for="nama" class="col-sm-2 col-form-label">
                             Nama Nasabah
-                            <a href="{{ route('halamanDetailNasabah', $kas->tabungan->nasabah->id_nasabah) }}"
-                                target="_blank">
-                                Detail
-                            </a>
                         </label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="nama"
@@ -62,7 +55,7 @@
                         <label for="tanggal" class="col-sm-2 col-form-label">Tanggal Simpan</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="tanggal"
-                                value="{{ human_datetime_format($kas->tanggal) }}" disabled>
+                                value="{{ human_datetime_format($kas->tanggal) }} ({{ human_datetime_diff($kas->tanggal) }})" disabled>
                         </div>
                     </div>
 

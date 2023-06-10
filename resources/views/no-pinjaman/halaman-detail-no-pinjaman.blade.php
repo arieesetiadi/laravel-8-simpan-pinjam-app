@@ -19,27 +19,72 @@
                 <form>
                     {{-- Info no pinjaman --}}
                     <div class="row mb-3">
-                        <label for="no-pinjaman" class="col-sm-2 col-form-label">No Pinjaman</label>
+                        <label class="col-sm-2 col-form-label" for="no-pinjaman">No Pinjaman</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="no-pinjaman"
-                                value="{{ $noPinjaman->no_pinjaman }}" disabled>
+                            <input class="form-control" id="no-pinjaman" type="text" value="{{ $noPinjaman->no_pinjaman }}" disabled>
                         </div>
                     </div>
 
                     {{-- Info nama nasabah --}}
                     <div class="row mb-3">
-                        <label for="nama" class="col-sm-2 col-form-label">Nama Nasabah</label>
+                        <label class="col-sm-2 col-form-label" for="nama">Nama Nasabah</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nama"
-                                value="{{ $noPinjaman->nasabah->nama }}" disabled>
+                            <input class="form-control" id="nama" type="text" value="{{ $noPinjaman->nasabah->nama }}" disabled>
                         </div>
                     </div>
 
                     <hr class="d-block my-5">
 
+                    {{-- Info total pinjaman --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="total-pinjaman">Total Pinjaman</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="total-pinjaman" type="text" value="{{ number_to_idr($noPinjaman->pinjaman()->sum('besar_permohonan_pinjam')) }}" disabled>
+                        </div>
+                    </div>
+
+                    {{-- Info riwayat pinjaman --}}
+                    @if ($noPinjaman->pinjaman)
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="total-pinjaman">Riwayat Pinjaman</label>
+                            <div class="col-sm-10">
+                                <table class="table-sm table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nominal</th>
+                                            <th>Angsuran</th>
+                                            <th>Jangka Waktu</th>
+                                            <th>Tanggal Terakhir Bayar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($noPinjaman->pinjaman as $pinjaman)
+                                            <tr>
+                                                <td>{{ $loop->index + 1 }}</td>
+                                                <td>{{ number_to_idr($pinjaman->besar_permohonan_pinjam) }}</td>
+                                                <td>{{ number_to_idr($pinjaman->jumlah_angsuran) }}/Bulan</td>
+                                                <td>{{ $pinjaman->jangka_waktu }} Bulan</td>
+                                                <td>{{ human_datetime_format($pinjaman->tanggal_terakhir_bayar) }}
+                                                    ({{ human_datetime_diff($pinjaman->tanggal_terakhir_bayar) }})
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="3">
+                                                    <h6 class="text-center">Data tidak tersedia.</h6>
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endif
+
                     {{-- Tombol --}}
                     <div class="mt-5">
-                        <a href="{{ route('halamanUtamaNoTabungan') }}" class="btn btn-light">
+                        <a class="btn btn-light" href="{{ route('halamanUtamaNoTabungan') }}">
                             <i class="fa-solid fa-arrow-left"></i> Kembali
                         </a>
                     </div>

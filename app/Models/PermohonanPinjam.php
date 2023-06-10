@@ -12,8 +12,18 @@ class PermohonanPinjam extends Model
     protected $table = 'permohonan_pinjam';
     protected $primaryKey = 'id_permohonan_pinjam';
     protected $guarded = [];
+    protected $appends = ['sisa_pinjam'];
 
     public $timestamps = false;
+
+    // Accessors
+    public function getSisaPinjamAttribute()
+    {
+        $jumlahLunas = $this->kitirKredit()->where('status', true)->sum('pokok');
+        $sisa = $this->besar_permohonan_pinjam - $jumlahLunas;
+
+        return $sisa < 0 ? 0 : $sisa;
+    }
 
     // Relations
     public function noPinjaman()

@@ -119,5 +119,6 @@ Route::controller(ActionController::class)->group(function () {
         Route::get('/detail/{id}', 'halamanDetailPinjaman')->name('halamanDetailPinjaman');
         Route::get('/verifikasi/{id}', 'prosesVerifikasiPinjaman')->name('prosesVerifikasiPinjaman');
         Route::get('/batal-verifikasi/{id}', 'prosesBatalVerifikasiPinjaman')->name('prosesBatalVerifikasiPinjaman');
+        Route::get('/bayar/{id}', 'prosesBayarPinjaman')->name('prosesBayarPinjaman');
     });
 });

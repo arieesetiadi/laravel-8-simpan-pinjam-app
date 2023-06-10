@@ -7,9 +7,11 @@ use App\Models\Pegawai;
 use App\Models\Pengawas;
 use App\Models\Direktur;
 use App\Models\Kas;
+use App\Models\KitirKredit;
 use App\Models\NoPinjaman;
 use App\Models\NoTabungan;
 use App\Models\PermohonanPinjam;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -666,7 +668,7 @@ class ActionController extends Controller
     public function halamanDetailNoPinjaman($id)
     {
         // Ambil data no pinjaman, beserta dengan data nasabah dan kas
-        $data['noPinjaman'] = NoPinjaman::with(['nasabah'])->find($id);
+        $data['noPinjaman'] = NoPinjaman::with(['nasabah', 'pinjaman'])->find($id);
 
         // Redirect ke halaman detail no pinjaman
         return view('no-pinjaman.halaman-detail-no-pinjaman')->with($data);
@@ -719,7 +721,20 @@ class ActionController extends Controller
         ];
 
         // Insert data pinjaman simpanan ke database
-        PermohonanPinjam::create($dataPinjaman);
+        $pinjaman = PermohonanPinjam::create($dataPinjaman);
+
+        // Siapkan tagihan kitir untuk bulan pertama
+        $pokok = $dataPinjaman['jumlah_angsuran'];
+        $bunga = get_bunga($dataPinjaman['besar_permohonan_pinjam'], 1.5);
+        $dataKitir = [
+            'id_permohonan_pinjam' => $pinjaman->id_permohonan_pinjam,
+            'pokok' => $pokok,
+            'bunga' => $bunga,
+            'status' => false,
+        ];
+
+        // Insert data kitir kredit ke database
+        KitirKredit::create($dataKitir);
 
         // Redirect ke halaman utama pinjaman
         return redirect()->route('halamanUtamaPinjaman')->with('success', 'Berhasil menambah data pinjaman.');
@@ -727,8 +742,8 @@ class ActionController extends Controller
 
     public function halamanDetailPinjaman($id)
     {
-        // Ambil data pinjaman, beserta dengan data tabungannya
-        $data['pinjaman'] = PermohonanPinjam::find($id);
+        // Ambil data pinjaman, beserta dengan data no pinjaman dan kitir kredit
+        $data['pinjaman'] = PermohonanPinjam::with(['noPinjaman', 'kitirKredit'])->find($id);
 
         // Redirect ke halaman detail pinjaman
         return view('pinjaman.halaman-detail-pinjaman')->with($data);
@@ -760,5 +775,56 @@ class ActionController extends Controller
 
         // Redirect kembali ke halaman utama pinjaman
         return back()->with('success', 'Berhasil membatalkan verifikasi pinjaman.');
+    }
+
+    public function prosesBayarPinjaman($id)
+    {
+        // Ambil data kitir yang ingin dibayar
+        $kitir = KitirKredit::find($id);
+
+        // Ubah status kitir menjadi true / sudah bayar
+        $kitir->update([
+            'status' => true,
+            'denda' => $kitir->denda,
+            'jumlah' => $kitir->jumlah,
+            'sisa_pinjam' => $kitir->permohonanPinjam->sisa_pinjam - ($kitir->jumlah + $kitir->denda),
+            'tanggal_transaksi' => now(),
+        ]);
+
+        // Ubah tanggal terakhir bayar jadi bulan depan
+        $pinjaman = $kitir->permohonanPinjam;
+        $pinjaman->update([
+            'tanggal_terakhir_bayar' => Carbon::make($pinjaman->tanggal_terakhir_bayar)->addMonth(1),
+        ]);
+
+        // Siapkan tagihan kitir untuk bulan depan, hanya jika pinjaman belum lunas
+        // Jika pinjaman sudah lunas, maka kitir bulan depan tidak akan dibuat lagi
+        if ($pinjaman->sisa_pinjam > 0) {
+            $pokok = $pinjaman['jumlah_angsuran'];
+            $bunga = get_bunga($pinjaman['besar_permohonan_pinjam'], 1.5);
+            
+            // Next Objective
+            // Here ...
+            
+            $dataKitir = [
+                'id_permohonan_pinjam' => $pinjaman->id_permohonan_pinjam,
+                'pokok' => $pokok,
+                'bunga' => $bunga,
+                'status' => false,
+            ];
+
+            // Insert data kitir kredit ke database
+            KitirKredit::create($dataKitir);
+        }
+        
+        // Kalau sisa pinjaman sudah tersisa 0, maka ubah status pinjaman menjadi true / lunas
+        if ($pinjaman->sisa_pinjam == 0) {
+            $pinjaman->update([
+                'status' => true,
+            ]);
+        }
+
+        // Redirect kembali ke halaman utama pinjaman
+        return back()->with('success', 'Berhasil melakukan pembayaran angsuran pinjaman.');
     }
 }

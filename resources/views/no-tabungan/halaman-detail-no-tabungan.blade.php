@@ -63,7 +63,7 @@
                                         @forelse ($noTabungan->kas as $kas)
                                             <tr>
                                                 <td>{{ $loop->index + 1 }}</td>
-                                                <td>{{ $kas->nominal }}</td>
+                                                <td>{{ number_to_idr($kas->nominal) }}</td>
                                                 <td>{{ human_datetime_format($kas->tanggal) }}
                                                     ({{ human_datetime_diff($kas->tanggal) }})
                                                 </td>

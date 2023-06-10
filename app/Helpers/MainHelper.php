@@ -211,3 +211,15 @@ function get_jangka_waktu($data)
 {
     return $data->jangka_waktu_format == 'Tahun' ? $data->jangka_waktu * 12 : $data->jangka_waktu;
 }
+
+function get_bunga($total, $portion){
+    $bunga = ceil(calculate_percentage($portion, $total));
+    $mod = $bunga % 500;
+    $bunga = $mod > 0 ? ($bunga - $mod) + 500 : $bunga;
+
+    return $bunga;
+}
+
+function calculate_percentage($portion, $total){
+    return ($portion / 100) * $total;
+}
