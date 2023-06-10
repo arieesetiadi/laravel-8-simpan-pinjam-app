@@ -65,7 +65,7 @@ class ActionController extends Controller
         // Siapkan data untuk tampilan dashboard
         $data = [
             'totalSimpanan' => Kas::getTotal(),
-            'totalPinjaman' => 0,
+            'totalPinjaman' => PermohonanPinjam::getTotal(),
             'jumlahPengawas' => Pengawas::count(),
             'jumlahPegawai' => Pegawai::count(),
             'jumlahDirektur' => Direktur::count(),
@@ -787,7 +787,7 @@ class ActionController extends Controller
             'status' => true,
             'denda' => $kitir->denda,
             'jumlah' => $kitir->jumlah,
-            'sisa_pinjam' => $kitir->permohonanPinjam->sisa_pinjam - ($kitir->jumlah + $kitir->denda),
+            'sisa_pinjam' => $kitir->permohonanPinjam->sisa_pinjam - $kitir->pokok,
             'tanggal_transaksi' => now(),
         ]);
 
@@ -803,8 +803,9 @@ class ActionController extends Controller
             $pokok = $pinjaman['jumlah_angsuran'];
             $bunga = get_bunga($pinjaman['besar_permohonan_pinjam'], 1.5);
             
-            // Next Objective
-            // Here ...
+            if($pinjaman->sisa_pinjam < $pokok){
+                $pokok = $pinjaman->sisa_pinjam;
+            }
             
             $dataKitir = [
                 'id_permohonan_pinjam' => $pinjaman->id_permohonan_pinjam,

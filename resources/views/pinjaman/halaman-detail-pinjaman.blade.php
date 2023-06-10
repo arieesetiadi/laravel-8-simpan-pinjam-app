@@ -24,32 +24,25 @@
             <div class="col card-body">
                 <form>
                     {{-- Info no pinjaman --}}
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="no-pinjaman">
-                            No Pinjaman
-                        </label>
-                        <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label class="col-form-label" for="no-pinjaman">No Pinjaman</label>
                             <input class="form-control" id="no-pinjaman" type="text" value="{{ $pinjaman->noPinjaman->no_pinjaman }}" disabled>
                         </div>
-                    </div>
 
-                    {{-- Info nama nasabah --}}
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="nama">
-                            Nama Nasabah
-                        </label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-6 mb-3">
+                            <label class="col-form-label" for="status-lunas">Status Pinjaman</label>
+                            <input class="form-control" id="status-lunas" type="text" value="{{ $pinjaman->sisa_pinjam <= 0 ? 'Lunas' : 'Belum Lunas' }}" disabled>
+                        </div>
+
+                        <div class="col-sm-6 mb-3">
+                            <label class="col-form-label" for="nama">Nama Nasabah</label>
                             <input class="form-control" id="nama" type="text" value="{{ $pinjaman->noPinjaman->nasabah->nama }}" disabled>
                         </div>
-                    </div>
 
-                    {{-- Info status lunas --}}
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="nama">
-                            Status Pinjaman
-                        </label>
-                        <div class="col-sm-10">
-                            <input class="form-control" id="nama" type="text" value="{{ $pinjaman->sisa_pinjam <= 0 ? 'LUNAS' : 'BELUM LUNAS' }}" disabled>
+                        <div class="col-sm-6 mb-3">
+                            <label class="col-form-label" for="status-verifikasi">Status Verifikasi</label>
+                            <input class="form-control" id="status-verifikasi" type="text" value="{{ $pinjaman->status ? 'Verified' : 'Menunggu verifikasi Direktur' }}" disabled>
                         </div>
                     </div>
 
@@ -57,7 +50,7 @@
 
                     <nav class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-link btn-sm active text-dark border" id="nav-detail-tab" data-bs-toggle="tab" href="#nav-detail" role="tab" aria-controls="nav-detail" aria-selected="true">Detail</a>
-                        <a class="nav-link btn-sm text-dark border" id="nav-kitir-tab" data-bs-toggle="tab" href="#nav-kitir" role="tab" aria-controls="nav-kitir" aria-selected="false">Kitir Kredit</a>
+                        <a class="nav-link btn-sm text-dark border {{ !$pinjaman->status ? 'd-none' : '' }}" id="nav-kitir-tab" data-bs-toggle="tab" href="#nav-kitir" role="tab" aria-controls="nav-kitir" aria-selected="false">Kitir Kredit</a>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         {{-- Nav Detail --}}
@@ -104,12 +97,12 @@
                         </div>
 
                         {{-- Nav Kitir Kredit --}}
-                        <div class="tab-pane fade pt-3" id="nav-kitir" role="tabpanel" aria-labelledby="nav-kitir-tab">
+                        <div class="tab-pane fade pt-3 {{ !$pinjaman->status ? 'd-none' : '' }}" id="nav-kitir" role="tabpanel" aria-labelledby="nav-kitir-tab">
                             {{-- Info sisa pinjaman --}}
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="sisa-pinjam">Sisa Pinjam</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="sisa-pinjam" type="text" value="{{ number_to_idr($pinjaman->sisa_pinjam) }}" disabled>
+                                    <input class="form-control" id="sisa-pinjam" type="text" value="{{ $pinjaman->sisa_pinjam ? number_to_idr($pinjaman->sisa_pinjam) : '-' }}" disabled>
                                 </div>
                             </div>
 
@@ -161,7 +154,7 @@
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="3">
+                                                        <td colspan="8">
                                                             <h6 class="text-center">Data tidak tersedia.</h6>
                                                         </td>
                                                     </tr>

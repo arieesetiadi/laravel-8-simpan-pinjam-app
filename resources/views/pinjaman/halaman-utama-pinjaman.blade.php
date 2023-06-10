@@ -58,11 +58,7 @@
                                     </a>
 
                                     {{-- Tombol verifikasi direktur --}}
-                                    @if ($p->status && role('direktur'))
-                                        <a href="{{ route('prosesBatalVerifikasiPinjaman', $p->id_permohonan_pinjam) }}" title="Batalkan verifikasi Pinjaman" onclick="return confirm('Batalkan verifikasi pinjaman dari nasabah')">
-                                            <i class="fa-solid fa-times text-danger"></i>
-                                        </a>
-                                    @elseif (!$p->status && role('direktur'))
+                                    @if (!$p->status && role('direktur'))
                                         <a href="{{ route('prosesVerifikasiPinjaman', $p->id_permohonan_pinjam) }}" title="Verifikasi Pinjaman" onclick="return confirm('Verfikasi pinjaman dari nasabah')">
                                             <i class="fa-solid fa-check text-success"></i>
                                         </a>
@@ -85,7 +81,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8">Data Pinjaman tidak tersedia.</td>
+                                <td colspan="9">Data Pinjaman tidak tersedia.</td>
                             </tr>
                         @endforelse
                     </tbody>

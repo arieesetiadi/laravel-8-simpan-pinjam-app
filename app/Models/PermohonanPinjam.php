@@ -35,4 +35,14 @@ class PermohonanPinjam extends Model
     {
         return $this->hasMany(KitirKredit::class, 'id_permohonan_pinjam', 'id_permohonan_pinjam');
     }
+
+    // Methods
+    public static function getTotal()
+    {
+        $totalPinjaman = self::where('status', true)->sum('besar_permohonan_pinjam');
+        $totalBayar = KitirKredit::where('status', true)->sum('pokok');
+        $total = $totalPinjaman - $totalBayar;
+
+        return $total;
+    }
 }
