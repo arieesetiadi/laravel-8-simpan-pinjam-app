@@ -50,7 +50,8 @@
 
                     <nav class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-link btn-sm active text-dark border" id="nav-detail-tab" data-bs-toggle="tab" href="#nav-detail" role="tab" aria-controls="nav-detail" aria-selected="true">Detail</a>
-                        <a class="nav-link btn-sm text-dark border {{ !$pinjaman->status ? 'd-none' : '' }}" id="nav-kitir-tab" data-bs-toggle="tab" href="#nav-kitir" role="tab" aria-controls="nav-kitir" aria-selected="false">Kitir Kredit</a>
+                        <a class="nav-link btn-sm text-dark {{ !$pinjaman->status ? 'd-none' : '' }} border" id="nav-kitir-tab" data-bs-toggle="tab" href="#nav-kitir" role="tab" aria-controls="nav-kitir" aria-selected="false">Kitir
+                            Kredit</a>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         {{-- Nav Detail --}}
@@ -97,14 +98,25 @@
                         </div>
 
                         {{-- Nav Kitir Kredit --}}
-                        <div class="tab-pane fade pt-3 {{ !$pinjaman->status ? 'd-none' : '' }}" id="nav-kitir" role="tabpanel" aria-labelledby="nav-kitir-tab">
+                        <div class="tab-pane fade {{ !$pinjaman->status ? 'd-none' : '' }} pt-3" id="nav-kitir" role="tabpanel" aria-labelledby="nav-kitir-tab">
                             {{-- Info sisa pinjaman --}}
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="sisa-pinjam">Sisa Pinjam</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="sisa-pinjam" type="text" value="{{ $pinjaman->sisa_pinjam ? number_to_idr($pinjaman->sisa_pinjam) : '-' }}" disabled>
+                                    <input class="form-control" id="sisa-pinjam" type="text" value="{{ $pinjaman->sisa_pinjam ? number_to_idr($pinjaman->sisa_pinjam) : 'Lunas' }}" disabled>
                                 </div>
                             </div>
+
+                            {{-- Info batas pembayaran --}}
+                            @if ($pinjaman->sisa_pinjam > 0)
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="batas-bayar">Terakhir Bayar</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" id="batas-bayar" type="text" value="{{ human_date_format($pinjaman->tanggal_terakhir_bayar) }} ({{ human_datetime_diff($pinjaman->tanggal_terakhir_bayar) }})"
+                                            disabled>
+                                    </div>
+                                </div>
+                            @endif
 
                             {{-- Info riwayat tabungan --}}
                             @if ($pinjaman->kitirKredit)
@@ -114,7 +126,7 @@
                                         <table class="table-sm table">
                                             <thead>
                                                 <tr>
-                                                    <th>Aksi</th>
+                                                    <th class="{{ role('pengawas') ? 'd-none' : '' }}">Aksi</th>
                                                     <th>No.</th>
                                                     <th>Status</th>
                                                     <th>Tanggal Bayar</th>
@@ -127,7 +139,7 @@
                                             <tbody>
                                                 @forelse ($pinjaman->kitirKredit as $kitir)
                                                     <tr>
-                                                        <td>
+                                                        <td class="{{ role('pengawas') ? 'd-none' : '' }}">
                                                             {{-- Tampilkan tombol bayar jika statusnya belum bayar --}}
                                                             @if ($kitir->status == false)
                                                                 <a href="{{ route('prosesBayarPinjaman', $kitir->id_kitir) }}" title="Lakukan pembayaran"

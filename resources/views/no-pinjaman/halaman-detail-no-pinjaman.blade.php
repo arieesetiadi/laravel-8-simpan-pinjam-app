@@ -47,31 +47,27 @@
                     @if ($noPinjaman->pinjaman)
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="total-pinjaman">Riwayat Pinjaman</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-10 table-responsive">
                                 <table class="table-sm table">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Nominal</th>
-                                            <th>Angsuran</th>
-                                            <th>Jangka Waktu</th>
-                                            <th>Tanggal Terakhir Bayar</th>
+                                            <th class="text-nowrap">#</th>
+                                            <th class="text-nowrap">Nominal</th>
+                                            <th class="text-nowrap">Angsuran</th>
+                                            <th class="text-nowrap">Jangka Waktu</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($noPinjaman->pinjaman as $pinjaman)
                                             <tr>
-                                                <td>{{ $loop->index + 1 }}</td>
-                                                <td>{{ number_to_idr($pinjaman->besar_permohonan_pinjam) }}</td>
-                                                <td>{{ number_to_idr($pinjaman->jumlah_angsuran) }}/Bulan</td>
-                                                <td>{{ $pinjaman->jangka_waktu }} Bulan</td>
-                                                <td>{{ human_datetime_format($pinjaman->tanggal_terakhir_bayar) }}
-                                                    ({{ human_datetime_diff($pinjaman->tanggal_terakhir_bayar) }})
-                                                </td>
+                                                <td class="text-nowrap">{{ $loop->index + 1 }}</td>
+                                                <td class="text-nowrap">{{ number_to_idr($pinjaman->besar_permohonan_pinjam) }}</td>
+                                                <td class="text-nowrap">{{ number_to_idr($pinjaman->jumlah_angsuran) }}/Bulan</td>
+                                                <td class="text-nowrap">{{ $pinjaman->jangka_waktu }} Bulan</td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="3">
+                                                <td colspan="5">
                                                     <h6 class="text-center">Data tidak tersedia.</h6>
                                                 </td>
                                             </tr>

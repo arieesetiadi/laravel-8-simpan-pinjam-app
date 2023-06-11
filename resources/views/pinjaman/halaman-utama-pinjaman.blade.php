@@ -44,7 +44,6 @@
                             <th class="text-nowrap">Jangka Waktu</th>
                             <th class="text-nowrap">Status</th>
                             <th class="text-nowrap">Tanggal Pinjaman</th>
-                            <th class="text-nowrap">Batas Pembayaran</th>
                         </tr>
                     </thead>
 
@@ -77,7 +76,6 @@
                                     @endif
                                 </td>
                                 <td class="text-nowrap">{{ human_date_format($p->tanggal) }}</td>
-                                <td class="text-nowrap">{{ human_date_format($p->tanggal_terakhir_bayar) }}</td>
                             </tr>
                         @empty
                             <tr>
