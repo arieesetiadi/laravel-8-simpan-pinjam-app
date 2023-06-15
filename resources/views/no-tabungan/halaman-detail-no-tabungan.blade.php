@@ -19,19 +19,17 @@
                 <form>
                     {{-- Info no tabungan --}}
                     <div class="row mb-3">
-                        <label for="no-tabungan" class="col-sm-2 col-form-label">No Tabungan</label>
+                        <label class="col-sm-2 col-form-label" for="no-tabungan">No Tabungan</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="no-tabungan"
-                                value="{{ $noTabungan->no_tabungan }}" disabled>
+                            <input class="form-control" id="no-tabungan" type="text" value="{{ $noTabungan->no_tabungan }}" disabled>
                         </div>
                     </div>
 
                     {{-- Info nama nasabah --}}
                     <div class="row mb-3">
-                        <label for="nama" class="col-sm-2 col-form-label">Nama Nasabah</label>
+                        <label class="col-sm-2 col-form-label" for="nama">Nama Nasabah</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nama"
-                                value="{{ $noTabungan->nasabah->nama }}" disabled>
+                            <input class="form-control" id="nama" type="text" value="{{ $noTabungan->nasabah->nama }}" disabled>
                         </div>
                     </div>
 
@@ -39,30 +37,37 @@
 
                     {{-- Info total kas --}}
                     <div class="row mb-3">
-                        <label for="total-kas" class="col-sm-2 col-form-label">Total Kas</label>
+                        <label class="col-sm-2 col-form-label" for="total-kas">Total Kas</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="total-kas"
-                                value="{{ number_to_idr($noTabungan->kas()->sum('nominal')) }}" disabled>
+                            <input class="form-control" id="total-kas" type="text" value="{{ number_to_idr($noTabungan->kas()->totalMasuk() - $noTabungan->kas()->totalKeluar()) }}" disabled>
                         </div>
                     </div>
 
                     {{-- Info riwayat tabungan --}}
                     @if ($noTabungan->kas)
                         <div class="row mb-3">
-                            <label for="total-kas" class="col-sm-2 col-form-label">Riwayat Simpanan</label>
+                            <label class="col-sm-2 col-form-label" for="total-kas">Riwayat Simpanan</label>
                             <div class="col-sm-10">
-                                <table class="table table-sm">
+                                <table class="table-sm table">
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Jenis</th>
                                             <th>Nominal</th>
-                                            <th>Tanggal Simpan</th>
+                                            <th>Tanggal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($noTabungan->kas as $kas)
                                             <tr>
                                                 <td>{{ $loop->index + 1 }}</td>
+                                                <td class="text-nowrap">
+                                                    @if ($kas->jenis == 'Uang Masuk')
+                                                        <span class="badge badge-success">{{ $kas->jenis }}</span>
+                                                    @else
+                                                        <span class="badge badge-danger">{{ $kas->jenis }}</span>
+                                                    @endif
+                                                </td>
                                                 <td>{{ number_to_idr($kas->nominal) }}</td>
                                                 <td>{{ human_datetime_format($kas->tanggal) }}
                                                     ({{ human_datetime_diff($kas->tanggal) }})
@@ -83,7 +88,7 @@
 
                     {{-- Tombol --}}
                     <div class="mt-5">
-                        <a href="{{ route('halamanUtamaNoTabungan') }}" class="btn btn-light">
+                        <a class="btn btn-light" href="{{ route('halamanUtamaNoTabungan') }}">
                             <i class="fa-solid fa-arrow-left"></i> Kembali
                         </a>
                     </div>

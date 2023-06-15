@@ -29,4 +29,13 @@ class Kas extends Model
 
         return $total;
     }
+
+    // Scopes
+    public function scopeTotalMasuk($query){
+        return $query->where('jenis', 'Uang Masuk')->sum('total');
+    }
+
+    public function scopeTotalKeluar($query){
+        return $query->where('jenis', 'Uang Keluar')->sum('total');
+    }
 }
