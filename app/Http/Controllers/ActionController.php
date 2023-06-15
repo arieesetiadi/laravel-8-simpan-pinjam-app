@@ -801,12 +801,12 @@ class ActionController extends Controller
         // Jika pinjaman sudah lunas, maka kitir bulan depan tidak akan dibuat lagi
         if ($pinjaman->sisa_pinjam > 0) {
             $pokok = $pinjaman['jumlah_angsuran'];
-            $bunga = get_bunga($pinjaman['besar_permohonan_pinjam'], 1.5);
-            
-            if($pinjaman->sisa_pinjam < $pokok){
+            $bunga = get_bunga($pinjaman->sisa_pinjam, 1.5);
+
+            if ($pinjaman->sisa_pinjam < $pokok) {
                 $pokok = $pinjaman->sisa_pinjam;
             }
-            
+
             $dataKitir = [
                 'id_permohonan_pinjam' => $pinjaman->id_permohonan_pinjam,
                 'pokok' => $pokok,
@@ -817,7 +817,7 @@ class ActionController extends Controller
             // Insert data kitir kredit ke database
             KitirKredit::create($dataKitir);
         }
-        
+
         // Kalau sisa pinjaman sudah tersisa 0, maka ubah status pinjaman menjadi true / lunas
         if ($pinjaman->sisa_pinjam == 0) {
             $pinjaman->update([
