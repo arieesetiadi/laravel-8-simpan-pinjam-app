@@ -56,7 +56,7 @@
                             <tr>
                                 <td class="d-flex gap-3">
                                     {{-- Tombol detail --}}
-                                    <a href="{{ route('halamanDetailKasSimpanan', $k->id_tabungan) }}" title="Detail Kas Simpanan">
+                                    <a href="{{ route('halamanDetailKasSimpanan', $k->id_kas) }}" title="Detail Kas Simpanan">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
                                 </td>
