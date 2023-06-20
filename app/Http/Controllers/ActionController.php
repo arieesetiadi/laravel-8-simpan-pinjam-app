@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\LupaPasswordMail;
 use App\Models\Nasabah;
 use App\Models\Pegawai;
 use App\Models\Pengawas;
@@ -14,6 +15,7 @@ use App\Models\PermohonanPinjam;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Mail;
 
 class ActionController extends Controller
 {
@@ -50,10 +52,68 @@ class ActionController extends Controller
         }
     }
 
+    // Fungsi untuk logout
     public function prosesLogout()
     {
         auth()->guard(request()->guard)->logout();
         return redirect()->route('halamanLogin');
+    }
+
+    // Fungsi untuk masuk ke halaman lupa password
+    public function halamanLupaPassword(Request $form)
+    {
+        return view('lupa-password', $form->all());
+    }
+
+    // Fungsi untuk mengirim email lupa password ke alamat email user
+    public function emailLupaPassword(Request $form)
+    {
+        // Ambil data email dari form
+        $email = $form->email;
+        $type = $form->guard;
+
+        // Validasi, pastikan email terdaftar pada sistem
+        $form->validate([
+            'email' => "required|email|exists:$type,email"
+        ]);
+
+        // Proses pengiriman email
+        Mail::send(new LupaPasswordMail($email, $type));
+
+        return redirect()->back()->with('success', 'Berhasil mengirim link, silahkan periksa kotak pesan email anda.');
+    }
+
+    // Fungsi untuk melakukan reset password
+    public function prosesLupaPassword(Request $form)
+    {
+        // Konfirmasi kecocokan password
+        $form->validate([
+            'password' => 'required|confirmed',
+        ]);
+
+        // Ubah password berdasarkan jenis pengguna
+        switch ($form->type) {
+            case 'pegawai':
+                // Ubah password jika berjenis pegawai
+                Pegawai::where('email', $form->email)->update([
+                    'password' => Hash::make($form->password)
+                ]);
+                break;
+            case 'pengawas':
+                // Ubah password jika berjenis pengawas
+                Pengawas::where('email', $form->email)->update([
+                    'password' => Hash::make($form->password)
+                ]);
+                break;
+            case 'direktur':
+                // Ubah password jika berjenis direktur
+                Direktur::where('email', $form->email)->update([
+                    'password' => Hash::make($form->password)
+                ]);
+                break;
+        }
+
+        return redirect()->route('halamanLogin')->with('success', 'Berhasil mengubah password, silahkan lakukan proses login.');
     }
 
     /**

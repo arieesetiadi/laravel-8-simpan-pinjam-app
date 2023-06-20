@@ -18,6 +18,9 @@ Route::controller(ActionController::class)->group(function () {
     Route::get('/login', 'halamanLogin')->name('halamanLogin');
     Route::post('/login', 'prosesLogin')->name('prosesLogin');
     Route::get('/logout', 'prosesLogout')->name('prosesLogout')->middleware('auth.any');
+    Route::get('/lupa-password', 'halamanLupaPassword')->name('halamanLupaPassword');
+    Route::post('/lupa-password/mail', 'emailLupaPassword')->name('emailLupaPassword');
+    Route::post('/lupa-password', 'prosesLupaPassword')->name('prosesLupaPassword');
 
     Route::get('/', 'halamanDashboard')->name('halamanDashboard')->middleware('auth.any');
     Route::get('/profile', 'halamanProfile')->name('halamanProfile')->middleware('auth.any');

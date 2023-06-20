@@ -47,7 +47,12 @@
 
                 {{-- Tampilkan jika ada pesan error --}}
                 @if (session('alert'))
-                    <span class="text-danger mt-2">{{ session('alert') }}</span>
+                <span class="text-danger mt-2">{{ session('alert') }}</span>
+                @endif
+                
+                {{-- Tampilkan jika ada pesan sukses --}}
+                @if (session('success'))
+                    <span class="text-success mt-2">{{ session('success') }}</span>
                 @endif
 
                 <div class="my-5">
@@ -81,8 +86,9 @@
                         placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
                 </div>
 
-                <div class="auth-submit">
+                <div class="auth-submit d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="{{ route('halamanLupaPassword') }}">Lupa Password</a>
                 </div>
             </div>
         </form>
