@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,16 @@ class Nasabah extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public static function getLeaderboardNasabah()
+    {
+        // return self::select('nasabah.*')
+        //     ->join('no_pinjaman', 'nasabah.id_nasabah', '=', 'no_pinjaman.id_nasabah')
+        //     ->join('permohonan_pinjam', 'no_pinjaman.no_pinjaman', '=', 'permohonan_pinjam.id_permohonan_pinjam')
+        //     ->groupBy('nasabah.id_nasabah')
+        //     ->orderByDesc(DB::raw('SUM(permohonan_pinjam.amount)'))
+        //     ->get();
+    }
 
     public function pembuat()
     {

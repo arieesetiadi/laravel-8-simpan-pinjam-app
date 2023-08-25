@@ -44,6 +44,36 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-6">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-success">
+                                <i class="material-icons-outlined">paid</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title">Total Pendapatan Bunga</span>
+                                <span class="widget-stats-amount">{{ number_to_idr($totalPendapatanBunga) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-danger">
+                                <i class="material-icons-outlined">account_circle</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title">Nasabah Peminjam Terbanyak</span>
+                                <span class="widget-stats-amount">{{ number_to_idr($totalPendapatanBunga) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-xl-3">
                 <div class="card widget widget-stats">
                     <div class="card-body">

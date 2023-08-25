@@ -32,11 +32,18 @@ class KitirKredit extends Model
 
     public function getJumlahAttribute($jumlah)
     {
-        if(!$jumlah){
+        if (!$jumlah) {
             $jumlah = $this->pokok + $this->bunga;
         }
-        
+
         return $jumlah + ($this->denda);
+    }
+
+    public static function getTotalBunga()
+    {
+        return self::query()
+            ->where('status', true)
+            ->sum('bunga');
     }
 
     // Relations

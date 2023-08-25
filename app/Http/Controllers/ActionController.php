@@ -126,6 +126,8 @@ class ActionController extends Controller
         $data = [
             'totalSimpanan' => Kas::getTotal(),
             'totalPinjaman' => PermohonanPinjam::getTotal(),
+            'totalPendapatanBunga' => KitirKredit::getTotalBunga(),
+            'leaderboardNasabah' => Nasabah::getLeaderboardNasabah(),
             'jumlahPengawas' => Pengawas::count(),
             'jumlahPegawai' => Pegawai::count(),
             'jumlahDirektur' => Direktur::count(),
