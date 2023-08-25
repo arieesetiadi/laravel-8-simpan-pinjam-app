@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <div class="app app-auth-sign-in align-content-stretch d-flex flex-wrap justify-content-end">
+    <div class="app app-auth-sign-in align-content-stretch d-flex justify-content-end flex-wrap">
         <div class="app-auth-background">
 
         </div>
@@ -47,9 +47,9 @@
 
                 {{-- Tampilkan jika ada pesan error --}}
                 @if (session('alert'))
-                <span class="text-danger mt-2">{{ session('alert') }}</span>
+                    <span class="text-danger mt-2">{{ session('alert') }}</span>
                 @endif
-                
+
                 {{-- Tampilkan jika ada pesan sukses --}}
                 @if (session('success'))
                     <span class="text-success mt-2">{{ session('success') }}</span>
@@ -59,18 +59,23 @@
                     <h6 class="mb-3">Login sebagai:</h6>
                     <div class="form-group">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="guard" value="pegawai" id="pegawai"
-                                checked>
+                            <input class="form-check-input" type="radio" name="guard" value="admin"
+                                id="admin" checked>
+                            <label class="form-check-label" for="admin">Admin</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input id="pegawai" class="form-check-input" type="radio" name="guard"
+                                value="pegawai">
                             <label class="form-check-label" for="pegawai">Pegawai</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="guard" value="pengawas"
-                                id="pengawas">
+                            <input id="pengawas" class="form-check-input" type="radio" name="guard"
+                                value="pengawas">
                             <label class="form-check-label" for="pengawas">Pengawas</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="guard" value="direktur"
-                                id="direktur">
+                            <input id="direktur" class="form-check-input" type="radio" name="guard"
+                                value="direktur">
                             <label class="form-check-label" for="direktur">Direktur</label>
                         </div>
                     </div>
@@ -78,11 +83,11 @@
 
                 <div class="auth-credentials m-b-xxl">
                     <label for="username" class="form-label">Username</label>
-                    <input name="username" type="text" class="form-control m-b-md" id="username"
+                    <input id="username" name="username" type="text" class="form-control m-b-md"
                         placeholder="Username" required>
 
                     <label for="password" class="form-label">Password</label>
-                    <input name="password" type="password" class="form-control" id="password"
+                    <input id="password" name="password" type="password" class="form-control"
                         placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required>
                 </div>
 

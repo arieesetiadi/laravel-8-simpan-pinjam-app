@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengawasTable extends Migration
+class CreateAdminTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreatePengawasTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengawas', function (Blueprint $table) {
-            $table->integerIncrements('id_pengawas');
+        Schema::create('admin', function (Blueprint $table) {
+            $table->integerIncrements('id_admin');
             $table->string('nama');
             $table->string('no_tlp', 15);
             $table->enum('jenis_kelamin', ['Pria', 'Wanita']);
@@ -32,6 +32,6 @@ class CreatePengawasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengawas');
+        Schema::dropIfExists('pegawai');
     }
 }

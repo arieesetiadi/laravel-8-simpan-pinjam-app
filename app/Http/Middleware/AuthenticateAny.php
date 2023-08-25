@@ -16,7 +16,7 @@ class AuthenticateAny
      */
     public function handle(Request $request, Closure $next)
     {
-        $guards = ['pegawai', 'pengawas', 'direktur'];
+        $guards = ['admin', 'pegawai', 'pengawas', 'direktur'];
 
         foreach ($guards as $guard) {
             $isAuthenticated = auth()->guard($guard)->check();

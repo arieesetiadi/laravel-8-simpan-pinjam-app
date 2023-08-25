@@ -21,7 +21,7 @@ class CreatePegawaiTable extends Migration
             $table->string('alamat');
             $table->string('username');
             $table->string('password');
-            $table->string('jabatan');
+            $table->string('email');
         });
     }
 

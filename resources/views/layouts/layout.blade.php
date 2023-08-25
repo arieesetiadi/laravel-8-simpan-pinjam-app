@@ -64,28 +64,28 @@
                         <a href="{{ route('halamanDashboard') }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
 
-                    <li class="sidebar-title {{ !role('pegawai') ? 'd-none' : '' }}">
+                    <li class="sidebar-title {{ !role('pegawai') && !role('admin') ? 'd-none' : '' }}">
                         Kelola
                     </li>
 
-                    <li class="{{ $sidebarPengawas ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                    <li class="{{ $sidebarPengawas ?? '' }} {{ !role('admin') ? 'd-none' : '' }}">
                         <a href="{{ route('halamanUtamaPengawas') }}"><i class="material-icons-two-tone">account_circle</i>Pengawas</a>
                     </li>
-                    <li class="{{ $sidebarPegawai ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                    <li class="{{ $sidebarPegawai ?? '' }} {{ !role('admin') ? 'd-none' : '' }}">
                         <a href="{{ route('halamanUtamaPegawai') }}"><i class="material-icons-two-tone">account_circle</i>Pegawai</a>
                     </li>
-                    <li class="{{ $sidebarDirektur ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
+                    <li class="{{ $sidebarDirektur ?? '' }} {{ !role('admin') ? 'd-none' : '' }}">
                         <a href="{{ route('halamanUtamaDirektur') }}"><i class="material-icons-two-tone">account_circle</i>Direktur</a>
                     </li>
                     <li class="{{ $sidebarNasabah ?? '' }} {{ !role('pegawai') ? 'd-none' : '' }}">
                         <a href="{{ route('halamanUtamaNasabah') }}"><i class="material-icons-two-tone">account_circle</i>Nasabah</a>
                     </li>
 
-                    <li class="sidebar-title">
+                    <li class="sidebar-title {{ role('admin') ? 'd-none' : '' }}">
                         Simpan & Pinjam
                     </li>
 
-                    <li class="{{ $sidebarSimpanan ?? '' }}">
+                    <li class="{{ $sidebarSimpanan ?? '' }} {{ role('admin') ? 'd-none' : '' }}">
                         <a href="#">
                             <i class="material-icons-two-tone">view_list</i>
                             Simpanan<i class="material-icons has-sub-menu">keyboard_arrow_right</i>
@@ -100,7 +100,7 @@
                         </ul>
                     </li>
 
-                    <li class="{{ $sidebarPinjaman ?? '' }}">
+                    <li class="{{ $sidebarPinjaman ?? '' }} {{ role('admin') ? 'd-none' : '' }}">
                         <a href="#">
                             <i class="material-icons-two-tone">list_alt</i>
                             Pinjaman<i class="material-icons has-sub-menu">keyboard_arrow_right</i>
