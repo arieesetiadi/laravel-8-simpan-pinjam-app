@@ -15,7 +15,7 @@ use App\Models\PermohonanPinjam;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class ActionController extends Controller
 {
