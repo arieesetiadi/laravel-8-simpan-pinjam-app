@@ -38,7 +38,7 @@
                     <div class="row mb-3">
                         <label for="no_tlp" class="col-sm-2 col-form-label">Nomor Telepon</label>
                         <div class="col-sm-10">
-                            <input name="no_tlp" type="text" class="form-control" id="no_tlp" required>
+                            <input name="no_tlp" type="number" class="form-control" id="no_tlp" required>
                         </div>
                     </div>
 
