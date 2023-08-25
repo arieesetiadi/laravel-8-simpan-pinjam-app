@@ -485,6 +485,7 @@ class ActionController extends Controller
             'nama' => $form->nama,
             'pekerjaan' => $form->pekerjaan,
             'alamat' => $form->alamat,
+            'no_ktp' => $form->no_ktp,
             'tanggal_lahir' => $form->tanggal_lahir,
             'status_pinjam' => 0,
         ];
@@ -524,6 +525,7 @@ class ActionController extends Controller
             'nama' => $form->nama,
             'pekerjaan' => $form->pekerjaan,
             'alamat' => $form->alamat,
+            'no_ktp' => $form->no_ktp,
             'tanggal_lahir' => $form->tanggal_lahir,
         ];
 

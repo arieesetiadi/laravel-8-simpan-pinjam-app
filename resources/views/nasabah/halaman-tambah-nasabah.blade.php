@@ -24,7 +24,7 @@
                     <div class="row mb-3">
                         <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                            <input name="nama" type="text" class="form-control" id="nama" required>
+                            <input id="nama" name="nama" type="text" class="form-control" required>
                         </div>
                     </div>
 
@@ -32,7 +32,7 @@
                     <div class="row mb-3">
                         <label for="pekerjaan" class="col-sm-2 col-form-label">Pekerjaan</label>
                         <div class="col-sm-10">
-                            <input name="pekerjaan" type="text" class="form-control" id="pekerjaan" required>
+                            <input id="pekerjaan" name="pekerjaan" type="text" class="form-control" required>
                         </div>
                     </div>
 
@@ -40,7 +40,15 @@
                     <div class="row mb-3">
                         <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                         <div class="col-sm-10">
-                            <textarea name="alamat" type="text" class="form-control" id="alamat" required></textarea>
+                            <textarea id="alamat" name="alamat" type="text" class="form-control" required></textarea>
+                        </div>
+                    </div>
+
+                    {{-- Input nomor ktp --}}
+                    <div class="row mb-3">
+                        <label for="no_ktp" class="col-sm-2 col-form-label">Nomor KTP</label>
+                        <div class="col-sm-10">
+                            <input id="no_ktp" name="no_ktp" type="number" class="form-control" required>
                         </div>
                     </div>
 
@@ -48,7 +56,7 @@
                     <div class="row mb-3">
                         <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                         <div class="col-sm-10">
-                            <input name="tanggal_lahir" type="date" class="form-control" id="tanggal_lahir" required>
+                            <input id="tanggal_lahir" name="tanggal_lahir" type="date" class="form-control" required>
                         </div>
                     </div>
 

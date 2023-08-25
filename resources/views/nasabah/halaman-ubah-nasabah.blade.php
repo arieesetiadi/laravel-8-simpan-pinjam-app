@@ -23,7 +23,8 @@
                     <div class="row mb-3">
                         <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                            <input name="nama" type="text" class="form-control" id="nama" value="{{ $nasabah->nama }}" required>
+                            <input id="nama" name="nama" type="text" class="form-control"
+                                value="{{ $nasabah->nama }}" required>
                         </div>
                     </div>
 
@@ -31,7 +32,8 @@
                     <div class="row mb-3">
                         <label for="pekerjaan" class="col-sm-2 col-form-label">Pekerjaan</label>
                         <div class="col-sm-10">
-                            <input name="pekerjaan" type="text" class="form-control" id="pekerjaan" value="{{ $nasabah->pekerjaan }}" required>
+                            <input id="pekerjaan" name="pekerjaan" type="text" class="form-control"
+                                value="{{ $nasabah->pekerjaan }}" required>
                         </div>
                     </div>
 
@@ -39,7 +41,16 @@
                     <div class="row mb-3">
                         <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
                         <div class="col-sm-10">
-                            <textarea name="alamat" type="text" class="form-control" id="alamat" required>{{ $nasabah->alamat }}</textarea>
+                            <textarea id="alamat" name="alamat" type="text" class="form-control" required>{{ $nasabah->alamat }}</textarea>
+                        </div>
+                    </div>
+
+                    {{-- Input nomor ktp --}}
+                    <div class="row mb-3">
+                        <label for="no_ktp" class="col-sm-2 col-form-label">Nomor KTP</label>
+                        <div class="col-sm-10">
+                            <input id="no_ktp" name="no_ktp" type="number" class="form-control"
+                                value="{{ $nasabah->no_ktp }}" required>
                         </div>
                     </div>
 
@@ -47,7 +58,8 @@
                     <div class="row mb-3">
                         <label for="tanggal_lahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                         <div class="col-sm-10">
-                            <input name="tanggal_lahir" type="date" class="form-control" id="tanggal_lahir" value="{{ $nasabah->tanggal_lahir }}" required>
+                            <input id="tanggal_lahir" name="tanggal_lahir" type="date" class="form-control"
+                                value="{{ $nasabah->tanggal_lahir }}" required>
                         </div>
                     </div>
 

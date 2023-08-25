@@ -36,6 +36,7 @@
                             <th>Nama</th>
                             <th>Tanggal Lahir</th>
                             <th>Pekerjaan</th>
+                            <th>Nomor KTP</th>
                         </tr>
                     </thead>
 
@@ -68,6 +69,7 @@
                                 <td class="text-nowrap">{{ $n->nama }}</td>
                                 <td class="text-nowrap">{{ $n->tanggal_lahir }}</td>
                                 <td class="text-nowrap">{{ $n->pekerjaan }}</td>
+                                <td class="text-nowrap">{{ $n->no_ktp }}</td>
                             </tr>
                         @empty
                             <tr>
