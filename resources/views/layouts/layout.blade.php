@@ -115,6 +115,10 @@
                         </ul>
                     </li>
 
+                    <li class="{{ $sidebarLaporan ?? '' }}">
+                        <a href="{{ route('halamanUtamaLaporan') }}"><i class="material-icons-two-tone">summarize</i>Laporan</a>
+                    </li>
+
                     <li class="sidebar-title">
                         Lainnya
                     </li>

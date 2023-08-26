@@ -123,8 +123,6 @@ class ActionController extends Controller
     public function halamanDashboard()
     {
         // Siapkan data untuk tampilan dashboard
-        // dd(Nasabah::getLeaderboardNasabah());
-
         $data = [
             'totalSimpanan' => Kas::getTotal(),
             'totalPinjaman' => PermohonanPinjam::getTotal(),
@@ -893,5 +891,24 @@ class ActionController extends Controller
 
         // Redirect kembali ke halaman utama pinjaman
         return back()->with('success', 'Berhasil melakukan pembayaran angsuran pinjaman.');
+    }
+
+    /**
+     * KELOLA LAPORAN
+     */
+
+    public function halamanUtamaLaporan()
+    {
+        // Ambil semua data pinjaman yang ingin ditampilkan, beserta data noPinjaman dan kitirKredit
+        $data = [
+            'pinjaman' => PermohonanPinjam::with(['noPinjaman', 'kitirKredit'])->orderByDesc('tanggal')->get(),
+            'totalPendapatanBunga' => KitirKredit::getTotalBunga(),
+            'paidKitirKredit' => KitirKredit::paid()->orderByDesc('tanggal_transaksi')->get(),
+            'totalKreditMacet' => KitirKredit::getTotalKreditMacet(),
+            'lateKitirKredit' => KitirKredit::unpaid()->late(15)->orderBy('tanggal_transaksi')->get(),
+        ];
+
+        // Redirect ke halaman pinjaman, beserta dengan data pinjaman
+        return view('laporan.halaman-utama-laporan')->with($data);
     }
 }

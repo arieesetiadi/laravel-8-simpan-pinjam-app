@@ -124,4 +124,11 @@ Route::controller(ActionController::class)->group(function () {
         Route::get('/batal-verifikasi/{id}', 'prosesBatalVerifikasiPinjaman')->name('prosesBatalVerifikasiPinjaman');
         Route::get('/bayar/{id}', 'prosesBayarPinjaman')->name('prosesBayarPinjaman');
     });
+
+    /**
+     * KELOLA LAPORAN
+     */
+    Route::prefix('/laporan')->middleware('auth.any')->group(function () {
+        Route::get('/', 'halamanUtamaLaporan')->name('halamanUtamaLaporan');
+    });
 });
