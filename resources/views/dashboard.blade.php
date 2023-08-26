@@ -5,6 +5,13 @@
 @endphp
 
 @section('content')
+    <style>
+        .table th,
+        .table td {
+            padding: 3px 10px !important;
+        }
+    </style>
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -59,21 +66,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6">
-                <div class="card widget widget-stats">
-                    <div class="card-body">
-                        <div class="widget-stats-container d-flex">
-                            <div class="widget-stats-icon widget-stats-icon-danger">
-                                <i class="material-icons-outlined">account_circle</i>
-                            </div>
-                            <div class="widget-stats-content flex-fill">
-                                <span class="widget-stats-title">Nasabah Peminjam Terbanyak</span>
-                                <span class="widget-stats-amount">{{ number_to_idr($totalPendapatanBunga) }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="col-xl-3">
                 <div class="card widget widget-stats">
                     <div class="card-body">
@@ -101,6 +93,47 @@
                                 <span class="widget-stats-amount">{{ $jumlahPengawas }}</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card widget widget-stats pb-4">
+                    <div class="card-header">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-warning">
+                                <i class="material-icons-outlined">leaderboard</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill pt-3">
+                                <span class="widget-stats-title">Leaderboard Pinjaman Nasabah</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-4" style="height: 300px; overflow-y: scroll;">
+                        <table class="table-sm table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama Nasabah</th>
+                                    <th>Total Pinjaman</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach ($leaderboardNasabah as $i => $leaderboard)
+                                    <tr>
+                                        <td>{{ $i + 1 }}</td>
+                                        <td>
+                                            <a target="_blank" class="text-decoration-none"
+                                                href="{{ route('halamanDetailNasabah', $leaderboard->nasabah->id_nasabah) }}"
+                                                title="Detail Nasabah">
+                                                {{ $leaderboard->nasabah->nama }}
+                                            </a>
+                                        </td>
+                                        <td>{{ number_to_idr($leaderboard->pinjaman_sum_besar_permohonan_pinjam) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

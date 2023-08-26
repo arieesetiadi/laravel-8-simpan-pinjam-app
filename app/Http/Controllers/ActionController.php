@@ -123,6 +123,8 @@ class ActionController extends Controller
     public function halamanDashboard()
     {
         // Siapkan data untuk tampilan dashboard
+        // dd(Nasabah::getLeaderboardNasabah());
+
         $data = [
             'totalSimpanan' => Kas::getTotal(),
             'totalPinjaman' => PermohonanPinjam::getTotal(),
